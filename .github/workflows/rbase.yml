@@ -57,8 +57,8 @@ jobs:
                # #yaml.indent(mapping=4, sequence=4, offset=2)
                
                with open('inputs/input1.yaml') as fp:
-                # data = yaml.load(fp)
-                print(fp.readlines())
+                data = yaml.load(fp.readlines())
+                print(data)
                # lin = data['rbase']
                # lin["Env"]["R"] =latestR
                # yaml.dump(data, sys.stdout)
