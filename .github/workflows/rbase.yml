@@ -53,12 +53,12 @@ jobs:
           
           if latestR != currentR :
                yaml = YAML()
-               # yaml.preserve_quotes = True
+               yaml.preserve_quotes = True
                # #yaml.indent(mapping=4, sequence=4, offset=2)
                
                with open('inputs/input1.yaml') as fp:
-                data = yaml.load(fp)
-                print(data)
+                # data = yaml.load(fp)
+                print(fp.readlines())
                # lin = data['rbase']
                # lin["Env"]["R"] =latestR
                # yaml.dump(data, sys.stdout)
