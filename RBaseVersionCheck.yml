@@ -53,27 +53,28 @@ jobs:
 
           if latestR != currentR :
                yaml = ruamel.yaml.YAML()
-               yaml.preserve_quotes = True
-               #yaml.indent(mapping=4, sequence=4, offset=2)
+               print(yaml)
+               # yaml.preserve_quotes = True
+               # #yaml.indent(mapping=4, sequence=4, offset=2)
                
-               with open('inputs/input1.yaml') as fp:
-                data = yaml.load(fp)
+               # with open('inputs/input1.yaml') as fp:
+               #  data = yaml.load(fp)
                
-               lin = data['rbase']
-               lin["Env"]["R"] =latestR
-               yaml.dump(data, sys.stdout)
+               # lin = data['rbase']
+               # lin["Env"]["R"] =latestR
+               # yaml.dump(data, sys.stdout)
 
         
-      - name: Commit chnages 
-        if: ${{ env.R_CURRENT != env.latest_R }}
-        run: |
-          git config --global user.name "kempas01"
-          git config --global user.email "srinath.kempanna@pfizer.com"
-          now=$(date)
-          git add -A
-          git commit -m "Update R Version to ${{ env.latest_R }}"       
+      # - name: Commit chnages 
+      #   if: ${{ env.R_CURRENT != env.latest_R }}
+      #   run: |
+      #     git config --global user.name "kempas01"
+      #     git config --global user.email "srinath.kempanna@pfizer.com"
+      #     now=$(date)
+      #     git add -A
+      #     git commit -m "Update R Version to ${{ env.latest_R }}"       
       
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-         github_token: ${{ secrets.PAT }}
+      # - name: Push changes
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #    github_token: ${{ secrets.PAT }}
