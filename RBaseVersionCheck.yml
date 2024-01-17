@@ -1,0 +1,79 @@
+name: Check for latest R release 
+
+on:
+   # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
+  schedule:
+    # The shortest interval you can run scheduled workflows is once every 5 minutes.
+    # Note: The schedule event can be delayed during periods of high loads of GitHub Actions workflow runs. 
+    # High load times include the start of every hour. 
+    # To decrease the chance of delay, schedule your workflow to run at a different time of the hour.
+    # Every 5 minutes.
+    # - cron: '*/5 * * * *'
+    # At the beginning of every day.
+    - cron: "0 0 * * 0"
+
+# on: [push]
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Setting up Python
+        uses: actions/setup-python@v3
+        with:
+         python-version: '3.9'
+
+      - name: Setting the python library
+        run: |
+         pip install ruamel.yaml
+
+            
+      - name: Check out repository code
+        # https://github.com/actions/checkout/tree/v3.0.2
+        uses: actions/checkout@v3
+        with:
+         persist-credentials: false
+        
+      - name: Check for latest R release
+        run: |
+           latest_R=`curl -v --silent https://cran.rstudio.com/src/base/VERSION-INFO.dcf 2>&1 | grep Release | awk {'print $2'}`
+           echo "latest_R=$latest_R" >> $GITHUB_ENV
+                      
+      - name: Modify Input file if version change is detected
+        shell: python 
+        run: | 
+          import sys
+          import ruamel.yaml
+
+          latestR = "${{ env.latest_R }}"
+          currentR = "${{ env.R_CURRENT }}"
+
+          if latestR != currentR :
+               yaml = ruamel.yaml.YAML()
+               yaml.preserve_quotes = True
+               #yaml.indent(mapping=4, sequence=4, offset=2)
+               
+               with open('inputs/input1.yaml') as fp:
+                data = yaml.load(fp)
+               
+               lin = data['rbase']
+               lin["Env"]["R"] =latestR
+               yaml.dump(data, sys.stdout)
+
+        
+      - name: Commit chnages 
+        if: ${{ env.R_CURRENT != env.latest_R }}
+        run: |
+          git config --global user.name "kempas01"
+          git config --global user.email "srinath.kempanna@pfizer.com"
+          now=$(date)
+          git add -A
+          git commit -m "Update R Version to ${{ env.latest_R }}"       
+      
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+         github_token: ${{ secrets.PAT }}
