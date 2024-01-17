@@ -51,6 +51,7 @@ jobs:
           latestR = "${{ env.latest_R }}"
           currentR = "${{ env.R_CURRENT }}"
 
+          print(latestR, currentR)
           if latestR != currentR :
                yaml = ruamel.yaml.YAML()
                print(yaml)
