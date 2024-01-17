@@ -46,16 +46,12 @@ jobs:
         shell: python 
         run: | 
           import sys
-          from ruamel.yaml import YAML
+          import yaml
 
           latestR = "${{ env.latest_R }}"
           currentR = "${{ vars.R_CURRENTVERSION }}"
           
-          if latestR != currentR :
-               yaml = YAML(typ="safe")
-               yaml.preserve_quotes = True
-               # #yaml.indent(mapping=4, sequence=4, offset=2)
-               
+          if latestR != currentR :               
                with open('inputs/input1.yaml', 'r') as fp:
                 data = yaml.load(fp)
                 print(data)
