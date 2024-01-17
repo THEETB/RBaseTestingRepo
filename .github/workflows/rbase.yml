@@ -56,7 +56,7 @@ jobs:
                yaml.preserve_quotes = True
                # #yaml.indent(mapping=4, sequence=4, offset=2)
                
-               with open('inputs/input1.yaml') as fp:
+               with open('inputs/input1.yaml', 'r') as fp:
                 data = yaml.load(fp)
                 print(data)
                # lin = data['rbase']
