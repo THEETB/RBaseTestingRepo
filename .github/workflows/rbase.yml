@@ -28,7 +28,7 @@ jobs:
 
       - name: Setting the python library
         run: |
-         pip install ruamel.yaml
+         pip install pyyaml
 
             
       - name: Check out repository code
