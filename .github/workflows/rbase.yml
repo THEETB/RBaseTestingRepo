@@ -49,7 +49,7 @@ jobs:
           import ruamel.yaml
 
           latestR = "${{ env.latest_R }}"
-          currentR = "${{ env.R_Version }}"
+          currentR = "${{ env.R_CurrentVersion }}"
 
           print(latestR, currentR)
           if latestR != currentR :
