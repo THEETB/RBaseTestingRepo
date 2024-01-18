@@ -53,7 +53,7 @@ jobs:
           
           if latestR != currentR :               
                with open('inputs/input1.yaml', 'r') as fp:
-                data = yaml.load(fp, Loader=yaml.CLoader)
+                data = yaml.load(fp, Dumper=yaml.CDumper)
                 print(data)
                # lin = data['rbase']
                # lin["Env"]["R"] =latestR
