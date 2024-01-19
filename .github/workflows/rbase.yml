@@ -84,7 +84,8 @@ jobs:
           fp.close()
           yaml_val = converter(yaml_dump.split("\n"))
           yaml_val['rbase']['r'] = currentR
-            
+
+          print(yaml_val)  
           with open('./inputs/input1.yaml', 'w+') as f:
              yaml.dump(yaml_val, f)
       # - name: Commit chnages 
