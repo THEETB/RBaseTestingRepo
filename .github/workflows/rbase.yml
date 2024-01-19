@@ -92,8 +92,8 @@ jobs:
       - name: Commit chnages 
         if: ${{ env.R_CURRENT != env.latest_R }}
         run: |
-          git config --global user.name "kempas01"
-          git config --global user.email "srinath.kempanna@pfizer.com"
+          git config --global user.name "theetb"
+          git config --global user.email "balasubramaniam.theetharappan@pfizer.com"
           now=$(date)
           git add -A
           git commit -m "Update R Version to ${{ env.latest_R }}"       
