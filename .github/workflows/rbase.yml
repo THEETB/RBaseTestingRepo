@@ -88,16 +88,17 @@ jobs:
           print(yaml_val)  
           with open('./inputs/input1.yaml', 'w+') as f:
              yaml.dump(yaml_val, f)
-      # - name: Commit chnages 
-      #   if: ${{ env.R_CURRENT != env.latest_R }}
-      #   run: |
-      #     git config --global user.name "kempas01"
-      #     git config --global user.email "srinath.kempanna@pfizer.com"
-      #     now=$(date)
-      #     git add -A
-      #     git commit -m "Update R Version to ${{ env.latest_R }}"       
+             
+      - name: Commit chnages 
+        if: ${{ env.R_CURRENT != env.latest_R }}
+        run: |
+          git config --global user.name "kempas01"
+          git config --global user.email "srinath.kempanna@pfizer.com"
+          now=$(date)
+          git add -A
+          git commit -m "Update R Version to ${{ env.latest_R }}"       
       
-      # - name: Push changes
-      #   uses: ad-m/github-push-action@master
-      #   with:
-      #    github_token: ${{ secrets.PAT }}
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+         github_token: ${{ secrets.PAT }}
