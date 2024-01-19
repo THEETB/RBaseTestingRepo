@@ -85,7 +85,7 @@ jobs:
           yaml_val = converter(yaml_dump.split("\n"))
           yaml_val['rbase']['r'] = currentR
             
-          with open('./inputs/input1_rbase.yaml', 'w+') as f:
+          with open('./inputs/input1.yaml', 'w+') as f:
              yaml.dump(yaml_val, f)
       # - name: Commit chnages 
       #   if: ${{ env.R_CURRENT != env.latest_R }}
