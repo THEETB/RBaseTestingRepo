@@ -45,21 +45,45 @@ jobs:
       - name: Modify Input file if version change is detected
         shell: python 
         run: | 
-          import sys
-          import yaml
-
-          latestR = "${{ env.latest_R }}"
-          currentR = "${{ vars.R_CURRENTVERSION }}"
-          
-          if latestR != currentR :               
-               with open('inputs/input1.yaml', 'r') as fp:
-                data = yaml.dump(fp, Dumper=yaml.CDumper)
-                print(data)
-               # lin = data['rbase']
-               # lin["Env"]["R"] =latestR
-               # yaml.dump(data, sys.stdout)
-
-        
+         import sys
+         import yaml
+         
+         latestR = "R-4.3.1"
+         currentR = "R-4.2.1"
+         yaml_dump = ""
+         reserved_word = ["build-required"]
+         
+         def converter(data):
+             yaml_data = dict()
+             vs = dict()
+             headers = 0
+             key, sub_key = "", ""
+             for val in data[:-1]:
+                 if val.split(":")[1] != "" and headers == 0:
+                     yaml_data[val.split(":")[0]] = val.split(":")[1]
+                 else:
+                     if headers != 0 and (val.split(":")[1] == "" and val.split(":")[0][0].islower()):
+                         yaml_data[key] = vs[key]
+                         vs = dict()
+                         headers = 0
+                     if headers == 0 and (val.split(":")[1] == "" and val.split(":")[0][0].islower()):
+                         headers += 1
+                         key = val.split(":")[0]
+                         vs[key] = dict()
+                     elif headers != 0 and (val.split(":")[1] != ""):
+                         vs[key][val.split(":")[0]] = val.split(":")[1]
+                     elif headers != 0 and (val.split(":")[1] == "" and val.split(":")[0][0].isupper()):
+                         vs[key][val.split(":")[0]] = val.split(":")[1]
+                 print(vs)
+             yaml_data[key] = vs[key]
+             return yaml_data
+         
+         if latestR != currentR:
+          with open('sample.yml') as fp:
+              for lines in fp:
+                  yaml_dump+=lines.strip()+'\n'
+          yaml_val = converter(yaml_dump.split("\n"))
+          print(yaml_val)
       # - name: Commit chnages 
       #   if: ${{ env.R_CURRENT != env.latest_R }}
       #   run: |
