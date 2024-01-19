@@ -47,8 +47,8 @@ jobs:
         run: | 
          import sys
          
-         latestR = "R-4.3.1"
-         currentR = "R-4.2.1"
+         latestR = "${{ env.latest_R }}"
+         currentR = "${{ vars.R_CURRENTVERSION }}"
          yaml_dump = ""
          reserved_word = ["build-required"]
          
@@ -81,7 +81,7 @@ jobs:
               for lines in fp:
                   yaml_dump+=lines.strip()+'\n'
           yaml_val = converter(yaml_dump.split("\n"))
-          print(yaml_val['rbase']['r'])
+          yaml_val['rbase']['r'] = 
       # - name: Commit chnages 
       #   if: ${{ env.R_CURRENT != env.latest_R }}
       #   run: |
