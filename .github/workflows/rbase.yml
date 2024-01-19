@@ -79,7 +79,7 @@ jobs:
              return yaml_data
          
          if latestR != currentR:
-          with open('sample.yml') as fp:
+          with open('./inputs/input1.yaml') as fp:
               for lines in fp:
                   yaml_dump+=lines.strip()+'\n'
           yaml_val = converter(yaml_dump.split("\n"))
