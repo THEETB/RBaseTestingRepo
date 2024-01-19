@@ -46,6 +46,7 @@ jobs:
         shell: python 
         run: | 
          import sys
+         import yaml
          
          latestR = "${{ env.latest_R }}"
          currentR = "${{ vars.R_CURRENTVERSION }}"
@@ -80,8 +81,12 @@ jobs:
           with open('./inputs/input1.yaml') as fp:
               for lines in fp:
                   yaml_dump+=lines.strip()+'\n'
+               fp.close()
           yaml_val = converter(yaml_dump.split("\n"))
           yaml_val['rbase']['r'] = currentR
+            
+          with open('./inputs/input1_rbase.yml', 'w+') as f:
+             yaml.dump(yaml_val, f)
       # - name: Commit chnages 
       #   if: ${{ env.R_CURRENT != env.latest_R }}
       #   run: |
