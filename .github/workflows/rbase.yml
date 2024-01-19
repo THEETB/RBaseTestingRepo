@@ -81,7 +81,7 @@ jobs:
               for lines in fp:
                   yaml_dump+=lines.strip()+'\n'
           yaml_val = converter(yaml_dump.split("\n"))
-          yaml_val['rbase']['r'] = 
+          yaml_val['rbase']['r'] = currentR
       # - name: Commit chnages 
       #   if: ${{ env.R_CURRENT != env.latest_R }}
       #   run: |
