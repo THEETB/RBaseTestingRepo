@@ -74,7 +74,6 @@ jobs:
                          vs[key][val.split(":")[0]] = val.split(":")[1]
                      elif headers != 0 and (val.split(":")[1] == "" and val.split(":")[0][0].isupper()):
                          vs[key][val.split(":")[0]] = val.split(":")[1]
-                 print(vs)
              yaml_data[key] = vs[key]
              return yaml_data
          
