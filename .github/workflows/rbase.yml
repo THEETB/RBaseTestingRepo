@@ -45,7 +45,8 @@ jobs:
 
            resp = requests.get("https://cran.rstudio.com/src/base/VERSION-INFO.dcf").content
            bytes = resp.decode().replace("'", '"')
-           print(json.loads(bytes))
+           print(bytes)
+           # print(json.loads(bytes))
            # latest_R=`curl -v --silent https://cran.rstudio.com/src/base/VERSION-INFO.dcf 2>&1 | grep Release | awk {'print $2'}`
            # echo "latest_R=$latest_R" >> $GITHUB_ENV
                       
