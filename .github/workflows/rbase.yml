@@ -50,8 +50,6 @@ jobs:
            latestR = json_en['Release']
            with open(os.environ['GITHUB_ENV'], "a") as f:
               print(f'latest_R={latestR}', file=f)
-           # latest_R=`curl -v --silent https://cran.rstudio.com/src/base/VERSION-INFO.dcf 2>&1 | grep Release | awk {'print $2'}`
-           # echo "latest_R=$latest_R" >> $GITHUB_ENV
                       
       - name: Modify Input file if version change is detected
         shell: python 
