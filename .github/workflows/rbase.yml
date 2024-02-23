@@ -44,7 +44,7 @@ jobs:
            import json
 
            resp = requests.get("https://cran.rstudio.com/src/base/VERSION-INFO.dcf").content
-           bytes = [v for v in resp.decode().replace("'", '"')]
+           bytes = [resp.decode().replace("'", '"').split("\n")]
            print(bytes)
            # print(bytes['Release'])
            # print(json.loads(bytes))
