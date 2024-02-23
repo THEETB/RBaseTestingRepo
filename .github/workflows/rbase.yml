@@ -51,14 +51,15 @@ jobs:
            # latest_R=`curl -v --silent https://cran.rstudio.com/src/base/VERSION-INFO.dcf 2>&1 | grep Release | awk {'print $2'}`
            # echo "latest_R=$latest_R" >> $GITHUB_ENV
                       
-      # - name: Modify Input file if version change is detected
-      #   shell: python 
-      #   run: | 
-      #    import sys
-      #    import yaml
+      - name: Modify Input file if version change is detected
+        shell: python 
+        run: | 
+         import sys
+         import yaml
          
-      #    latestR = "${{ env.latest_R }}"
-      #    currentR = "${{ vars.R_CURRENTVERSION }}"
+         latestR = "${{ env.latest_R }}"
+         currentR = "${{ vars.R_CURRENTVERSION }}"
+         print(latestR)
       #    yaml_dump = ""
       #    reserved_word = ["build-required"]
          
