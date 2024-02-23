@@ -42,6 +42,7 @@ jobs:
         run: |
            import requests
            import json
+           import os
 
            resp = requests.get("https://cran.rstudio.com/src/base/VERSION-INFO.dcf").content
            bytes = resp.decode().replace("'", '"').split("\n")
