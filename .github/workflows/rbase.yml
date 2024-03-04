@@ -104,7 +104,7 @@ jobs:
            curl -L \
               -X PATCH \
               -H 'Accept: application/vnd.github+json' \
-              -H 'Authorization: Bearer ${{ secrets.PAT }}' \
+              -H 'Authorization: Bearer ${{ secrets.PAT }}'
               # http(s)://github.com/api/v3/repos/THEETB/RBaseTestingRepo/actions/variables/R_CURRENTVERSION \
               # -d '{"name":"R_CURRENTVERSION","value":${{ env.latest_R }}}'
              
