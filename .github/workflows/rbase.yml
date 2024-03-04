@@ -101,7 +101,7 @@ jobs:
 
       - name: checking the update part
         run: |
-           curl -L -X PATCH -H 'Accept: application/vnd.github+json' -H 'Authorization: Bearer ${{ secrets.GITHUB_TOKRN }}' https://github.com/api/v3/repos/THEETB/RBaseTestingRepo/actions/variables/R_CURRENTVERSION -d '{"name":"R_CURRENTVERSION","value":'${{ env.latest_R }}'}' 
+           curl -L -X PATCH -H 'Accept: application/vnd.github+json' -H 'Authorization: Bearer ${{ secrets.GITHUB_TOKRN }}' https://github.com/api/v3/repos/THEETB/RBaseTestingRepo/actions/variables/R_CURRENTVERSION -d '{"name":"R_CURRENTVERSION","value":'4.2.2'}' 
      
      # http(s)://github.com/api/v3/repos/THEETB/RBaseTestingRepo/actions/variables/R_CURRENTVERSION \
      # -d '{"name":"R_CURRENTVERSION","value":${{ env.latest_R }}}'
