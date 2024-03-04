@@ -98,6 +98,11 @@ jobs:
       #     print(yaml_val)  
       #     with open('./inputs/input1.yaml', 'w+') as f:
       #        yaml.dump(yaml_val, f)
+
+      - name: checking the update part
+        run: |
+           # echo R_CURRENTVERSION=`echo $latest_R` > $GITHUB_ENV
+           echo $GITHUB_ENV
              
       # - name: Commit chnages 
       #   if: ${{ env.R_CURRENT != env.latest_R }}
