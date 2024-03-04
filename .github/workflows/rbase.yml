@@ -101,7 +101,7 @@ jobs:
 
       - name: checking the update part
         run: |
-           echo ${{ vars.R+CURRENTVERSION }}
+           echo ${{ vars.R_CURRENTVERSION }}
              
       # - name: Commit chnages 
       #   if: ${{ env.R_CURRENT != env.latest_R }}
