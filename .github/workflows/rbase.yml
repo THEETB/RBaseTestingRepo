@@ -104,7 +104,7 @@ jobs:
            curl -L \
               -X PATCH \
               -H "Accept: application/vnd.github+json" \
-              -H "Authorization: Bearer ${{ secret.PAT }}" \
+              -H "Authorization: Bearer ${{ secrets.PAT }}" \
               http(s)://HOSTNAME/api/v3/repos/OWNER/REPO/actions/variables/NAME \
               -d '{"name":"USERNAME","value":"octocat"}'
              
