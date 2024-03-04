@@ -101,7 +101,7 @@ jobs:
 
       - name: checking the update part
         run: |
-           echo "R_CURRENTVERSION=${{ env.latest_R }}" > $GITHUB_ENV
+           echo "${{ vars.R_CURRENTVERSION }}=${{ env.latest_R }}" > $GITHUB_ENV
              
       # - name: Commit chnages 
       #   if: ${{ env.R_CURRENT != env.latest_R }}
