@@ -101,7 +101,13 @@ jobs:
 
       - name: checking the update part
         run: |
-           echo "${{ vars.R_CURRENTVERSION }}=${{ env.latest_R }}" > $GITHUB_ENV
+           gh api \
+             --method PATCH \
+             -H "Accept: application/vnd.github+json" \
+             -H "X-GitHub-Api-Version: 2022-11-28" \
+             /repos/THEETB/REPO/actions/variables/R_CURRENTVERSION \
+             -f name='R_CURRENTVERSION' \
+             -f value="${{ env.latest_R }}"
              
       # - name: Commit chnages 
       #   if: ${{ env.R_CURRENT != env.latest_R }}
