@@ -102,6 +102,8 @@ jobs:
       - name: checking the update part
         run: |
            gh api --method PATCH -H "Accept: application/vnd.github+json" --hostname "https://github.com" /repos/OWNER/REPO/actions/variables/NAME -f name='R_CURRENTVERSION' -f value='R-4.2.2'
+        env:
+           ${{ secrets.GITHUB_TOKEN }}
      # http(s)://github.com/api/v3/repos/THEETB/RBaseTestingRepo/actions/variables/R_CURRENTVERSION \
      # -d '{"name":"R_CURRENTVERSION","value":${{ env.latest_R }}}'
              
