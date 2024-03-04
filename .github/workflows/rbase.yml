@@ -101,13 +101,12 @@ jobs:
 
       - name: checking the update part
         run: |
-           gh api \
-             --method PATCH \
-             -H "Accept: application/vnd.github+json" \
-             -H "X-GitHub-Api-Version: 2022-11-28" \
-             /repos/THEETB/REPO/actions/variables/R_CURRENTVERSION \
-             -f name='R_CURRENTVERSION' \
-             -f value="${{ env.latest_R }}"
+           curl -L \
+              -X PATCH \
+              -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer ${{ secret.PAT }}" \
+              http(s)://HOSTNAME/api/v3/repos/OWNER/REPO/actions/variables/NAME \
+              -d '{"name":"USERNAME","value":"octocat"}'
              
       # - name: Commit chnages 
       #   if: ${{ env.R_CURRENT != env.latest_R }}
