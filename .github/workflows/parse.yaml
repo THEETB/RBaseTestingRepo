@@ -35,8 +35,6 @@ jobs:
         - name: Setting the shyaml library
           run: |
             pip install pyyaml
-            shyaml --version
-            sudo apt-get install jq 
 
         - name: Testing the Keyword Extraction
           id: Keyword_Extraction
