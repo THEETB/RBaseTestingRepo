@@ -42,7 +42,7 @@ jobs:
              import yaml
              import json
              layer_names = []
-             yaml_file = ${{ github.workspace }}/${{ env.modified_file }}
+             yaml_file = "${{ github.workspace }}/${{ env.modified_file }}"
              with open(yaml_file, 'r') as f:
                 yaml_obj = yaml.safe_load(f);
              print(yaml_obj)
