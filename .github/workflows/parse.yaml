@@ -44,9 +44,8 @@ jobs:
              layer_names = []
              yaml_file = "${{ github.workspace }}/${{ env.modified_file }}"
              with open(yaml_file, 'r') as f:
-                yaml_obj = yaml.safe_load_all(f)
-                for data in yaml_obj:
-                   print(data)
+                yaml_obj = yaml.safe_load(f.readlines())
+                print(yaml_obj)
           shell: python
             # layer_names=()
             # declare -A values1
