@@ -1,0 +1,89 @@
+name: Parse
+
+# Controls when the workflow will run
+on:
+#workflow_dispatch:
+   push:
+     paths:
+     - 'inputs/**'
+     # The type of runner that the job will run on
+jobs:
+  Parsing_input:
+    runs-on: ubuntu-latest
+    outputs:
+      workflow-name: ${{ steps.Keyword_Extraction.outputs.workflow_name }}
+      Number_of_layer: ${{ steps.Key_Value_extraction.outputs.length }}
+      layer_names: ${{ steps.Key_Value_extraction.outputs.layernames }}
+      output: ${{ steps.output_setup.outputs.output }}
+    steps:
+        - name: Checkout 
+          uses: actions/Checkout@v3
+          with:
+            fetch-depth: 2
+        
+        - name: Fetching the triggered filename
+          id: modified_filename
+          run: |
+            file_name=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})
+            echo "modified_file=$file_name" >> $GITHUB_ENV
+        
+        - name: Setting up Python
+          uses: actions/setup-python@v3
+          with:
+            python-version: '3.9'
+
+        - name: Setting the shyaml library
+          run: |
+            pip install shyaml
+            shyaml --version
+            sudo apt-get install jq
+
+        - name: Testing the Keyword Extraction
+          id: Keyword_Extraction
+          run: |
+            layer_names=()
+            declare -A values1
+            declare -A vs
+            touch ${{ github.workspace }}/sample.json
+            cat ${{ github.workspace }}/${{ env.modified_file }} | shyaml key-values-0
+                            while IFS=$'\0' read -r -d '' key && IFS=$'\0' read -r -d '' value; do
+                                    val=( $value )
+                                    subvalue=()
+                                    if [[  ${#val[@]} -gt 1 ]]; then
+                                            values=`echo ${val[@]} | sed "s/:[[:space:]]/:/g"`
+                                            sb=$(python -c 'import json, sys; print(json.dumps({sys.argv[-1]: [{v.split(":")[0]:v.split(":")[1]}  if (len(v.split(":")[1:]) <= 1) else {v.split(":")[0]:[{v.split(":")[1:][d]:v.split(":")[1:][d+1]} for d in range(0, len(v.split(":")[1:]),2)]}  for v in sys.argv[1:-1]]}))' $values $key)
+                                    else
+                                            sb=$(python -c 'import json,sys; print(json.dumps({sys.argv[1]: sys.argv[2]}))' $key $value)
+                                            echo "workflow_name=$value" >> $GITHUB_OUTPUT
+                                    fi
+                                    echo $sb >> ${{ github.workspace }}/sample.json
+                            done
+            # echo $(cat ${{ github.workspace }}/sample.json)
+            python -c 'import json,sys;filename=sys.argv[1:][0];val=open(filename, "r").read(); print(json.dumps(val))' ${{ github.workspace }}/sample.json > ${{ github.workspace }}/sample1.json
+            echo $(cat ${{ github.workspace }}/sample1.json)
+            
+  #       - name: Extracting the Keys and value
+  #         id: Key_Value_extraction
+  #         run: |
+  #           echo "length=$(($(cat ${{ github.workspace }}/${{ env.modified_file }} | shyaml get-length) -1 ))" >> $GITHUB_OUTPUT
+  #           keys=()
+  #           keys=$(cat ${{ github.workspace }}/${{ env.modified_file }} | shyaml keys)
+  #           layernames=$(python -c 'import json,sys; print(json.dumps([val for val in sys.argv[2:]]))' $keys)
+  #           echo "layernames=$layernames" >> $GITHUB_OUTPUT   
+        
+  #       - name: Testing python json loading
+  #         id: output_setup
+  #         run: |  
+  #           json_vals=$(python -c 'import json,sys; print(open(sys.argv[1:][0], "r").read())' ${{ github.workspace }}/sample1.json)
+  #           echo "output=$json_vals" >> $GITHUB_OUTPUT
+            
+  # main-testing:
+  #     name: ${{ needs.Parsing_input.outputs.workflow-name }}
+  #     needs: Parsing_input
+  #     uses: ./.github/workflows/pytest.yaml
+  #     secrets: inherit
+  #     with:
+  #       workflow_name: ${{ needs.Parsing_input.outputs.workflow-name }}
+  #       Number_of_layer: ${{ needs.Parsing_input.outputs.Number_of_layer }}
+  #       layer_names: ${{ needs.Parsing_input.outputs.layer_names }}
+  #       output: ${{ needs.Parsing_input.outputs.output }} 
