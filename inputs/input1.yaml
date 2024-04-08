@@ -1,4 +1,4 @@
-workflow-name: Python_and_R_Imagess
+workflow-name: Python_and_R_Images
 ros:
         Baselayername: Centos
         Baselayertag: 8.6-754
