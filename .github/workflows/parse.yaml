@@ -59,7 +59,7 @@ jobs:
              workflow_name = val['workflow-name']
              with open(os.environ['GITHUB_ENV'], "a") as f:
                 print(f'outputs={val}', file=f)
-                print(f'layernames={layernam}', file=f)
+                print(f'layernames={layernames}', file=f)
                 print(f'number_of_layers={no_of_layers}', file=f)
                 print(f'workflow-name={workflow_name}', file=f)
           shell: python
