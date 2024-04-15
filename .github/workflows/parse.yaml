@@ -41,11 +41,19 @@ jobs:
           run: |
              import yaml
              import json
-             layer_names = []
-             yaml_file = "${{ github.workspace }}/${{ env.modified_file }}"
-             with open(yaml_file, 'r') as f:
-                yaml_obj = yaml.safe_load_all(f)
-             print(yaml_obj, type(yaml_obj))
+             def check_file_format(yaml_file):
+                 try:
+                     with open(yaml_file, 'r') as f:
+                         yaml_obj = yaml.safe_load_all(f)
+                         data = {k:v for k,v in enumerate(yaml_obj)}
+                         data.popitem()
+                         dictVal = {k:v for key, val in data.items() for k, v in val.items()}
+                 except:
+                     return "Error in formatting the Yaml. Please verify the Yaml file"
+                 return dictVal
+             yaml_file = './test.yaml'
+             val = check_file_format(yaml_file)
+             print(val)
           shell: python
             # layer_names=()
             # declare -A values1
