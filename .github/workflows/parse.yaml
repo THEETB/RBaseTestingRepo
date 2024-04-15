@@ -53,7 +53,9 @@ jobs:
                  return dictVal
              yaml_file = "${{ github.workspace }}/${{ env.modified_file }}"
              val = check_file_format(yaml_file)
-             print(val)
+             layernames = [v for v in val.keys()]
+             no_of_layers = len(layernames)
+             workflow_name = val['workflow-name']
           shell: python
             # layer_names=()
             # declare -A values1
