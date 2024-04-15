@@ -11,10 +11,10 @@ jobs:
   Parsing_input:
     runs-on: ubuntu-latest
     outputs:
-      workflow-name: ${{ steps.Keyword_Extraction.outputs.workflow_name }}
-      Number_of_layer: ${{ steps.Key_Value_extraction.outputs.length }}
+      workflow-name: ${{ steps.Keyword_Extraction.outputs.workflow-name }}
+      Number_of_layer: ${{ steps.Key_Value_extraction.outputs.number_of_layers }}
       layer_names: ${{ steps.Key_Value_extraction.outputs.layernames }}
-      output: ${{ steps.output_setup.outputs.output }}
+      output: ${{ steps.output_setup.outputs.outputs }}
     steps:
         - name: Checkout 
           uses: actions/Checkout@v3
@@ -56,6 +56,11 @@ jobs:
              layernames = [v for v in val.keys()]
              no_of_layers = len(layernames)
              workflow_name = val['workflow-name']
+             with open(os.environ['GITHUB_ENV'], "a") as f:
+                print(f'outputs={val}', file=f)
+                print(f'layernames={layernam}', file=f)
+                print(f'number_of_layers={no_of_layers}', file=f)
+                print(f'workflow-name={workflow_name}', file=f)
           shell: python
             # layer_names=()
             # declare -A values1
