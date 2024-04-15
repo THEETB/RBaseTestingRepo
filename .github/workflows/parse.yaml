@@ -51,7 +51,7 @@ jobs:
                  except:
                      return "Error in formatting the Yaml. Please verify the Yaml file"
                  return dictVal
-             yaml_file = './test.yaml'
+             yaml_file = ${{ github.workspace }}/${{ env.modified_file }}
              val = check_file_format(yaml_file)
              print(val)
           shell: python
