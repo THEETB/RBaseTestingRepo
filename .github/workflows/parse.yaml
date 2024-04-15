@@ -41,6 +41,7 @@ jobs:
           run: |
              import yaml
              import json
+             import os
              def check_file_format(yaml_file):
                  try:
                      with open(yaml_file, 'r') as f:
