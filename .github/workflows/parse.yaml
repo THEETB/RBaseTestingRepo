@@ -12,9 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       workflow-name: ${{ steps.Keyword_Extraction.outputs.workflow-name }}
-      Number_of_layer: ${{ steps.Key_Value_extraction.outputs.number_of_layers }}
-      layer_names: ${{ steps.Key_Value_extraction.outputs.layernames }}
-      output: ${{ steps.output_setup.outputs.outputs }}
+      Number_of_layer: ${{ steps.Keyword_Extraction.outputs.number_of_layers }}
+      layer_names: ${{ steps.Keyword_Extraction.outputs.layernames }}
+      output: ${{ steps.Keyword_Extraction.outputs.outputs }}
     steps:
         - name: Checkout 
           uses: actions/Checkout@v3
@@ -99,13 +99,13 @@ jobs:
   #           json_vals=$(python -c 'import json,sys; print(open(sys.argv[1:][0], "r").read())' ${{ github.workspace }}/sample1.json)
   #           echo "output=$json_vals" >> $GITHUB_OUTPUT
             
-  # main-testing:
-  #     name: ${{ needs.Parsing_input.outputs.workflow-name }}
-  #     needs: Parsing_input
-  #     uses: ./.github/workflows/pytest.yaml
-  #     secrets: inherit
-  #     with:
-  #       workflow_name: ${{ needs.Parsing_input.outputs.workflow-name }}
-  #       Number_of_layer: ${{ needs.Parsing_input.outputs.Number_of_layer }}
-  #       layer_names: ${{ needs.Parsing_input.outputs.layer_names }}
-  #       output: ${{ needs.Parsing_input.outputs.output }} 
+  main-testing:
+      name: ${{ needs.Parsing_input.outputs.workflow-name }}
+      needs: Parsing_input
+      uses: ./.github/workflows/pytest.yaml
+      secrets: inherit
+      with:
+        workflow_name: ${{ needs.Parsing_input.outputs.workflow-name }}
+        Number_of_layer: ${{ needs.Parsing_input.outputs.Number_of_layer }}
+        layer_names: ${{ needs.Parsing_input.outputs.layer_names }}
+        output: ${{ needs.Parsing_input.outputs.output }} 
