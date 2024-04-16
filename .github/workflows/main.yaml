@@ -1,0 +1,56 @@
+# This is a basic workflow to help you get started with Actions
+name: Main Yaml
+# Controls when the workflow will run
+on:
+  workflow_call:
+    inputs:
+      workflow_name:
+        description: "Contains the Workflow Name"
+        required: true
+        type: string
+      Number_of_layer:
+        description: "Number of layer for matrix"
+        required: true
+        type: string
+      layer_names:
+        description: "Defines the layernames"
+        required: true
+        type: string
+      output:
+        description: "Contains the output of all the layers data"
+        required: true
+        type: string
+
+# The type of runner that the job will run on
+#  inputs.layer_names = "['ros', 'rdepth', 'rbase', 'rstudio']"
+# inputs.data = "[{'workflow-name': 'Python_and_R_Images'} {'ros': [{'Baselayername': 'ubi8'},--]} ..]"
+jobs:
+  Preprocessing:
+    runs-on: ubuntu-latest
+    outputs:
+      output: ${{ steps.Preprocessing.outputs.data }}
+      build_required: ${{ steps.Preprocessing.outputs.build_required }}
+      workflow_name: ${{ steps.Preprocessing.outputs.workflow_name }}
+    steps:    
+      - name: Testing the input string
+        id: Preprocessing
+        run: |
+          import os
+          import json
+          import sys
+          vals, layernames, workflow_name=json.loads(${{ toJson(inputs.output) }}), ${{ inputs.layer_names }},'${{ inputs.workflow_name }}' 
+          json_split=[json.loads(v) for v in vals.splitlines()]
+          build_required=dict()
+          for vals in json_split[1:]:
+            for k,v in vals.items():
+              build_required.update({k:d['build-required'] for d in v for k,v in vals.items() if 'build-required' in d.keys()})
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+            print(f'build_required={build_required}', file=f)
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+            print(f'data={json_split}', file=f)
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+            print(f'workflow_name={workflow_name}', file=f)
+        shell: python
+      - name: testing
+        run: |
+          echo ${{ inputs.lkyer_names.ros }}
