@@ -67,7 +67,7 @@ jobs:
   main-testing:
       name: ${{ needs.Parsing_input.outputs.workflow-name }}
       needs: Parsing_input
-      uses: "${{ github.workspace }}/main.yml"
+      uses: ./.github/workflows/main.yml
       secrets: inherit
       with:
         workflow_name: ${{ needs.Parsing_input.outputs.workflow-name }}
