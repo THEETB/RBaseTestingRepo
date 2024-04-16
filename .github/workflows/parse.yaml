@@ -59,6 +59,7 @@ jobs:
              no_of_layers = len(layernames)
              workflow_name = val['workflow-name']
              build_required = {k:val for k,v in val.items() if k != "workflow-name" for key, val in v.items() if key == "build-required"}
+             print(layernames)
              with open(os.environ['GITHUB_ENV'], "a") as f:
                 print(f'outputs={val}', file=f)
                 print(f'layernames={layernames}', file=f)
@@ -69,19 +70,24 @@ jobs:
           
   calling-layer-worflow:
       needs: Parsing_input
-      strategy: 
-        max-parallel: 1
-        fail-fast: true
-        matrix: 
-          value: ${{ needs.Parsing_input.outputs.workflow-name }}
+      runs-on: ubuntu-latest
+      # strategy: 
+      #   max-parallel: 1
+      #   fail-fast: true
+      #   matrix: 
+      #     value: ${{ needs.Parsing_input.outputs.workflow-name }}
       name: ${{ needs.Parsing_input.outputs.workflow-name }}-${{ matrix.value }}
-      if: ${{ needs.Parsing_input.outputs.build_required[format('{}',matrix.value)] }} == 'true'
-      uses: ./.github/workflows/Combined.yaml
-      with:
-        current_layer_name: ${{ matrix.value }}
-        output: ${{ needs.Parsing_input.outputs.output }}
-        workflow_name: ${{ needs.Parsing_input.outputs.workflow-name }}
-      secrets: inherit
+      steps:
+         - name: Testing
+           run: |
+              echo ${{ needs.Parsing_input.outputs.layer_names }}
+      # if: ${{ needs.Parsing_input.outputs.build_required[format('{}',matrix.value)] }} == 'true'
+      # uses: ./.github/workflows/Combined.yaml
+      # with:
+      #   current_layer_name: ${{ matrix.value }}
+      #   output: ${{ needs.Parsing_input.outputs.output }}
+      #   workflow_name: ${{ needs.Parsing_input.outputs.workflow-name }}
+      # secrets: inherit
   # main-testing:
   #     name: ${{ needs.Parsing_input.outputs.workflow-name }}
   #     needs: Parsing_input
