@@ -66,7 +66,22 @@ jobs:
                 print(f'workflow-name={workflow_name}', file=f)
                 print(f'build-required={build_required}', file=f)
           shell: python
-         
+          
+  calling-layer-worflow:
+      needs: Parsing_input
+      strategy: 
+        max-parallel: 1
+        fail-fast: true
+        matrix: 
+          value: ${{ needs.Parsing_input.outputs.workflow-name }}
+      name: ${{ needs.Parsing_input.outputs.workflow-name }}-${{ matrix.value }}
+      if: ${{ needs.Parsing_input.outputs.build_required[format('{}',matrix.value)] }} == 'true'
+      uses: ./.github/workflows/Combined.yaml
+      with:
+        current_layer_name: ${{ matrix.value }}
+        output: ${{ needs.Parsing_input.outputs.output }}
+        workflow_name: ${{ needs.Parsing_input.outputs.workflow-name }}
+      secrets: inherit
   # main-testing:
   #     name: ${{ needs.Parsing_input.outputs.workflow-name }}
   #     needs: Parsing_input
