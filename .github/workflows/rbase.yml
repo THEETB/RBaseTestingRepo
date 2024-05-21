@@ -69,6 +69,7 @@ jobs:
         run: | 
             import sys
             import yaml
+            import os
             
             latestR = "${{ env.latest_R }}"
             currentR = "${{ vars.R_CURRENTVERSION }}"
@@ -99,8 +100,13 @@ jobs:
                             vs[key][val.split(":")[0]] = val.split(":")[1]
                 yaml_data[key] = vs[key]
                 return yaml_data
+
+            def fileCheck(filename):
+               print(os.dirname(filename))
+               return 0;
             
             if latestR != currentR:
+             isfile = fileCheck('./inputs/input1.yaml')
              with open('./inputs/input1.yaml') as fp:
                  for lines in fp:
                      yaml_dump+=lines.strip()+'\n'
