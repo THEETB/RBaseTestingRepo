@@ -106,9 +106,10 @@ jobs:
                      yaml_dump+=lines.strip()+'\n'
              fp.close()
              yaml_val = converter(yaml_dump.split("\n"))
-             yaml_val['rbase']['r'] = latestR
-             with open('./inputs/input1.yaml', 'w+') as f:
-                yaml.dump(yaml_val, f, sort_keys=False)
+             print(yaml_val)
+             # yaml_val['rbase']['r'] = latestR
+             # with open('./inputs/input1.yaml', 'w+') as f:
+             #    yaml.dump(yaml_val, f, sort_keys=False)
       
       #    yaml_dump = ""
       #    reserved_word = ["build-required"]
