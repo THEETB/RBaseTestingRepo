@@ -73,6 +73,7 @@ jobs:
             latestR = "${{ env.latest_R }}"
             currentR = "${{ vars.R_CURRENTVERSION }}"
             yaml_dump = ""
+            inputFileName = 'inputs/input.yaml'
             reserved_word = ["build-required"]
             
             def converter(data):
@@ -109,14 +110,19 @@ jobs:
                else:
                   print(f"file '{filename}' doesn't exists...")
                   return False;
+
+            def changeFileName(filenames):
+               filename, extension = filenames.split('.')
+               print(filename, extension)
             
             if latestR != currentR:
-             isfile = checkFile('inputs/input.yaml')
-             print("IsFile:", isfile)
-             with open('./inputs/sample.yaml') as fp:
-                 for lines in fp:
-                     yaml_dump+=lines.strip()+'\n'
-             fp.close()
+             isfile = checkFile(inputFileName)
+             if isfile:
+               newfilename = changeFilename(inputFileName)
+             # with open(inputFileName) as fp:
+             #     for lines in fp:
+             #         yaml_dump+=lines.strip()+'\n'
+             # fp.close()
              # yaml_val = converter(yaml_dump.split("\n"))
              # print(yaml_val)
              # yaml_val['rbase']['r'] = latestR
