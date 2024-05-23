@@ -102,7 +102,7 @@ jobs:
 
             def checkFile(file):
                filepath = "${{ github.workspace }}/../../"+file
-               if filepath:
+               if ${{ github.workspace }}../../file:
                   print("File exists.....")
                else:
                   print("File doesn't exists....")
