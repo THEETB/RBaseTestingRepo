@@ -83,23 +83,23 @@ jobs:
                 key, sub_key = "", ""
                 for val in data[:-1]:
                     print(val)
-                    if val.split(":")[1] != "" and headers == 0:
-                        yaml_data[val.split(":")[0]] = val.split(":")[1]
-                    else:
-                        if headers != 0 and (val.split(":")[1] == "" and val.split(":")[0][0].islower()):
-                            yaml_data[key] = vs[key]
-                            vs = dict()
-                            headers = 0
-                        if headers == 0 and (val.split(":")[1] == "" and val.split(":")[0][0].islower()):
-                            headers += 1
-                            key = val.split(":")[0]
-                            vs[key] = dict()
-                        elif headers != 0 and (val.split(":")[1] != ""):
-                            vs[key][val.split(":")[0]] = val.split(":")[1]
-                        elif headers != 0 and (val.split(":")[1] == "" and val.split(":")[0][0].isupper()):
-                            vs[key][val.split(":")[0]] = val.split(":")[1]
-                yaml_data[key] = vs[key]
-                return yaml_data
+                #     if val.split(":")[1] != "" and headers == 0:
+                #         yaml_data[val.split(":")[0]] = val.split(":")[1]
+                #     else:
+                #         if headers != 0 and (val.split(":")[1] == "" and val.split(":")[0][0].islower()):
+                #             yaml_data[key] = vs[key]
+                #             vs = dict()
+                #             headers = 0
+                #         if headers == 0 and (val.split(":")[1] == "" and val.split(":")[0][0].islower()):
+                #             headers += 1
+                #             key = val.split(":")[0]
+                #             vs[key] = dict()
+                #         elif headers != 0 and (val.split(":")[1] != ""):
+                #             vs[key][val.split(":")[0]] = val.split(":")[1]
+                #         elif headers != 0 and (val.split(":")[1] == "" and val.split(":")[0][0].isupper()):
+                #             vs[key][val.split(":")[0]] = val.split(":")[1]
+                # yaml_data[key] = vs[key]
+                # return yaml_data
 
             def checkFile(file):
                filerepo = "${{ github.workspace }}"
@@ -120,12 +120,13 @@ jobs:
              isfile = checkFile(inputFileName)
              if not isfile:
                 newfilename = changeFileName(inputFileName, latestR)
-                print(newfilename)
-             # with open(inputFileName) as fp:
-             #     for lines in fp:
-             #         yaml_dump+=lines.strip()+'\n'
-             # fp.close()
-             # yaml_val = converter(yaml_dump.split("\n"))
+             else:
+                newFilename = inputFileName
+             with open(newFilename) as fp:
+                 for lines in fp:
+                     yaml_dump+=lines.strip()+'\n'
+             fp.close()
+             yaml_val = converter(yaml_dump.split("\n"))
              # print(yaml_val)
              # yaml_val['rbase']['r'] = latestR
              # with open('./inputs/input1.yaml', 'w+') as f:
