@@ -30,7 +30,7 @@ jobs:
 
       - name: Setting the python library
         run: |
-         pip install pyyaml requests os
+         pip install pyyaml requests
 
             
       - name: Check out repository code
