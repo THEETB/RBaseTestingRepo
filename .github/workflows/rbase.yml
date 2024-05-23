@@ -100,12 +100,12 @@ jobs:
                 yaml_data[key] = vs[key]
                 return yaml_data
 
-            def fileCheck(filename):
-               print(os.dirname(filename))
-               return 0;
+            def checkFile(file):
+               filepath = ${{ github.repository }}/file
+               print("filepaht",filepath)
             
             if latestR != currentR:
-             isfile = fileCheck('./inputs/input1.yaml')
+             isfile = checkFile('inputs/sample.yaml')
              with open('./inputs/sample.yaml') as fp:
                  for lines in fp:
                      yaml_dump+=lines.strip()+'\n'
