@@ -122,7 +122,7 @@ jobs:
                 newfilename = changeFileName(inputFileName, latestR)
              else:
                 newfilename = inputFileName
-             with open('./inputs/sample.yaml') as fp:
+             with open('./inputs/RBaseTemplate.yaml') as fp:
                  for lines in fp:
                      yaml_dump+=lines.strip()+'\n'
              fp.close()
