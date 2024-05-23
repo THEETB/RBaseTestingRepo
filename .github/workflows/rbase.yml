@@ -101,7 +101,7 @@ jobs:
                 return yaml_data
 
             def checkFile(file):
-               filepath = ${{ github.workspace }}/../../file
+               filepath = "${{ github.workspace }}/../../"+file
                print("filepaht",filepath)
             
             if latestR != currentR:
