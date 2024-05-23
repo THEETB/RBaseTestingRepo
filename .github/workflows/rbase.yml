@@ -113,12 +113,14 @@ jobs:
 
             def changeFileName(filenames, Rversion):
                filename, extension = filenames.split('.')
-               print(filename+Rversion+'.'+extension)
+               filenames = filename.split(' ')[0]
+               return os.path.join(filenames, '.', extension)
             
             if latestR != currentR:
              isfile = checkFile(inputFileName)
-             # if isfile:
-             newfilename = changeFileName(inputFileName, latestR)
+             if not isfile:
+                newfilename = changeFileName(inputFileName, latestR)
+                print(newfilename)
              # with open(inputFileName) as fp:
              #     for lines in fp:
              #         yaml_dump+=lines.strip()+'\n'
