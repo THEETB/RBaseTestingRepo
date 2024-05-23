@@ -64,11 +64,11 @@ jobs:
          print(latestR)
 
       - name: Modify Input file if version change is detected
-        id: parsing_file
-        shell: python 
-        run: | 
+        id: parsing_file 
+        run: |
             import sys
             import yaml
+            import os
             
             latestR = "${{ env.latest_R }}"
             currentR = "${{ vars.R_CURRENTVERSION }}"
@@ -118,6 +118,7 @@ jobs:
              # yaml_val['rbase']['r'] = latestR
              # with open('./inputs/input1.yaml', 'w+') as f:
              #    yaml.dump(yaml_val, f, sort_keys=False)
+        shell: python
       
       #    yaml_dump = ""
       #    reserved_word = ["build-required"]
