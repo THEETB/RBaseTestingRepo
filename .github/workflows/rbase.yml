@@ -108,7 +108,7 @@ jobs:
                   print("File doesn't exists....")
             
             if latestR != currentR:
-             isfile = checkFile('inputs/sample.yaml')
+             isfile = checkFile('inputs/input.yaml')
              with open('./inputs/sample.yaml') as fp:
                  for lines in fp:
                      yaml_dump+=lines.strip()+'\n'
