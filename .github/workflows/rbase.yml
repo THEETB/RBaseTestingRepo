@@ -114,7 +114,7 @@ jobs:
             def changeFileName(filenames, Rversion):
                filename, extension = filenames.split('.')
                filenames = filename.split(' ')[0]
-               return ''.join([filenames, Rversion, '.', extension])
+               return filenames.join([, Rversion, '.', extension])
             
             if latestR != currentR:
              isfile = checkFile(inputFileName)
