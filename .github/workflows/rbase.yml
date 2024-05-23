@@ -101,11 +101,12 @@ jobs:
                 return yaml_data
 
             def checkFile(file):
-               filepath = "${{ github.workspace }}/../../"+file
-               if ${{ github.workspace }}../../file:
-                  print("File exists.....")
+               filerepo = "${{ github.workspace }}"
+               filename = os.path.join(filerepo, "/../../", file)
+               if os.path.isfile(filename):
+                  print(f"file '{filename}' exists...")
                else:
-                  print("File doesn't exists....")
+                  print(f"file '{filename}' doesn't exists...")
             
             if latestR != currentR:
              isfile = checkFile('inputs/input.yaml')
