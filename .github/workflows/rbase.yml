@@ -111,12 +111,12 @@ jobs:
                   print(f"file '{filename}' doesn't exists...")
                   return False;
 
-            def changeFileName(filenames):
+            def changeFileName(filenames, Rversion):
                filename, extension = filenames.split('.')
-               print(filename, extension)
+               print(filename+Rversion+'.'+extension)
             
             if latestR != currentR:
-             isfile = checkFile(inputFileName)
+             isfile = checkFile(inputFileName, latestR)
              # if isfile:
              newfilename = changeFileName(inputFileName)
              # with open(inputFileName) as fp:
