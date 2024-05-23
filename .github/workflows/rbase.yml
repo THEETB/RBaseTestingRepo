@@ -116,9 +116,9 @@ jobs:
                print(filename+Rversion+'.'+extension)
             
             if latestR != currentR:
-             isfile = checkFile(inputFileName, latestR)
+             isfile = checkFile(inputFileName)
              # if isfile:
-             newfilename = changeFileName(inputFileName)
+             newfilename = changeFileName(inputFileName, latestR)
              # with open(inputFileName) as fp:
              #     for lines in fp:
              #         yaml_dump+=lines.strip()+'\n'
