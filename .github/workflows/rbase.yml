@@ -118,7 +118,7 @@ jobs:
             if latestR != currentR:
              isfile = checkFile(inputFileName)
              # if isfile:
-             newfilename = changeFilename(inputFileName)
+             newfilename = changeFileName(inputFileName)
              # with open(inputFileName) as fp:
              #     for lines in fp:
              #         yaml_dump+=lines.strip()+'\n'
