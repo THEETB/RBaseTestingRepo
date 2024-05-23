@@ -107,7 +107,7 @@ jobs:
             
             if latestR != currentR:
              isfile = fileCheck('./inputs/input1.yaml')
-             with open('./inputs/input1.yaml') as fp:
+             with open('./inputs/sample.yaml') as fp:
                  for lines in fp:
                      yaml_dump+=lines.strip()+'\n'
              fp.close()
