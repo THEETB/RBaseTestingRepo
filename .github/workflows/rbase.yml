@@ -102,7 +102,10 @@ jobs:
 
             def checkFile(file):
                filepath = "${{ github.workspace }}/../../"+file
-               print("filepaht",filepath)
+               if filepath:
+                  print("File exists.....")
+               else:
+                  print("File doesn't exists....")
             
             if latestR != currentR:
              isfile = checkFile('inputs/sample.yaml')
