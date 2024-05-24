@@ -123,6 +123,7 @@ jobs:
                 newfilename = changeFileName(inputFileName, latestR)
              else:
                 newfilename = inputFileName
+             updatedDict = dict()
              with open('./inputs/RBaseTemplate.yaml', 'r') as fp:
                 yamlObj = yaml.safe_load_all(fp)
                 for k, v in enumerate(yamlObj):
@@ -130,8 +131,9 @@ jobs:
                       for key, val in v.items():
                          if key != "workflow-name" and 'Env' in val.keys():
                             val['Env']['r'] = latestR
-                print({k:v for k, v in enumerate(yamlObj) if v != None})
+                      updatedDict[k] = v
              fp.close()
+             print(updatedDict)
              # yaml_val = converter(yaml_dump.split("\n"))
              # print(yaml_val)
              # yaml_val['rbase']['r'] = latestR
