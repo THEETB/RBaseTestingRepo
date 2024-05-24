@@ -128,9 +128,9 @@ jobs:
                 for k, v in enumerate(yamlObj):
                    if v != None:
                       for key, val in v.items():
-                         if (val['Env']['R']):
-                            val['Env']['R'] = latestR
-                      print(v)
+                         if (val['Env']):
+                            # val['Env']['R'] = latestR
+                            print(val['Env'])
              #     for lines in fp:
              #         yaml_dump+=lines.strip()+'\n'
              fp.close()
