@@ -128,7 +128,7 @@ jobs:
                 for k, v in enumerate(yamlObj):
                    if v != None:
                       for key, val in v.items():
-                         print(val, type(val))
+                         print(val.items(), type(val))
              #     for lines in fp:
              #         yaml_dump+=lines.strip()+'\n'
              fp.close()
