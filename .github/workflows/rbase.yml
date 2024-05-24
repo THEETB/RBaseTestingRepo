@@ -111,9 +111,9 @@ jobs:
              class OrderedDumper(yaml.Dumper):
                 def represent_dict_preserve_order(self, data):
                     return self.represent_mapping('tag:yaml.org,2002:map', data.items())
-               
-               # Add the represent method for OrderedDict to the OrderedDumper
-               yaml.add_representer(OrderedDict, OrderedDumper.represent_dict_preserve_order)
+             
+             # Add the represent method for OrderedDict to the OrderedDumper
+             yaml.add_representer(OrderedDict, OrderedDumper.represent_dict_preserve_order)
                
              # Convert OrderedDict to YAML
              # yaml_data = yaml.dump(data, Dumper=OrderedDumper, default_flow_style=False)
