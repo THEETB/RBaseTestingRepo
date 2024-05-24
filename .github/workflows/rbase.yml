@@ -108,7 +108,16 @@ jobs:
                          updatedDict[key] = val
              fp.close()
              print(updatedDict)
-             print(yaml.dump(updatedDict, Dumper=yaml.CDumper))
+             class OrderedDumper(yaml.Dumper):
+                def represent_dict_preserve_order(self, data):
+                    return self.represent_mapping('tag:yaml.org,2002:map', data.items())
+               
+               # Add the represent method for OrderedDict to the OrderedDumper
+               yaml.add_representer(OrderedDict, OrderedDumper.represent_dict_preserve_order)
+               
+             # Convert OrderedDict to YAML
+             # yaml_data = yaml.dump(data, Dumper=OrderedDumper, default_flow_style=False)
+             print(yaml.dump(updatedDict, Dumper=OrderedDumper, default_flow_style=False))
              # with open('./inputs/input1.yaml', 'w+') as f:
              #    yaml.dump(yaml_val, f, sort_keys=False)
         shell: python
