@@ -126,8 +126,8 @@ jobs:
              with open('./inputs/RBaseTemplate.yaml', 'r') as fp:
                 yamlObj = yaml.safe_load_all(fp)
                 for k, v in enumerate(yamlObj):
-                   if v != None and 'Env' in v.keys():
-                      print(v)
+                   if v != None:
+                      print(v.keys())
              #     for lines in fp:
              #         yaml_dump+=lines.strip()+'\n'
              fp.close()
