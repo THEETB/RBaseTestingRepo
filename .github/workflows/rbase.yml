@@ -127,7 +127,7 @@ jobs:
                 yamlObj = yaml.safe_load_all(fp)
                 for k, v in enumerate(yamlObj):
                    if v != None:
-                      for key, val in v.items():
+                      for key, dict(val) in v.items():
                          if (val['Env']):
                             # val['Env']['R'] = latestR
                             print(val['Env'])
