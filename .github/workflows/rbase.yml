@@ -81,7 +81,6 @@ jobs:
                 vs = dict()
                 headers = 0
                 key, sub_key = "", ""
-                print(yaml.safe_load(data))
                 # for val in data[:-1]:
                     # print(val)
                 #     if val.split(":")[1] != "" and headers == 0:
@@ -128,7 +127,8 @@ jobs:
                 yamlObj = yaml.safe_load_all(fp)
                 for k, v in enumerate(yamlObj):
                    if v != None:
-                      print(k, v)
+                      for key, val in v.items():
+                         print(key, val)
              #     for lines in fp:
              #         yaml_dump+=lines.strip()+'\n'
              fp.close()
