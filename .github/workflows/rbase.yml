@@ -125,7 +125,7 @@ jobs:
              else:
                 newfilename = inputFileName
              with open('./inputs/RBaseTemplate.yaml', 'r') as fp:
-                print(yaml.load(fp))
+                print(yaml.safe_load(fp))
              #     for lines in fp:
              #         yaml_dump+=lines.strip()+'\n'
              fp.close()
