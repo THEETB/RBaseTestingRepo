@@ -105,7 +105,7 @@ jobs:
                       for key, val in v.items():
                          if key != "workflow-name" and 'Env' in val.keys():
                             val['Env']['r'] = latestR
-                      updatedDict[k] = v
+                         updatedDict[key] = val
              fp.close()
              print(yaml.dump(updatedDict, default_flow_style=False))
              # with open('./inputs/input1.yaml', 'w+') as f:
