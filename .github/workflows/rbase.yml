@@ -82,7 +82,7 @@ jobs:
                 headers = 0
                 key, sub_key = "", ""
                 for val in data[:-1]:
-                    print(val)
+                    # print(val)
                     if val.split(":")[1] != "" and headers == 0:
                         yaml_data[val.split(":")[0]] = val.split(":")[1]
                     else:
@@ -99,6 +99,7 @@ jobs:
                         elif headers != 0 and (val.split(":")[1] == "" and val.split(":")[0][0].isupper()):
                             vs[key][val.split(":")[0]] = val.split(":")[1]
                 yaml_data[key] = vs[key]
+                print(yaml_data)
                 # return yaml_data
 
             def checkFile(file):
