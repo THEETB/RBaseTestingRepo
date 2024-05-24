@@ -129,7 +129,8 @@ jobs:
                    if v != None:
                       for key, val in v.items():
                          if key != "workflow-name" and 'Env' in val.keys():
-                            print(val['Env']['r'])
+                            val['Env']['r'] = latestR
+                    print(v)
              #     for lines in fp:
              #         yaml_dump+=lines.strip()+'\n'
              fp.close()
