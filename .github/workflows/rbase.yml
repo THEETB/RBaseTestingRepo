@@ -107,7 +107,7 @@ jobs:
                             val['Env']['r'] = latestR
                       updatedDict[k] = v
              fp.close()
-             print(yaml_data = yaml.dump(data, default_flow_style=False))
+             print(yaml_data = yaml.dump(updatedDict, default_flow_style=False))
              # with open('./inputs/input1.yaml', 'w+') as f:
              #    yaml.dump(yaml_val, f, sort_keys=False)
         shell: python
