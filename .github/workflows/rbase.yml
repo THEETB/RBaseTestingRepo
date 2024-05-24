@@ -81,7 +81,7 @@ jobs:
                 vs = dict()
                 headers = 0
                 key, sub_key = "", ""
-                print(yaml.dump(data))
+                print(yaml.safe_load(data))
                 # for val in data[:-1]:
                     # print(val)
                 #     if val.split(":")[1] != "" and headers == 0:
