@@ -127,7 +127,9 @@ jobs:
                 yamlObj = yaml.safe_load_all(fp)
                 for k, v in enumerate(yamlObj):
                    if v != None:
-                      print(v.keys())
+                      for key, val in v.items():
+                         if 'Env' in val.keys():
+                            print(v['Env'])
              #     for lines in fp:
              #         yaml_dump+=lines.strip()+'\n'
              fp.close()
