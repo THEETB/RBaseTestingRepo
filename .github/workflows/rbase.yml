@@ -110,7 +110,8 @@ jobs:
              fp.close()
              print(updatedDict)
              print(OrderedDict(updatedDict))
-             yaml_data = yaml.dump(OrderedDict(updatedDict), Dumper=yaml.CDumper, default_flow_style=True)
+             # , Dumper=yaml.CDumper, default_flow_style=True
+             yaml_data = yaml.dump(OrderedDict(updatedDict))
              print(yaml_data)
              # with open('./inputs/input_test.yaml', 'w+') as f:
              #    yaml.dump(yaml_val, f, sort_keys=False)
