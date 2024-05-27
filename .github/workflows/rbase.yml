@@ -98,7 +98,7 @@ jobs:
                 newfilename = changeFileName(inputFileName, latestR)
              else:
                 newfilename = inputFileName
-             updatedDict = OrderedDict()
+             updatedDict = dict()
              with open('./inputs/RBaseTemplate.yaml', 'r') as fp:
                 yamlObj = yaml.safe_load_all(fp)
                 for k, v in enumerate(yamlObj):
