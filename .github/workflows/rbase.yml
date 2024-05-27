@@ -119,11 +119,13 @@ jobs:
         shell: python
         
       - name: Pushing new file Created for RBase
+        if: 
         run: |
             git config --global user.name "theetb"
             git config --global user.email "balasubramaniam.theetharappan@pfizer.com"
             git add -A
             git commit -m "Created a new file"+newfilename
+            git push
       #    yaml_dump = ""
       #    reserved_word = ["build-required"]
          
