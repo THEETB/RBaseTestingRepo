@@ -110,8 +110,8 @@ jobs:
              print(updatedDict)
              yaml_data = yaml.dump(updatedDict, Dumper=yaml.CDumper, default_flow_style=True)
              print(yaml_data.splitlines()[::-1])
-             with open('./inputs/input_test.yaml', 'w+') as f:
-                yaml.dump(yaml_val, f, sort_keys=False)
+             # with open('./inputs/input_test.yaml', 'w+') as f:
+             #    yaml.dump(yaml_val, f, sort_keys=False)
         shell: python
       
       #    yaml_dump = ""
