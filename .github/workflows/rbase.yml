@@ -111,6 +111,11 @@ jobs:
              print(updatedDict)
              with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
                 yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
+             fp.close()
+             git config --global user.name "theetb"
+             git config --global user.email "balasubramaniam.theetharappan@pfizer.com"
+             git add -A
+             git commit -m "Created a new file"+newfilename    
              # yaml_data = yaml.dump(updatedDict)
              # print(yaml_data)
              # # with open('./inputs/input_test.yaml', 'w+') as f:
