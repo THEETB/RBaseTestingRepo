@@ -118,14 +118,20 @@ jobs:
              # #    yaml.dump(yaml_val, f, sort_keys=False)
         shell: python
         
-      - name: Pushing new file Created for RBase
-        if: 
+      - name: Committing new file Created for RBase
+        if: ${{ steps.parsing_file.outcome == 'success' }}
+        id: commit_files
         run: |
             git config --global user.name "theetb"
             git config --global user.email "balasubramaniam.theetharappan@pfizer.com"
             git add -A
             git commit -m "Created a new file"+newfilename
-            git push
+            
+      - name: Pushing File
+        if: ${{ steps.commit_files == 'success' }}
+        uses: ad-m/github-push-action@master
+        with:
+         github_token: ${{ secrets.PAT }}
       #    yaml_dump = ""
       #    reserved_word = ["build-required"]
          
