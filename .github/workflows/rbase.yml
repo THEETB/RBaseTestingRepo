@@ -98,7 +98,7 @@ jobs:
                 newfilename = changeFileName(inputFileName, latestR)
              else:
                 newfilename = inputFileName
-             updatedDict = dict()
+             updatedDict = OrderedDict()
              with open('./inputs/RBaseTemplate.yaml', 'r') as fp:
                 yamlObj = yaml.safe_load_all(fp)
                 for k, v in enumerate(yamlObj):
@@ -109,8 +109,6 @@ jobs:
                          updatedDict[key] = val
              fp.close()
              print(updatedDict)
-             print(OrderedDict(updatedDict))
-             # , Dumper=yaml.CDumper, default_flow_style=True
              yaml_data = yaml.dump(OrderedDict(updatedDict))
              print(yaml_data)
              # with open('./inputs/input_test.yaml', 'w+') as f:
