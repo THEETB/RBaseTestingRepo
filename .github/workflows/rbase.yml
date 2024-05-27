@@ -128,7 +128,7 @@ jobs:
             git commit -m "Created a new file"+newfilename
             
       - name: Pushing File
-        if: ${{ steps.commit_files == 'success' }}
+        if: ${{ steps.commit_files.outcome == 'success' }}
         uses: ad-m/github-push-action@master
         with:
          github_token: ${{ secrets.PAT }}
