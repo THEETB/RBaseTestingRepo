@@ -109,7 +109,7 @@ jobs:
                          updatedDict[key] = val
              fp.close()
              print(updatedDict)
-             yaml_data = yaml.dump(OrderedDict(updatedDict))
+             yaml_data = yaml.dump(updatedDict)
              print(yaml_data)
              # with open('./inputs/input_test.yaml', 'w+') as f:
              #    yaml.dump(yaml_val, f, sort_keys=False)
