@@ -1,0 +1,16 @@
+workflow-name: R-{RVersion}-build
+
+---
+
+{layerNo}:
+  Baselayername: {baselayername}
+  Baselayertag: {baselayertag}
+  Build_layer_name: {buildlayername}
+  Build_layer_tag: {buildlayertag}
+  build-required: {buildrequired}
+  Dockerfile: {Default}
+  Env:
+    {ToolName}: {ToolVersion}
+  Additional:
+    {VariableName}: {VariableValue}
+---
