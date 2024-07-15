@@ -1,7 +1,5 @@
 workflow-name: Python_and_R_Images
-   
 ---
-
 ros:
     Baselayername: Centos
     Baselayertag: 8.6-754
@@ -9,9 +7,7 @@ ros:
     Build_layer_tag: 2023_08_21
     build-required: no
     Dockerfile: Default
-
 ---
-
 rdepth:
     Baselayername: ros
     Baselayertag: 2023_08_21
@@ -19,9 +15,7 @@ rdepth:
     Build_layer_tag: 2023_08_211
     build-required: true
     Dockerfile: default
-
 ---
-
  rbase:
     Env:
         r: null
