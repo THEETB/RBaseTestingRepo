@@ -8,7 +8,7 @@ workflow-name: R-{RVersion}-build
   Build_layer_name: {buildlayername}
   Build_layer_tag: {buildlayertag}
   build-required: {buildrequired}
-  Dockerfile: {Default}
+  Dockerfile: {DockerfileType}
   Env:
     {ToolName}: {ToolVersion}
   Additional:
