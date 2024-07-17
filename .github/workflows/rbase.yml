@@ -87,7 +87,7 @@ jobs:
                 updatedDict = dict()
                 with open('./inputs/RBaseTemplate.yaml', 'r') as fp:
                    yamlObj = yaml.safe_load_all(fp)
-                   print(enumerate(yamlobj))
+                   print(enumerate(yamlObj))
                    # for k, v in enumerate(yamlObj):
                    #    print(k, v)
                       # if v != None:
