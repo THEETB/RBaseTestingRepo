@@ -86,8 +86,8 @@ jobs:
                 updatedDict = dict()
                 with open('./inputs/RBaseTemplate.yaml', 'r') as fp:
                    yamlObj = yaml.safe_load_all(fp)
-                   for k, v in enumerate(yamlObj):
-                      print(k, v)
+                   # for k, v in enumerate(yamlObj):
+                   print(yamlObj)
                    #    if v != None:
                    #       for key, val in v.items():
                    #          if key != "workflow-name" and 'Env' in val.keys():
