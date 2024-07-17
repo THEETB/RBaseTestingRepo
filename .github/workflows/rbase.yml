@@ -109,9 +109,9 @@ jobs:
                 newfilename = changeFileName(outputFileName, latestR)
              else:
                 newfilename = outputFileName
-             print(newFilename)
+             print(newfilename)
              updatedDict = dict()
-             preprocessedFile = preprocessing(newFilename)
+             preprocessedFile = preprocessing(newfilename)
         shell: python
         
       - name: Committing new file Created for RBase
