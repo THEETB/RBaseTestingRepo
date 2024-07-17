@@ -52,16 +52,6 @@ jobs:
            latestR = json_en['Release']
            with open(os.environ['GITHUB_ENV'], "a") as f:
               print(f'latest_R={latestR}', file=f)
-                      
-      - name: Modify Input file if version change is detected
-        shell: python 
-        run: | 
-         import sys
-         import yaml
-         
-         latestR = "${{ env.latest_R }}"
-         currentR = "${{ vars.R_CURRENTVERSION }}"
-         print(latestR)
 
       - name: Modify Input file if version change is detected
         id: parsing_file 
@@ -74,9 +64,9 @@ jobs:
             latestR = "${{ env.latest_R }}"
             currentR = "${{ vars.R_CURRENTVERSION }}"
             yaml_dump = ""
-            inputFileName = 'inputs/input.yaml'
-            reserved_word = ["build-required"]
-
+            outputFileName = 'inputs/input_'+ latestR +'.yaml'
+            reserved_word = ["build-required", "RVersion", "layerName", "baselayername", "baselayertag", "buildlayername", "buildlayertag", "DockerfileType", "ToolName", "ToolVersion", "VariableName", "VariableValue"]
+            
             def checkFile(file):
                filerepo = "${{ github.workspace }}"
                filename = os.path.join(filerepo, "/../../", file)
@@ -91,31 +81,34 @@ jobs:
                filename, extension = filenames.split('.')
                filenames = filename.split(' ')[0]
                return ''.join([filenames, '_', Rversion.split(' ')[1], '.', extension])
+
+            def preprocessing(filename):
+                updatedDict = dict()
+                with open('./inputs/RBaseTemplate.yaml', 'r') as fp:
+                   yamlObj = yaml.safe_load_all(fp)
+                   for k, v in enumerate(yamlObj):
+                      print(k, v)
+                   #    if v != None:
+                   #       for key, val in v.items():
+                   #          if key != "workflow-name" and 'Env' in val.keys():
+                   #             val['Env']['R'] = latestR.split(" ")[1]
+                   #          if key != "workflow-name" and 'Build_layer_tag' in val.keys():
+                   #             val['Build_layer_tag'] = latestR.split(" ")[1]
+                   #          updatedDict[key] = val
+                fp.close()
+                # print(updatedDict)
+                # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
+                #    yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
+                # fp.close() 
             
             if latestR != currentR:
-             isfile = checkFile(inputFileName)
+             isfile = checkFile(outputFileName)
              if not isfile:
                 newfilename = changeFileName(inputFileName, latestR)
              else:
-                newfilename = inputFileName
+                newfilename = outputFileName
              updatedDict = dict()
-             with open('./inputs/RBaseTemplate.yaml', 'r') as fp:
-                yamlObj = yaml.safe_load_all(fp)
-                for k, v in enumerate(yamlObj):
-                   if v != None:
-                      for key, val in v.items():
-                         if key != "workflow-name" and 'Env' in val.keys():
-                            val['Env']['r'] = latestR
-                         updatedDict[key] = val
-             fp.close()
-             print(updatedDict)
-             with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
-                yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
-             fp.close() 
-             # yaml_data = yaml.dump(updatedDict)
-             # print(yaml_data)
-             # # with open('./inputs/input_test.yaml', 'w+') as f:
-             # #    yaml.dump(yaml_val, f, sort_keys=False)
+             preprocessedFile = preprocessing(newFilename)
         shell: python
         
       - name: Committing new file Created for RBase
