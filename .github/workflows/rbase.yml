@@ -78,6 +78,7 @@ jobs:
                   return False;
 
             def changeFileName(filenames, Rversion):
+               print(filenames, Rversion)
                filename, extension = filenames.split('.')
                filenames = filename.split(' ')[0]
                return ''.join([filenames, '_', Rversion.split(' ')[1], '.', extension])
