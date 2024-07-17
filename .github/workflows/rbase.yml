@@ -64,7 +64,7 @@ jobs:
             latestR = "${{ env.latest_R }}"
             currentR = "${{ vars.R_CURRENTVERSION }}"
             yaml_dump = ""
-            outputFileName = 'inputs/input_'+ latestR +'.yaml'
+            outputFileName = 'inputs/input.yaml'
             reserved_word = ["build-required", "RVersion", "layerName", "baselayername", "baselayertag", "buildlayername", "buildlayertag", "DockerfileType", "ToolName", "ToolVersion", "VariableName", "VariableValue"]
             
             def checkFile(file):
