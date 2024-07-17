@@ -90,7 +90,7 @@ jobs:
                    for k, v in enumerate(yamlObj):
                       if v != None:
                          for key, val in v.items():
-                         print(key, val)
+                            print(key, val)
                    #          if key != "workflow-name" and 'Env' in val.keys():
                    #             val['Env']['R'] = latestR.split(" ")[1]
                    #          if key != "workflow-name" and 'Build_layer_tag' in val.keys():
