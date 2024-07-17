@@ -104,6 +104,7 @@ jobs:
             
             if latestR != currentR:
              isfile = checkFile(outputFileName)
+             print(isfile)
              if not isfile:
                 newfilename = changeFileName(outputFileName, latestR)
              else:
