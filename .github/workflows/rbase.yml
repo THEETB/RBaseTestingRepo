@@ -108,6 +108,7 @@ jobs:
                 newfilename = changeFileName(outputFileName, latestR)
              else:
                 newfilename = outputFileName
+             print(newFilename)
              updatedDict = dict()
              preprocessedFile = preprocessing(newFilename)
         shell: python
