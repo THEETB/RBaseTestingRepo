@@ -104,7 +104,7 @@ jobs:
             if latestR != currentR:
              isfile = checkFile(outputFileName)
              if not isfile:
-                newfilename = changeFileName(inputFileName, latestR)
+                newfilename = changeFileName(outputFileName, latestR)
              else:
                 newfilename = outputFileName
              updatedDict = dict()
