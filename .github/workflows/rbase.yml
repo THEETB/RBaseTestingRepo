@@ -58,6 +58,7 @@ jobs:
         run: |
             import sys
             import yaml
+            import json
             import os
             from collections import OrderedDict
             
@@ -65,7 +66,7 @@ jobs:
             currentR = "${{ vars.R_CURRENTVERSION }}"
             yaml_dump = ""
             outputFileName = 'inputs/input.yaml'
-            reserved_word = ["build-required", "RVersion", "layerName", "baselayername", "baselayertag", "buildlayername", "buildlayertag", "DockerfileType", "ToolName", "ToolVersion", "VariableName", "VariableValue"]
+            reserved_word = ["build-required", "RVersion", "layerName", "baselzayername", "baselayertag", "buildlayername", "buildlayertag", "DockerfileType", "ToolName", "ToolVersion", "VariableName", "VariableValue"]
             layernames = ["ros", "rdep", "rbase", "rstudio"]
             def checkFile(file):
                filerepo = "${{ github.workspace }}"
@@ -84,8 +85,8 @@ jobs:
                return ''.join([filenames, '_', Rversion.split(' ')[1], '.', extension])
             
             def create_sublayer(data):
-               print(data)
-            
+               jsonData = json.load(data)
+               print(jsonData)
             def preprocessing(filename):
                 updatedDict = dict()
                 with open('./inputs/RBaseTemplate.yaml', 'r') as fp:
