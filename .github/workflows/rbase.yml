@@ -91,7 +91,7 @@ jobs:
                       if v != None:
                          for key, val in v.items():
                             if key == "workflow-name":
-                               val = val.replace("{RVersion}", latestR.split(" ")[0])
+                               val = val.replace("{RVersion}", latestR.split(" ")[1])
                                print(val)
                             if key != "workflow-name" and 'Env' in val.keys():
                                val['Env']['R'] = latestR.split(" ")[1]
