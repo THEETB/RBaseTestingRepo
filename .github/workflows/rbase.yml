@@ -99,7 +99,7 @@ jobs:
                                val['Build_layer_tag'] = latestR.split(" ")[1]
                             updatedDict[key] = val
                 fp.close()
-                # print(updatedDict)
+                print(updatedDict)
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
                 #    yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
                 # fp.close() 
