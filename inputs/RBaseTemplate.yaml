@@ -1,8 +1,6 @@
 workflow-name: R-{RVersion}-build
-
 ---
-
-{layerName}:
+layerName:
   Baselayername: {baselayername}
   Baselayertag: {baselayertag}
   Build_layer_name: {buildlayername}
@@ -13,4 +11,3 @@ workflow-name: R-{RVersion}-build
     {ToolName}: {ToolVersion}
   Additional:
     {VariableName}: {VariableValue}
----
