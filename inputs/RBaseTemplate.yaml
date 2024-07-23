@@ -8,6 +8,6 @@ layerName:
   build-required: {buildrequired}
   Dockerfile: {DockerfileType}
   Env:
-    {ToolName}: {ToolVersion}
+    ToolName: {ToolVersion}
   Additional:
-    {VariableName}: {VariableValue}
+    VariableName: {VariableValue}
