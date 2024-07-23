@@ -88,15 +88,16 @@ jobs:
                 with open('./inputs/RBaseTemplate.yaml', 'r') as fp:
                    yamlObj = yaml.safe_load_all(fp)
                    for k, v in enumerate(yamlObj):
-                      print(k, v)
-                      # if v != None:
-                      #    for key, val in v.items():
-                      #       print(key, val)
-                   #          if key != "workflow-name" and 'Env' in val.keys():
-                   #             val['Env']['R'] = latestR.split(" ")[1]
-                   #          if key != "workflow-name" and 'Build_layer_tag' in val.keys():
-                   #             val['Build_layer_tag'] = latestR.split(" ")[1]
-                   #          updatedDict[key] = val
+                      if v != None:
+                         for key, val in v.items():
+                             if key == "workflow-name":
+                                val = val.replace("{RVersion}", latestR)
+                                print(val)
+                            if key != "workflow-name" and 'Env' in val.keys():
+                               val['Env']['R'] = latestR.split(" ")[1]
+                            if key != "workflow-name" and 'Build_layer_tag' in val.keys():
+                               val['Build_layer_tag'] = latestR.split(" ")[1]
+                            updatedDict[key] = val
                 fp.close()
                 # print(updatedDict)
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
@@ -105,12 +106,10 @@ jobs:
             
             if latestR != currentR:
              isfile = checkFile(outputFileName)
-             print(isfile)
              if not isfile:
                 newfilename = changeFileName(outputFileName, latestR)
              else:
                 newfilename = outputFileName
-             print(newfilename)
              updatedDict = dict()
              preprocessedFile = preprocessing(newfilename)
         shell: python
