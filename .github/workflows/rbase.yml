@@ -66,7 +66,7 @@ jobs:
             yaml_dump = ""
             outputFileName = 'inputs/input.yaml'
             reserved_word = ["build-required", "RVersion", "layerName", "baselayername", "baselayertag", "buildlayername", "buildlayertag", "DockerfileType", "ToolName", "ToolVersion", "VariableName", "VariableValue"]
-            
+            layernames = ["ros", "rdep", "rbase", "rstudio"]
             def checkFile(file):
                filerepo = "${{ github.workspace }}"
                filename = os.path.join(filerepo, "/../../", file)
@@ -82,7 +82,10 @@ jobs:
                filename, extension = filenames.split('.')
                filenames = filename.split(' ')[0]
                return ''.join([filenames, '_', Rversion.split(' ')[1], '.', extension])
-
+            
+            def create_sublayer(data):
+               print(data)
+            
             def preprocessing(filename):
                 updatedDict = dict()
                 with open('./inputs/RBaseTemplate.yaml', 'r') as fp:
@@ -92,12 +95,16 @@ jobs:
                          for key, val in v.items():
                             if key == "workflow-name":
                                val = val.replace("{RVersion}", latestR.split(" ")[1])
-                               print(val)
-                            if key != "workflow-name" and 'Env' in val.keys():
-                               val['Env']['R'] = latestR.split(" ")[1]
-                            if key != "workflow-name" and 'Build_layer_tag' in val.keys():
-                               val['Build_layer_tag'] = latestR.split(" ")[1]
+                            elif key == "layerName" and key in reserved_word:
+                               tempDict = dict()
+                               for layer in layernames:
+                                  tempDict[layer] = create_sublayer(val)
+                            # if key != "workflow-name" and 'Env' in val.keys():
+                            #    val['Env']['R'] = latestR.split(" ")[1]
+                            # if key != "workflow-name" and 'Build_layer_tag' in val.keys():
+                            #    val['Build_layer_tag'] = latestR.split(" ")[1]
                             updatedDict[key] = val
+
                 fp.close()
                 print(updatedDict)
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
