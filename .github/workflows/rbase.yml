@@ -99,6 +99,7 @@ jobs:
                                val = val.replace("{RVersion}", latestR.split(" ")[1])
                             elif key == "layerName" and key in reserved_word:
                                tempDict = dict()
+                               print("Testing: ", val)
                                for layer in layernames:
                                   tempDict[layer] = create_sublayer(layer, val)
                             # if key != "workflow-name" and 'Env' in val.keys():
