@@ -93,7 +93,7 @@ jobs:
             def create_sublayer(layername, data, layertag):
                if layername == "ros":
                   data["Baselayername"], data["Baselayertag"], data["Build_layer_name"] = baseosname, baseostag, "ros"
-                  print(layertag.split("-"))
+                  print("-".join(layertag.split("-")[:1]))
                # if layername != "rstudio" and layername != "rbase":
                   
             def preprocessing(filename):
