@@ -96,7 +96,7 @@ jobs:
                       if v != None:
                          for key, val in v.items():
                             if key == "workflow-name":
-                               val = val.replace("{RVersion}", latestR.split(" ")[1])
+                               v[key] = v[key].replace("{RVersion}", latestR.split(" ")[1])
                             elif key == "layerName" and key in reserved_word:
                                tempDict = dict()
                                print("Testing: ", val)
