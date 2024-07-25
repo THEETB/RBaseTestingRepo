@@ -101,6 +101,7 @@ jobs:
                    yamlObj = yaml.safe_load_all(fp)
                    for k, v in enumerate(yamlObj):
                       if v != None:
+                         print("v: ", v)
                          for key, val in v.items():
                             if key == "workflow-name":
                                v[key] = v[key].replace("{RVersion}", latestR.split(" ")[1])
@@ -108,7 +109,7 @@ jobs:
                                print("Val", v)
                                tempDict = dict()
                                for layer in layernames:
-                                  tempDict[layer] = create_sublayer(layer, val, v["workflow-name"])
+                                  tempDict[layer] = create_sublayer(layer, val)
                             # if key != "workflow-name" and 'Env' in val.keys():
                             #    val['Env']['R'] = latestR.split(" ")[1]
                             # if key != "workflow-name" and 'Build_layer_tag' in val.keys():
