@@ -94,6 +94,7 @@ jobs:
                if layername == "ros":
                   data["Baselayername"], data["Baselayertag"], data["Build_layer_name"] = baseosname, baseostag, "ros"
                   currentlayertag = "-".join(layertag.split("-")[:2])+"${{ env.date }}"
+                  print(currentlayertag)
                # if layername != "rstudio" and layername != "rbase":
                   
             def preprocessing(filename):
