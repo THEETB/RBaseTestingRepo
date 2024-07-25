@@ -93,8 +93,9 @@ jobs:
             def create_sublayer(layername, data, layertag):
                if layername == "ros":
                   data["Baselayername"], data["Baselayertag"], data["Build_layer_name"] = baseosname, baseostag, "ros"
-                  currentlayertag = "-".join(layertag.split("-")[:2])+"${{ env.date }}"
-                  print(currentlayertag)
+                  currentlayertag = "-".join(layertag.split("-")[:2])+"-"+"${{ env.date }}"
+                  if ${{ env.Build_required }}:
+                     print("Build required is present")
                # if layername != "rstudio" and layername != "rbase":
                   
             def preprocessing(filename):
