@@ -107,7 +107,6 @@ jobs:
                                v[key] = v[key].replace("{RVersion}", latestR.split(" ")[1])
                             elif key == "layerName" and key in reserved_word:
                                tempDict = dict()
-                               print("Testing: ", val)
                                for layer in layernames:
                                   tempDict[layer] = create_sublayer(layer, val, v["workflow-name"])
                             # if key != "workflow-name" and 'Env' in val.keys():
@@ -117,7 +116,7 @@ jobs:
                             updatedDict[key] = val
 
                 fp.close()
-                # print(updatedDict)
+                print(updatedDict)
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
                 #    yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
                 # fp.close() 
