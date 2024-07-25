@@ -53,6 +53,10 @@ jobs:
            with open(os.environ['GITHUB_ENV'], "a") as f:
               print(f'latest_R={latestR}', file=f)
 
+      - name: Test with environment variables
+        id: date
+        run: echo "date=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+        
       - name: Modify Input file if version change is detected
         id: parsing_file 
         run: |
@@ -63,6 +67,8 @@ jobs:
             
             latestR = "${{ env.latest_R }}"
             currentR = "${{ vars.R_CURRENTVERSION }}"
+            baseosname = "${{ vars.BaseOsName }}"
+            baseostag = "${{ vars.BaseOsTag }}"
             yaml_dump = ""
             outputFileName = 'inputs/input.yaml'
             reserved_word = ["build-required", "RVersion", "layerName", "baselzayername", "baselayertag", "buildlayername", "buildlayertag", "DockerfileType", "ToolName", "ToolVersion", "VariableName", "VariableValue"]
@@ -83,9 +89,10 @@ jobs:
                filenames = filename.split(' ')[0]
                return ''.join([filenames, '_', Rversion.split(' ')[1], '.', extension])
             
-            def create_sublayer(layername, data):
+            def create_sublayer(layername, data, layertag):
                if layername == "ros":
-                  print(data["Baselayername"], data)
+                  data["Baselayername"], data["Baselayertag"], data["Build_layer_name"] = baseosname, baseostag, "ros"
+                  print(layertag.split("-"))
                # if layername != "rstudio" and layername != "rbase":
                   
             def preprocessing(filename):
@@ -102,7 +109,7 @@ jobs:
                                tempDict = dict()
                                print("Testing: ", val)
                                for layer in layernames:
-                                  tempDict[layer] = create_sublayer(layer, val)
+                                  tempDict[layer] = create_sublayer(layer, val, v["workflow-name"])
                             # if key != "workflow-name" and 'Env' in val.keys():
                             #    val['Env']['R'] = latestR.split(" ")[1]
                             # if key != "workflow-name" and 'Build_layer_tag' in val.keys():
