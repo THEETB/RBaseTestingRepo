@@ -93,6 +93,7 @@ jobs:
                if layername == "ros" or layername == "rdep":
                   data["Baselayername"], data["Baselayertag"], data["Build_layer_name"] = baseosname, baseostag, "ros"
                   currentlayertag = "-".join(layertag.split("-")[:2])+"-"+"${{ env.date }}"
+                  data["Build_layer_tag"] = currentlayertag
                   buildRequired = "${{ vars.Build_required }}"
                   dockerfiletype = "${{ vars.DockerfileType }}"
                   if buildRequired.lower() != "no" or buildRequired.lower() != "false":
@@ -104,6 +105,7 @@ jobs:
                   else:
                      print("Error: Please provide correct filename")
                      exit()
+                  
                # elif layername == "rbase":
                #    data["Base"]
                return data
