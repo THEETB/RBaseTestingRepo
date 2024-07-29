@@ -98,10 +98,12 @@ jobs:
                   dockerfiletype = "${{ vars.DockerfileType }}"
                   if buildRequired.lower() != "no" or buildRequired.lower() != "false":
                      data["build-required"] = "false"
+                  else:
+                     data["build-required"] = buildRequired
                   if dockerfiletype.lower() != "custom":
-                     data["build-required"] = dockerfiletype.lower()
+                     data["Dockerfile"] = dockerfiletype.lower()
                   elif dockerfiletype.lower() == "custom":
-                     data["build-required"] = dockerfiletype.lower()
+                     data["Dockerfile"] = dockerfiletype.lower()
                   else:
                      print("Error: Please provide correct filename")
                      exit()
