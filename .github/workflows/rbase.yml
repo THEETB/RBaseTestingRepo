@@ -89,7 +89,7 @@ jobs:
                return ''.join([filenames, '_', Rversion.split(' ')[1], '.', extension])
             
             def create_sublayer(layername, data, layertag, baseosname, baseostag):
-               print(val, layername)
+               print(data, layername)
                if layername == "ros" or layername == "rdep":
                   data["Baselayername"], data["Baselayertag"], data["Build_layer_name"] = baseosname, baseostag, "ros"
                   currentlayertag = "-".join(layertag.split("-")[:2])+"-"+"${{ env.date }}"
