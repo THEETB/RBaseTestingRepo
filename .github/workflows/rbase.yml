@@ -119,7 +119,6 @@ jobs:
                                v[key] = v[key].replace("{RVersion}", latestR.split(" ")[1])
                                layertag = v[key]
                             elif key == "layerName" and key in reserved_word:
-                               print("Val", v)
                                tempDict = dict()
                                for layer in layernames:
                                   if layertag != "":
@@ -136,7 +135,6 @@ jobs:
                             updatedDict[key] = val
 
                 fp.close()
-                print(updatedDict)
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
                 #    yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
                 # fp.close() 
