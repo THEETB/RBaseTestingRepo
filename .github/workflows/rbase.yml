@@ -89,6 +89,7 @@ jobs:
                return ''.join([filenames, '_', Rversion.split(' ')[1], '.', extension])
             
             def create_sublayer(layername, data, layertag, baseosname, baseostag):
+               print(val, layername)
                if layername == "ros" or layername == "rdep":
                   data["Baselayername"], data["Baselayertag"], data["Build_layer_name"] = baseosname, baseostag, "ros"
                   currentlayertag = "-".join(layertag.split("-")[:2])+"-"+"${{ env.date }}"
@@ -113,7 +114,6 @@ jobs:
                    yamlObj = yaml.safe_load_all(fp)
                    for k, v in enumerate(yamlObj):
                       if v != None:
-                         print("v: ", v)
                          for key, val in v.items():
                             if key == "workflow-name":
                                v[key] = v[key].replace("{RVersion}", latestR.split(" ")[1])
