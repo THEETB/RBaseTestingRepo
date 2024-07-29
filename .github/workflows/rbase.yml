@@ -92,9 +92,9 @@ jobs:
                if layername == "ros" or layername == "rdep":
                   data["Baselayername"], data["Baselayertag"], data["Build_layer_name"] = baseosname, baseostag, "ros"
                   currentlayertag = "-".join(layertag.split("-")[:2])+"-"+"${{ env.date }}"
-                  build-required = "${{ vars.Build_required }}"
+                  buildRequired = "${{ vars.Build_required }}"
                   dockerfiletype = "${{ vars.DockerfileType }}"
-                  if build-required.lower() != "no" or build-required.lower() != "false":
+                  if buildRequired.lower() != "no" or buildRequired.lower() != "false":
                      data["build-required"] = "false"
                   if dockerfiletype.lower() != "custom":
                      data["build-required"] = dockerfiletype.lower()
@@ -103,8 +103,8 @@ jobs:
                   else:
                      print("Error: Please provide correct filename")
                      exit()
-               elif layername == "rbase":
-                  data["Base"]
+               # elif layername == "rbase":
+               #    data["Base"]
                return data
                                     
             def preprocessing(filename):
