@@ -67,8 +67,6 @@ jobs:
             
             latestR = "${{ env.latest_R }}"
             currentR = "${{ vars.R_CURRENTVERSION }}"
-            baseosname = "${{ vars.BaseOsName }}"
-            baseostag = "${{ vars.BaseOsTag }}"
             layertag = ""
             yaml_dump = ""
             outputFileName = 'inputs/input.yaml'
@@ -90,14 +88,25 @@ jobs:
                filenames = filename.split(' ')[0]
                return ''.join([filenames, '_', Rversion.split(' ')[1], '.', extension])
             
-            def create_sublayer(layername, data, layertag):
-               if layername == "ros":
+            def create_sublayer(layername, data, layertag, baseosname, baseostag):
+               if layername == "ros" or layername == "rdep":
                   data["Baselayername"], data["Baselayertag"], data["Build_layer_name"] = baseosname, baseostag, "ros"
                   currentlayertag = "-".join(layertag.split("-")[:2])+"-"+"${{ env.date }}"
-                  if ${{ vars.Build_required }}:
-                     print("Build required is present")
-               # if layername != "rstudio" and layername != "rbase":
-                  
+                  build-required = "${{ vars.Build_required }}"
+                  dockerfiletype = "${{ vars.DockerfileType }}"
+                  if build-required.lower() != "no" or build-required.lower() != "false":
+                     data["build-required"] = "false"
+                  if dockerfiletype.lower() != "custom":
+                     data["build-required"] = dockerfiletype.lower()
+                  elif dockerfiletype.lower() == "custom":
+                     data["build-required"] = dockerfiletype.lower()
+                  else:
+                     print("Error: Please provide correct filename")
+                     exit()
+               elif layername == "rbase":
+                  data["Base"]
+               return data
+                                    
             def preprocessing(filename):
                 updatedDict = dict()
                 with open('./inputs/RBaseTemplate.yaml', 'r') as fp:
@@ -114,7 +123,12 @@ jobs:
                                tempDict = dict()
                                for layer in layernames:
                                   if layertag != "":
-                                     tempDict[layer] = create_sublayer(layer, val, layertag)
+                                     if layer == "ros":
+                                        baseosname, baseostag = "${{ vars.Baseosname }}", "${{ vars.Baseostag }}"
+                                     elif layer == "rdep":
+                                        print(v["ros"])
+                                     tempDict[layer] = create_sublayer(layer, val, layertag, baseosname, baseostag)
+                                     print(tempDict[layer])
                             # if key != "workflow-name" and 'Env' in val.keys():
                             #    val['Env']['R'] = latestR.split(" ")[1]
                             # if key != "workflow-name" and 'Build_layer_tag' in val.keys():
