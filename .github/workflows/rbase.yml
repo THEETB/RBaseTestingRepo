@@ -96,10 +96,10 @@ jobs:
                   data["Build_layer_tag"] = currentlayertag
                   buildRequired = "${{ vars.Build_required }}"
                   dockerfiletype = "${{ vars.DockerfileType }}"
-                  if buildRequired.lower() != "no" or buildRequired.lower() != "false":
+                  if buildRequired.lower() != "no" or buildRequired.lower() == "false":
                      data["build-required"] = "false"
                   else:
-                     data["build-required"] = buildRequired
+                     data["build-required"] = "true"
                   if dockerfiletype.lower() != "custom":
                      data["Dockerfile"] = dockerfiletype.lower()
                   elif dockerfiletype.lower() == "custom":
