@@ -112,7 +112,7 @@ jobs:
                   if 'Additional' in data:
                      del data["Additional"]
                elif layername == "rbase":
-                  print(layername)
+                  print(d)
                return data
                                     
             def preprocessing(filename):
@@ -130,8 +130,9 @@ jobs:
                                tempDict = dict()
                                for layer in layernames:
                                   jsonVal = val
+                                  if layer == "rbase":
+                                     print(baseosname, baseostag)
                                   if layertag != "":
-                                     print(jsonVal, layer)
                                      tempDict[layer] = create_sublayer(layer, jsonVal, layertag, baseosname, baseostag)
                                      baseosname, baseostag = tempDict[layer]["Build_layer_name"], tempDict[layer]["Build_layer_tag"]
                             # if key != "workflow-name" and 'Env' in val.keys():
