@@ -116,7 +116,7 @@ jobs:
                      data['Env']['R'] = latestR.split(" ")[1]
                elif layername == "rstudio":
                   if not 'Additional':
-                    data['Additional'] = ${{ vars.Additional_* }}
+                    data['Additional'] = ${{ vars.Additional_ }}
                     print(data['Additional'])
                return data
                                     
