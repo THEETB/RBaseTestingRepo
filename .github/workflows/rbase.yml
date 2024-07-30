@@ -89,8 +89,7 @@ jobs:
                # print(data, layername)
                if layername == "ros" or layername == "rdep":
                   data["Baselayername"], data["Baselayertag"], data["Build_layer_name"] = baseosname, baseostag, layername
-                  
-                  currentlayertag = "-".join(layertag.split("-")[:2])+"-"+date.today()
+                  currentlayertag = "-".join(layertag.split("-")[:2])+"-"+str(+date.today())
                   data["Build_layer_tag"] = currentlayertag
                   buildRequired = "${{ vars.Build_required }}"
                   dockerfiletype = "${{ vars.DockerfileType }}"
