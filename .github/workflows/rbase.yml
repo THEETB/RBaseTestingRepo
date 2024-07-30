@@ -130,8 +130,7 @@ jobs:
                                tempDict = dict()
                                for layer in layernames:
                                   jsonVal = val
-                                  if layer == "rbase":
-                                     print(baseosname, baseostag)
+                                  print(baseosname, baseostag)
                                   if layertag != "":
                                      tempDict[layer] = create_sublayer(layer, jsonVal, layertag, baseosname, baseostag)
                                      baseosname, baseostag = tempDict[layer]["Build_layer_name"], tempDict[layer]["Build_layer_tag"]
