@@ -86,32 +86,38 @@ jobs:
                return ''.join([filenames, '_', Rversion.split(' ')[1], '.', extension])
             
             def create_sublayer(layername, data, layertag, baseosname, baseostag):
-               # print(data, layername)
+               currentime = datetime.now()
+               datetime_str = currentime.strftime("%H%M%S%f")
+               currentlayertag = "-".join(layertag.split("-")[:2])+"-"+datetime_str
+               data["Baselayername"], data["Baselayertag"], data["Build_layer_name"] = baseosname, baseostag, layername
+               data["Build_layer_tag"] = currentlayertag
+               buildRequired = "${{ vars.Build_required }}"
+               dockerfiletype = "${{ vars.DockerfileType }}"
+               if buildRequired.lower() == "no" or buildRequired.lower() == "false":
+                  data["build-required"] = "false"
+               else:
+                  data["build-required"] = "true"
+               if dockerfiletype.lower() != "custom":
+                  data["Dockerfile"] = dockerfiletype.lower()
+               elif dockerfiletype.lower() == "custom":
+                  data["Dockerfile"] = dockerfiletype.lower()
+               else:
+                  print("Error: Please provide correct filename")
+                  exit()
                if layername == "ros" or layername == "rdep":
-                  data["Baselayername"], data["Baselayertag"], data["Build_layer_name"] = baseosname, baseostag, layername
-                  currentime = datetime.now()
-                  datetime_str = currentime.strftime("%H%M%S%f")
-                  currentlayertag = "-".join(layertag.split("-")[:2])+"-"+datetime_str
-                  data["Build_layer_tag"] = currentlayertag
-                  buildRequired = "${{ vars.Build_required }}"
-                  dockerfiletype = "${{ vars.DockerfileType }}"
-                  if buildRequired.lower() == "no" or buildRequired.lower() == "false":
-                     data["build-required"] = "false"
-                  else:
-                     data["build-required"] = "true"
-                  if dockerfiletype.lower() != "custom":
-                     data["Dockerfile"] = dockerfiletype.lower()
-                  elif dockerfiletype.lower() == "custom":
-                     data["Dockerfile"] = dockerfiletype.lower()
-                  else:
-                     print("Error: Please provide correct filename")
-                     exit()
                   if 'Env' in data:
                      del data["Env"]
                   if 'Additional' in data:
                      del data["Additional"]
-               elif layername == "rbase":
-                  print(layername)
+               elif layername == "rbase" or layername == "rstudio":
+                  if not 'Env':
+                     data['Env'].append({'R': latestR.split(" ")[1]})
+                  else:
+                     data['Env']['R'] = latestR.split(" ")[1]
+               elif layername == "rstudio":
+                  if not 'Additional':
+                    data['Additional'] = ${{ vars.Additional_* }}
+                    print(data['Additional'])
                return data
                                     
             def preprocessing(filename):
