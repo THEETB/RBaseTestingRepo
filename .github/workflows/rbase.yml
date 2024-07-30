@@ -112,7 +112,7 @@ jobs:
                   if 'Additional' in data:
                      del data["Additional"]
                elif layername == "rbase":
-                  print(d)
+                  print(layername)
                return data
                                     
             def preprocessing(filename):
