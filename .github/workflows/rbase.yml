@@ -128,8 +128,8 @@ jobs:
                                tempDict = dict()
                                for layer in layernames:
                                   if layertag != "":
-                                        print(baseosname, baseostag)
                                         tempDict[layer] = create_sublayer(layer, val, layertag, baseosname, baseostag)
+                                        print(data, layer)
                                         baseosname, baseostag = tempDict[layer]["Build_layer_name"], tempDict[layer]["Build_layer_tag"]
                             # if key != "workflow-name" and 'Env' in val.keys():
                             #    val['Env']['R'] = latestR.split(" ")[1]
