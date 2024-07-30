@@ -30,7 +30,7 @@ jobs:
 
       - name: Setting the python library
         run: |
-         pip install pyyaml requests
+         pip install pyyaml requests datetime
 
             
       - name: Check out repository code
@@ -52,10 +52,6 @@ jobs:
            latestR = json_en['Release']
            with open(os.environ['GITHUB_ENV'], "a") as f:
               print(f'latest_R={latestR}', file=f)
-
-      - name: Test with environment variables
-        id: date
-        run: echo "date=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
         
       - name: Modify Input file if version change is detected
         id: parsing_file 
@@ -63,6 +59,7 @@ jobs:
             import sys
             import yaml
             import os
+            from datetime import date
             from collections import OrderedDict
             
             latestR = "${{ env.latest_R }}"
@@ -92,7 +89,8 @@ jobs:
                # print(data, layername)
                if layername == "ros" or layername == "rdep":
                   data["Baselayername"], data["Baselayertag"], data["Build_layer_name"] = baseosname, baseostag, layername
-                  currentlayertag = "-".join(layertag.split("-")[:2])+"-"+"${{ env.date }}"
+                  
+                  currentlayertag = "-".join(layertag.split("-")[:2])+"-"+date.today()
                   data["Build_layer_tag"] = currentlayertag
                   buildRequired = "${{ vars.Build_required }}"
                   dockerfiletype = "${{ vars.DockerfileType }}"
