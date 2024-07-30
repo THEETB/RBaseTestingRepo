@@ -131,8 +131,8 @@ jobs:
                                      if layer == "ros":
                                         tempDict[layer] = create_sublayer(layer, val, layertag, baseosname, baseostag)
                                         baseosname, baseostag = tempDict[layer]["Build_layer_name"], tempDict[layer]["Build_layer_tag"]
-                                    elif layer == "rdep":
-                                       print(baseosname, baseostag)
+                                     elif layer == "rdep":
+                                        print(baseosname, baseostag)
                             # if key != "workflow-name" and 'Env' in val.keys():
                             #    val['Env']['R'] = latestR.split(" ")[1]
                             # if key != "workflow-name" and 'Build_layer_tag' in val.keys():
