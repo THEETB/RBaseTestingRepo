@@ -117,7 +117,8 @@ jobs:
                elif layername == "rstudio":
                   if not 'Additional':
                     # data['Additional'] = ${{ vars.Additional_ }}
-                    print("${{ toJSON(vars) }}")
+                    vs=${{ toJSON(vars) }}
+                    print(vs)
                return data
                                     
             def preprocessing(filename):
