@@ -89,7 +89,7 @@ jobs:
                return ''.join([filenames, '_', Rversion.split(' ')[1], '.', extension])
             
             def create_sublayer(layername, data, layertag, baseosname, baseostag):
-               print(data, layername)
+               # print(data, layername)
                if layername == "ros" or layername == "rdep":
                   data["Baselayername"], data["Baselayertag"], data["Build_layer_name"] = baseosname, baseostag, "ros"
                   currentlayertag = "-".join(layertag.split("-")[:2])+"-"+"${{ env.date }}"
@@ -133,7 +133,7 @@ jobs:
                                      # elif layer == "rdep":
                                      #    print(v["ros"])
                                      tempDict[layer] = create_sublayer(layer, val, layertag, baseosname, baseostag)
-                                     print(layer, tempDict[layer])
+                                     # print(layer, tempDict[layer])
                             # if key != "workflow-name" and 'Env' in val.keys():
                             #    val['Env']['R'] = latestR.split(" ")[1]
                             # if key != "workflow-name" and 'Build_layer_tag' in val.keys():
