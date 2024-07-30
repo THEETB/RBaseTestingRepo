@@ -59,7 +59,7 @@ jobs:
             import sys
             import yaml
             import os
-            from datetime import date
+            from datetime import datetime
             from collections import OrderedDict
             
             latestR = "${{ env.latest_R }}"
@@ -89,7 +89,9 @@ jobs:
                # print(data, layername)
                if layername == "ros" or layername == "rdep":
                   data["Baselayername"], data["Baselayertag"], data["Build_layer_name"] = baseosname, baseostag, layername
-                  currentlayertag = "-".join(layertag.split("-")[:2])+"-"+str(+date.today())
+                  currentime = datetime.now()
+                  datetime_str = currentime.strftime("%Y-%m-%d %H:%M:%S")
+                  currentlayertag = "-".join(layertag.split("-")[:2])+"-"+datetime_str
                   data["Build_layer_tag"] = currentlayertag
                   buildRequired = "${{ vars.Build_required }}"
                   dockerfiletype = "${{ vars.DockerfileType }}"
