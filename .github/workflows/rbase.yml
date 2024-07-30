@@ -107,10 +107,10 @@ jobs:
                   else:
                      print("Error: Please provide correct filename")
                      exit()
-                  if 'Env' in data:
-                     del data["Env"]
-                  if 'Additional' in data:
-                     del data["Additional"]
+                  # if 'Env' in data:
+                  del data["Env"]
+                  # if 'Additional' in data:
+                  del data["Additional"]
                elif layername == "rbase":
                   print(layername)
                return data
