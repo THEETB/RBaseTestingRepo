@@ -91,7 +91,7 @@ jobs:
             def create_sublayer(layername, data, layertag, baseosname, baseostag):
                # print(data, layername)
                if layername == "ros" or layername == "rdep":
-                  data["Baselayername"], data["Baselayertag"], data["Build_layer_name"] = baseosname, baseostag, "ros"
+                  data["Baselayername"], data["Baselayertag"], data["Build_layer_name"] = baseosname, baseostag, layername
                   currentlayertag = "-".join(layertag.split("-")[:2])+"-"+"${{ env.date }}"
                   data["Build_layer_tag"] = currentlayertag
                   buildRequired = "${{ vars.Build_required }}"
