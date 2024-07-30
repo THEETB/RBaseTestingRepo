@@ -107,7 +107,6 @@ jobs:
                   else:
                      print("Error: Please provide correct filename")
                      exit()
-                  print("Env: ", data["Env"])
                   del data["Env"]
                   del data["Additional"]
                # elif layername == "rbase":
@@ -133,7 +132,7 @@ jobs:
                                      # elif layer == "rdep":
                                      #    print(v["ros"])
                                         tempDict[layer] = create_sublayer(layer, val, layertag, baseosname, baseostag)
-                                     # print(layer, tempDict[layer])
+                                     print(layer, tempDict[layer])
                             # if key != "workflow-name" and 'Env' in val.keys():
                             #    val['Env']['R'] = latestR.split(" ")[1]
                             # if key != "workflow-name" and 'Build_layer_tag' in val.keys():
