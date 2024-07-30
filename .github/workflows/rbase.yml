@@ -90,7 +90,7 @@ jobs:
                if layername == "ros" or layername == "rdep":
                   data["Baselayername"], data["Baselayertag"], data["Build_layer_name"] = baseosname, baseostag, layername
                   currentime = datetime.now()
-                  datetime_str = currentime.strftime("%Y%m%d%H%M%S")
+                  datetime_str = currentime.strftime("%H%M%S%f")
                   currentlayertag = "-".join(layertag.split("-")[:2])+"-"+datetime_str
                   data["Build_layer_tag"] = currentlayertag
                   buildRequired = "${{ vars.Build_required }}"
