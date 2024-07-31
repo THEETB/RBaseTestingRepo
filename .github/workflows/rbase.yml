@@ -115,7 +115,7 @@ jobs:
                   envs = {k:envDict[k] for k, v in envDict.items() if "ENV" in k}
                   for k, v in envs.items():
                      if 'Env' not in data:
-                        data['Env'] = {k.split("_")[:1]:latestR.split(" ")[1]}
+                        data['Env'] = {"_".join(k.split("_")[:1]):latestR.split(" ")[1]}
                      elif 'Env' in data:
                         data['Env'][k] = latestR.split(" ")[1]
                elif layername == "rstudio":
@@ -123,7 +123,7 @@ jobs:
                   additional = {k:additionalDict[k] for k, v in additionalDict.items() if "ADDITIONAL" in k}
                   for k, v in additional.items():
                      if 'Additional' not in data:
-                        data['Additional'] = {k.split("_")[:1]:v}
+                        data['Additional'] = {"_".join(k.split("_")[:1]):v}
                      elif 'Env' in data:
                         data['Additional'][k] = v
                return data
