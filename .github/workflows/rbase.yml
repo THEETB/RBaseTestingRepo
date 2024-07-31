@@ -131,7 +131,7 @@ jobs:
                           for layer in layernames:
                              tempDict = dict()
                              for key, val in v.items():
-                                if key != 'workflow-name:
+                                if key != 'workflow-name':
                                     print(layer, key, val, layertag, v["workflow-name"])
                 fp.close()
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
