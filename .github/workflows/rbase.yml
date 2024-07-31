@@ -139,7 +139,7 @@ jobs:
                                       if layer == "ros":
                                           print(tempDict)
                                           del tempDict['Env']
-                                          # del tempDict['Additional']
+                                          del tempDict['Additional']
                                       # elif layer == "rbase":
                                       #     print(tempDict)
                                       #     del tempDict['Additional']
