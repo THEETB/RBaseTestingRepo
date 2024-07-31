@@ -113,7 +113,11 @@ jobs:
                   if 'Env' not in data:
                      data['Env'] = {'R': latestR.split(" ")[1]}
                      file_path = os.environ.get('GITHUB_ENV', None)
-                     print(file_path)
+                     if file_path not None:
+                        print("Error: Environment variable is not set. Please check the environment variable.")
+                        exit()
+                     with open(file_path, 'r') as gh_envs:
+                        print(gh_envs.readlines())
                   elif 'Env' in data:
                      data['Env']['R'] = latestR.split(" ")[1]
                elif layername == "rstudio":
