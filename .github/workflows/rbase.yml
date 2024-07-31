@@ -115,7 +115,6 @@ jobs:
                   envs = {k:envDict[k] for k, v in envDict.items() if "ENV" in k}
                   for k, v in envs.items():
                      if 'Env' not in data:
-                        print(data)
                         data['Env'] = {"_".join(k.split("_")[:1]):latestR.split(" ")[1]}
                      elif 'Env' in data:
                         data['Env']["_".join(k.split("_")[:1])] = latestR.split(" ")[1]
@@ -145,6 +144,7 @@ jobs:
                                tempDict = dict()
                                for layer in layernames:
                                   if layertag != "":
+                                     print(val)
                                      tempDict[layer] = create_sublayer(layer, val, layertag, baseosname, baseostag)
                                      baseosname, baseostag = tempDict[layer]["Build_layer_name"], tempDict[layer]["Build_layer_tag"]
                                      updatedDict[layer] = tempDict[layer]
