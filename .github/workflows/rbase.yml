@@ -114,9 +114,9 @@ jobs:
                   envDict = ${{ toJSON(vars) }}
                   envs = {k:envDict[k] for k, v in envDict.items() if "ENV" in k}
                   for k, v in envs.items():
-                     if 'Env' not in data:
-                        data['Env'] = {"_".join(k.split("_")[:1]):latestR.split(" ")[1]}
-                     elif 'Env' in data:
+                     # if 'Env' not in data:
+                     #    data['Env'] = {"_".join(k.split("_")[:1]):latestR.split(" ")[1]}
+                     if 'Env' in data:
                         data['Env']["_".join(k.split("_")[:1])] = latestR.split(" ")[1]
                elif layername == "rstudio":
                   additionalDict = ${{ toJSON(vars) }}
