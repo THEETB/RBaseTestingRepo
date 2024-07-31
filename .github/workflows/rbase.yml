@@ -132,8 +132,8 @@ jobs:
                                updatedDict[key] = v[key]
                                layertag = v[key]
                             elif key == "layerName":
-                               tempDict = val
                                for layer in layernames:
+                                  tempDict = val
                                   if layertag != "":
                                       if layer == "ros":
                                           print(tempDict)
