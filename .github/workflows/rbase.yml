@@ -125,7 +125,7 @@ jobs:
                      if 'Additional' not in data:
                         data['Additional'] = {"_".join(k.split("_")[:1]):v}
                      elif 'Env' in data:
-                        data['Additional'][k] = v
+                        data['Additional']["_".join(k.split("_")[:1])] = v
                return data
                                     
             def preprocessing(filename):
@@ -148,7 +148,7 @@ jobs:
                                      print(tempDict[layer])
                                      baseosname, baseostag = tempDict[layer]["Build_layer_name"], tempDict[layer]["Build_layer_tag"]
                                      updatedDict[layer] = tempDict[layer]
-                                     # print(updatedDict)
+                                     print("Dict: ", updatedDict)
 
                 fp.close()
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
