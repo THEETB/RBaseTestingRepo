@@ -113,7 +113,8 @@ jobs:
                elif layername == "rbase" or layername == "rstudio":
                   if 'Env' not in data:
                      data['Env'] = {'R': latestR.split(" ")[1]}
-                     envs = {k:v for k, v in json.dumps(${{ toJSON(vars) }}).items()}
+                     envDict = ${{ toJSON(vars) }}
+                     envs = {k:v for k, v in envDict.items()}
                      print(envs)
                   elif 'Env' in data:
                      data['Env']['R'] = latestR.split(" ")[1]
