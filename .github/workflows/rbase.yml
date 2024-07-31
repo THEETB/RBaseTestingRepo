@@ -117,7 +117,6 @@ jobs:
                   for k, v in additional.items():
                      if 'Additional' in data:
                         data['Additional']["_".join(k.split("_")[:1])] = v
-               print(layername, data)
                return data
                                     
             def preprocessing(filename):
@@ -140,9 +139,9 @@ jobs:
                                           print(tempDict)
                                           del tempDict['Env']
                                           del tempDict['Additional']
-                                      # elif layer == "rbase":
-                                      #     print(tempDict)
-                                      #     del tempDict['Additional']
+                                      elif layer == "rbase":
+                                          print(tempDict)
+                                          del tempDict['Additional']
                                       jsonval= create_sublayer(layer, tempDict, layertag, baseosname, baseostag)
                                       baseosname, baseostag = jsonval["Build_layer_name"], jsonval["Build_layer_tag"]
                                       updatedDict[layer] = jsonval
