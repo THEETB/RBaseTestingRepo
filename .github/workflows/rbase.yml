@@ -144,8 +144,8 @@ jobs:
                                tempDict = dict()
                                for layer in layernames:
                                   if layertag != "":
-                                     print(val)
                                      tempDict[layer] = create_sublayer(layer, val, layertag, baseosname, baseostag)
+                                     print(tempDict[layer])
                                      baseosname, baseostag = tempDict[layer]["Build_layer_name"], tempDict[layer]["Build_layer_tag"]
                                      updatedDict[layer] = tempDict[layer]
                                      # print(updatedDict)
