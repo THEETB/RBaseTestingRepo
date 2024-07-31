@@ -135,9 +135,9 @@ jobs:
                             elif key == "layerName":
                                tempDict = val
                                for layer in layernames:
-                                  print(tempDict)
                                   if layertag != "":
                                       if layer == "ros":
+                                          print(tempDict)
                                           del tempDict['Env']
                                           # del tempDict['Additional']
                                       # elif layer == "rbase":
