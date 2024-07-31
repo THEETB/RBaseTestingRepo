@@ -137,8 +137,9 @@ jobs:
                       if v != None:
                          for key, val in v.items():
                             if key == "workflow-name":
-                               val[key] = val[key].replace("{RVersion}", latestR.split(" ")[1])
-                               layertag = val[key]
+                               v[key] = v[key].replace("{RVersion}", latestR.split(" ")[1])
+                               updatedDict[key] = v[key]
+                               layertag = v[key]
                             elif key == "layerName" and key in reserved_word:
                                tempDict = dict()
                                for layer in layernames:
