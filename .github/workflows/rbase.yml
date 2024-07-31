@@ -61,6 +61,7 @@ jobs:
             import os
             from datetime import datetime
             from collections import OrderedDict
+            import json
             
             latestR = "${{ env.latest_R }}"
             currentR = "${{ vars.R_CURRENTVERSION }}"
