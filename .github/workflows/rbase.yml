@@ -115,7 +115,7 @@ jobs:
                   elif 'Env' in data:
                      data['Env']['R'] = latestR.split(" ")[1]
                elif layername == "rstudio":
-                  if 'Additional' in data:
+                  if 'Additional' not in data:
                     # data['Additional'] = ${{ vars.Additional_ }}
                     vs=${{ toJSON(vars) }}
                     print(vs)
