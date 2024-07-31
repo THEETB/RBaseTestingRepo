@@ -125,6 +125,7 @@ jobs:
                 with open('./inputs/RBaseTemplate.yaml', 'r') as fp:
                    yamlObj = yaml.safe_load_all(fp)
                    for k, v in enumerate(yamlObj):
+                      print(k, v)
                       if v != None:
                          for key, val in v.items():
                             if key == "workflow-name":
@@ -146,7 +147,7 @@ jobs:
                                       jsonval= create_sublayer(layer, tempDict, layertag, baseosname, baseostag)
                                       baseosname, baseostag = jsonval["Build_layer_name"], jsonval["Build_layer_tag"]
                                   updatedDict[layer] = jsonval
-                print(updatedDict)    
+                print(updatedDict)
                 fp.close()
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
                 #    yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
