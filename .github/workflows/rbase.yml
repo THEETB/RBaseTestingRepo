@@ -105,12 +105,7 @@ jobs:
                else:
                   print("Error: Please provide correct filename")
                   exit()
-               if layername == "ros" or layername == "rdep":
-                  if 'Env' in data:
-                     del data["Env"]
-                  if 'Additional' in data:
-                     del data["Additional"]
-               elif layername == "rbase" or layername == "rstudio":
+               if layername == "rbase" or layername == "rstudio":
                   envDict = ${{ toJSON(vars) }}
                   envs = {k:envDict[k] for k, v in envDict.items() if "ENV" in k}
                   for k, v in envs.items():
