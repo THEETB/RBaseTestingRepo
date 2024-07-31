@@ -117,7 +117,7 @@ jobs:
                elif layername == "rstudio":
                   if 'Additional' not in data:
                     # data['Additional'] = ${{ vars.Additional_ }}
-              vs=${{ toJSON(vars) }}
+              vs="${{ toJSON(vars) }}"
               print(vs)
                return data
                                     
