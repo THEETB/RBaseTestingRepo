@@ -111,16 +111,21 @@ jobs:
                   if 'Additional' in data:
                      del data["Additional"]
                elif layername == "rbase" or layername == "rstudio":
-                  if 'Env' not in data:
-                     data['Env'] = {'R': latestR.split(" ")[1]}
-                     envDict = ${{ toJSON(vars) }}
-                     envs = {k:envDict[k] for k, v in envDict.items() if "ENV" in k}
-                     print(envs)
-                  elif 'Env' in data:
-                     data['Env']['R'] = latestR.split(" ")[1]
-               # elif layername == "rstudio":
-                  # if 'Additional' not in data:
-                    # data['Additional'] = ${{ vars.Additional_ }}
+                  envDict = ${{ toJSON(vars) }}
+                  envs = {k:envDict[k] for k, v in envDict.items() if "ENV" in k}
+                  for k, v in envs:
+                     if 'Env' not in data:
+                        data['Env'][k] = latestR.split(" ")[1]
+                     elif 'Env' in data:
+                        data['Env'][k] = latestR.split(" ")[1]
+               elif layername == "rstudio":
+                  additionalDict = ${{ toJSON(vars) }}
+                  additional = {k:additionalDict[k] for k, v in additionalDict.items() if "ADDITIONAL" in k}
+                  for k, v in additional:
+                     if 'Additional' not in data:
+                        data['Additional'][k] = v
+                     elif 'Env' in data:
+                        data['Additional'][k] = v
                return data
                                     
             def preprocessing(filename):
@@ -137,16 +142,11 @@ jobs:
                             elif key == "layerName" and key in reserved_word:
                                tempDict = dict()
                                for layer in layernames:
-                                  jsonVal = val
-                                  print(baseosname, baseostag)
                                   if layertag != "":
-                                     tempDict[layer] = create_sublayer(layer, jsonVal, layertag, baseosname, baseostag)
+                                     tempDict[layer] = create_sublayer(layer, val, layertag, baseosname, baseostag)
                                      baseosname, baseostag = tempDict[layer]["Build_layer_name"], tempDict[layer]["Build_layer_tag"]
-                            # if key != "workflow-name" and 'Env' in val.keys():
-                            #    val['Env']['R'] = latestR.split(" ")[1]
-                            # if key != "workflow-name" and 'Build_layer_tag' in val.keys():
-                            #    val['Build_layer_tag'] = latestR.split(" ")[1]
                             updatedDict[key] = val
+                            print(updatedDict)
 
                 fp.close()
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
