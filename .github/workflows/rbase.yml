@@ -112,7 +112,7 @@ jobs:
                elif layername == "rbase" or layername == "rstudio":
                   if 'Env' not in data:
                      data['Env'] = {'R': latestR.split(" ")[1]}
-                     file_path = os.env.get('GITHUB_ENV', None)
+                     file_path = os.environ.get('GITHUB_ENV', None)
                      print(file_path)
                   elif 'Env' in data:
                      data['Env']['R'] = latestR.split(" ")[1]
