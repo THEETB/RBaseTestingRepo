@@ -137,7 +137,7 @@ jobs:
                                   if layertag != "":
                                       if layer == "ros" or layer == "rdep":
                                           print(tempDict)
-                                          if tempDict['Env']:
+                                          if 'Env' in tempDict:
                                               del tempDict['Env']
                                           if 'Additional' in tempDict:
                                               del tempDict['Additional']
