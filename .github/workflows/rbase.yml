@@ -149,7 +149,7 @@ jobs:
                                      tempDict[layer] = create_sublayer(layer, jsonval, layertag, baseosname, baseostag)
                                      updatedDict[layer] = tempDict[layer]
                                      baseosname, baseostag = tempDict[layer]["Build_layer_name"], tempDict[layer]["Build_layer_tag"]
-                                     print("Dict: ", updatedDict[layer])
+                                     print("Dict: ", updatedDict)
 
                 fp.close()
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
