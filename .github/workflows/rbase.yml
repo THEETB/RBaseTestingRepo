@@ -146,9 +146,8 @@ jobs:
                                   if layertag != "":
                                      tempDict[layer] = create_sublayer(layer, val, layertag, baseosname, baseostag)
                                      baseosname, baseostag = tempDict[layer]["Build_layer_name"], tempDict[layer]["Build_layer_tag"]
-                                     print(tempDict[layer])
-                   # updatedDict[layer] = val
-                   # print(updatedDict)
+                                     updatedDict[layer] = val
+                   print(updatedDict)
 
                 fp.close()
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
