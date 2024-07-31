@@ -141,7 +141,7 @@ jobs:
                                           if 'Additional' in tempDict:
                                               del tempDict['Additional']
                                       elif layer == "rbase":
-                                          if 'Additional' not in tempDict:
+                                          if 'Additional' in tempDict:
                                               del tempDict['Additional']
                                       jsonval= create_sublayer(layer, tempDict, layertag, baseosname, baseostag)
                                       baseosname, baseostag = jsonval["Build_layer_name"], jsonval["Build_layer_tag"]
