@@ -115,6 +115,7 @@ jobs:
                   envs = {k:envDict[k] for k, v in envDict.items() if "ENV" in k}
                   for k, v in envs.items():
                      if 'Env' not in data:
+                        print(data)
                         data['Env'] = {"_".join(k.split("_")[:1]):latestR.split(" ")[1]}
                      elif 'Env' in data:
                         data['Env']["_".join(k.split("_")[:1])] = latestR.split(" ")[1]
