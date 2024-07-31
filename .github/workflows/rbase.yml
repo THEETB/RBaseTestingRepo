@@ -112,7 +112,7 @@ jobs:
                elif layername == "rbase" or layername == "rstudio":
                   if 'Env' not in data:
                      data['Env'] = {'R': latestR.split(" ")[1]}
-                     file_path = os.environ.get('GITHUB_ENV', None)
+                     file_path = os.getenv('GITHUB_ENV')
                      if file_path is None:
                         print("Error: Environment variable is not set. Please check the environment variable.")
                         exit()
@@ -122,8 +122,6 @@ jobs:
                      data['Env']['R'] = latestR.split(" ")[1]
                elif layername == "rstudio":
                   # if 'Additional' not in data:
-                  file_path = os.getenv('GITHUB_ENV')
-                  print(file_path)
                     # data['Additional'] = ${{ vars.Additional_ }}
                return data
                                     
