@@ -140,14 +140,14 @@ jobs:
                                v[key] = v[key].replace("{RVersion}", latestR.split(" ")[1])
                                updatedDict[key] = v[key]
                                layertag = v[key]
-                            elif key == "layerName" and key in reserved_word:
+                            elif key == "layerName":
                                tempDict = dict()
                                for layer in layernames:
                                   if layertag != "":
                                      tempDict[layer] = create_sublayer(layer, val, layertag, baseosname, baseostag)
                                      print(layer, tempDict[layer])
-                                     baseosname, baseostag = tempDict[layer]["Build_layer_name"], tempDict[layer]["Build_layer_tag"]
                                      updatedDict[layer] = tempDict[layer]
+                                     baseosname, baseostag = tempDict[layer]["Build_layer_name"], tempDict[layer]["Build_layer_tag"]
                                      print("Dict: ", updatedDict)
 
                 fp.close()
