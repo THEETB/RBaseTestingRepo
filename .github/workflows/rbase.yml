@@ -143,8 +143,8 @@ jobs:
                                   if layertag != "":
                                       if layer == "ros" or layer== "rdep":
                                           print(val)
-                                     jsonval= create_sublayer(layer, val, layertag, baseosname, baseostag)
-                                     baseosname, baseostag = jsonval["Build_layer_name"], jsonval["Build_layer_tag"]
+                                      jsonval= create_sublayer(layer, val, layertag, baseosname, baseostag)
+                                      baseosname, baseostag = jsonval["Build_layer_name"], jsonval["Build_layer_tag"]
                            updatedDict[layer] = jsonval
                         
                 fp.close()
