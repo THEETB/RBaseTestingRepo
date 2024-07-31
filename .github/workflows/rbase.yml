@@ -134,16 +134,17 @@ jobs:
                                layertag = v[key]
                             elif key == "layerName":
                                tempDict = val
+                               print(tempDict)
                                for layer in layernames:
                                   if layertag != "":
                                       if layer == "ros" or layer == "rdep":
                                           del tempDict['Env']
-                                          del tempDict['Additional']
-                                      elif layer == "rbase":
-                                          del tempDict['Additional']
-                                      jsonval= create_sublayer(layer, tempDict, layertag, baseosname, baseostag)
-                                      baseosname, baseostag = jsonval["Build_layer_name"], jsonval["Build_layer_tag"]
-                                      updatedDict[layer] = jsonval
+                                          # del tempDict['Additional']
+                                      # elif layer == "rbase":
+                                      #     del tempDict['Additional']
+                                      # jsonval= create_sublayer(layer, tempDict, layertag, baseosname, baseostag)
+                                      # baseosname, baseostag = jsonval["Build_layer_name"], jsonval["Build_layer_tag"]
+                                      # updatedDict[layer] = jsonval
                         
                 fp.close()
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
