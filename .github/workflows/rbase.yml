@@ -110,9 +110,9 @@ jobs:
                   if 'Additional' in data:
                      del data["Additional"]
                elif layername == "rbase" or layername == "rstudio":
-                  if not 'Env':
+                  if 'Env' not in data:
                      data['Env'].append({'R': latestR.split(" ")[1]})
-                  else:
+                  elif 'Env' in data:
                      data['Env']['R'] = latestR.split(" ")[1]
                elif layername == "rstudio":
                   if not 'Additional':
