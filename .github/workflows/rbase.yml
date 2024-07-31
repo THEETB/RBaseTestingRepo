@@ -114,9 +114,9 @@ jobs:
                   envDict = ${{ toJSON(vars) }}
                   envs = {k:envDict[k] for k, v in envDict.items() if "ENV" in k}
                   for k, v in envs.items():
-                     # if 'Env' not in data:
-                     #    data['Env'] = {"_".join(k.split("_")[:1]):latestR.split(" ")[1]}
-                     if 'Env' in data:
+                     if 'Env' not in data:
+                        data['Env'] = {"_".join(k.split("_")[:1]):latestR.split(" ")[1]}
+                     elif 'Env' in data:
                         data['Env']["_".join(k.split("_")[:1])] = latestR.split(" ")[1]
                elif layername == "rstudio":
                   additionalDict = ${{ toJSON(vars) }}
@@ -143,9 +143,10 @@ jobs:
                                layertag = v[key]
                             elif key == "layerName":
                                tempDict = dict()
+                               jsonval = val
                                for layer in layernames:
                                   if layertag != "":
-                                     tempDict[layer] = create_sublayer(layer, val, layertag, baseosname, baseostag)
+                                     tempDict[layer] = create_sublayer(layer, jsonval, layertag, baseosname, baseostag)
                                      updatedDict[layer] = tempDict[layer]
                                      baseosname, baseostag = tempDict[layer]["Build_layer_name"], tempDict[layer]["Build_layer_tag"]
                                      print("Dict: ", updatedDict[layer])
