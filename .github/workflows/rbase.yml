@@ -114,7 +114,7 @@ jobs:
                   if 'Env' not in data:
                      data['Env'] = {'R': latestR.split(" ")[1]}
                      envDict = ${{ toJSON(vars) }}
-                     envs = {k:envDict[k] for k, v in envDict.items() if "Env" in k}
+                     envs = {k:envDict[k] for k, v in envDict.items() if "ENV" in k}
                      print(envs)
                   elif 'Env' in data:
                      data['Env']['R'] = latestR.split(" ")[1]
