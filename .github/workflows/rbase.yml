@@ -126,6 +126,7 @@ jobs:
                         data['Additional'] = {"_".join(k.split("_")[:1]):v}
                      elif 'Env' in data:
                         data['Additional']["_".join(k.split("_")[:1])] = v
+               print(layername, data)
                return data
                                     
             def preprocessing(filename):
