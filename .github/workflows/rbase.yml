@@ -125,29 +125,10 @@ jobs:
                 with open('./inputs/RBaseTemplate.yaml', 'r') as fp:
                    yamlObj = yaml.safe_load_all(fp)
                    for k, v in enumerate(yamlObj):
-                      print(k, v)
                       if v != None:
-                         for key, val in v.items():
-                            if key == "workflow-name":
-                               v[key] = v[key].replace("{RVersion}", latestR.split(" ")[1])
-                               updatedDict[key] = v[key]
-                               layertag = v[key]
-                            elif key == "layerName":
-                               for layer in layernames:
-                                  tempDict = val
-                                  if layertag != "":
-                                      if layer == "ros" or layer == "rdep":
-                                          if 'Env' in tempDict:
-                                              del tempDict['Env']
-                                          if 'Additional' in tempDict:
-                                              del tempDict['Additional']
-                                      elif layer == "rbase":
-                                          if 'Additional' in tempDict:
-                                              del tempDict['Additional']
-                                      jsonval= create_sublayer(layer, tempDict, layertag, baseosname, baseostag)
-                                      baseosname, baseostag = jsonval["Build_layer_name"], jsonval["Build_layer_tag"]
-                                  updatedDict[layer] = jsonval
-                print(updatedDict)
+                          for layer in layernames:
+                             for key, val in v.items():
+                                print(layer, key, val)
                 fp.close()
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
                 #    yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
