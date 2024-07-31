@@ -126,9 +126,13 @@ jobs:
                    yamlObj = yaml.safe_load_all(fp)
                    for k, v in enumerate(yamlObj):
                       if v != None:
+                          if v["workflow-name"]:
+                              v["workflow-name"] = v["workflow-name"].replace("{RVersion}", latestR.split(" ")[1])
+                              layertag = "-".join(v["workflow-name"].split("-")[:2])
                           for layer in layernames:
+                             tempDict = dict()
                              for key, val in v.items():
-                                print(layer, key, val)
+                                print(layer, key, val, layertag, v["workflow-name"])
                 fp.close()
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
                 #    yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
