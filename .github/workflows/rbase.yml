@@ -143,7 +143,6 @@ jobs:
                                layertag = v[key]
                             elif key == "layerName":
                                tempDict = dict()
-                               jsonval = val
                                for layer in layernames:
                                   if layertag != "":
                                      tempDict[layer] = create_sublayer(layer, jsonval, layertag, baseosname, baseostag)
