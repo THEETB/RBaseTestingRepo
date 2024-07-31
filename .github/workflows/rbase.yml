@@ -143,9 +143,9 @@ jobs:
                                       # elif layer == "rbase":
                                       #     print(tempDict)
                                       #     del tempDict['Additional']
-                                      # jsonval= create_sublayer(layer, tempDict, layertag, baseosname, baseostag)
-                                      # baseosname, baseostag = jsonval["Build_layer_name"], jsonval["Build_layer_tag"]
-                                      # updatedDict[layer] = jsonval
+                                      jsonval= create_sublayer(layer, tempDict, layertag, baseosname, baseostag)
+                                      baseosname, baseostag = jsonval["Build_layer_name"], jsonval["Build_layer_tag"]
+                                      updatedDict[layer] = jsonval
                         
                 fp.close()
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
