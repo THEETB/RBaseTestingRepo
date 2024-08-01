@@ -111,13 +111,13 @@ jobs:
                   for k, v in envs.items():
                      if 'Env' in data:
                         print("_".join(k.split("_")[:1]))
-                        data['Env']["_".join(k.split("_")[:1])] = latestR.split(" ")[1]
+                        data['Env']["_".join(k.split("_")[1:])] = latestR.split(" ")[1]
                elif layername == "rstudio":
                   additionalDict = ${{ toJSON(vars) }}
                   additional = {k:additionalDict[k] for k, v in additionalDict.items() if "ADDITIONAL" in k}
                   for k, v in additional.items():
                      if 'Additional' in data:
-                        data['Additional']["_".join(k.split("_")[:1])] = v
+                        data['Additional']["_".join(k.split("_")[1:])] = v
                return data
                                     
             def preprocessing(filename):
