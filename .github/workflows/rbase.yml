@@ -157,7 +157,7 @@ jobs:
                                             tempDict[layer] = val
                                             jsonval = create_sublayer(layer, val, layertag, baseosname, baseostag)
                                             baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
-                                            
+                                            print("Output: ", jsonval)
                                             tempDict[layer] = jsonval
                                             
                                     updatedDict[layer] = tempDict[layer]
