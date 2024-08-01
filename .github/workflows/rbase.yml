@@ -138,6 +138,7 @@ jobs:
                                     if 'Additional' in tmp[layer]:
                                         del tmp[layer]["Additional"]
                                 elif layer == "rbase":
+                                    print(layer, tmp[layer])
                                     if 'Env' not in tmp[layer]:
                                         tmp[layer]['Env'] = {}
                                     if 'Additional' in tmp[layer]:
