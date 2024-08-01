@@ -126,7 +126,6 @@ jobs:
                 with open('./inputs/RBaseTemplate.yaml', 'r') as fp:
                     yamlObj = yaml.safe_load_all(fp)
                     for v in yamlObj:
-                        print("v:", v)
                         if v is not None:
                             if "workflow-name" in v:
                                 v["workflow-name"] = v["workflow-name"].replace("{RVersion}", latestR.split(" ")[1])
@@ -176,7 +175,7 @@ jobs:
                 newfilename = outputFileName
              updatedDict = dict()
              preprocessedFile = preprocessing(newfilename)
-             print(preprocessedFile)
+             # print(preprocessedFile)
         shell: python
         
       - name: Committing new file Created for RBase
