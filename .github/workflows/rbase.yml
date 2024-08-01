@@ -132,10 +132,12 @@ jobs:
                           for layer in layernames:
                              tempDict = dict()
                              for key, val in v.items():
+                                tempdict[layer] = val
                                 if key != 'workflow-name':
                                     if layertag != "":
                                         if layer == "ros" or layer == "rdep":
-                                            print(layer, key, val)
+                                            if 'Env' in tempdict[layer]:
+                                                print(tempDict[layer]['Env'], tempDict[layer])
                 fp.close()
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
                 #    yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
