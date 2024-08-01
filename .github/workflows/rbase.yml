@@ -140,11 +140,11 @@ jobs:
                                                 del tempDict[layer]["Env"]
                                             if 'Additional' in tempDict[layer]:
                                                 del tempDict[layer]["Additional"]
-                                         elif layer == "rbase":
+                                        elif layer == "rbase":
                                              if 'Additional' in tempDict[layer]:
                                                  del tempDict[layer]['Additional']
-                                         jsonval = create_sublayer(layer, tempDict[layer], layertag, baseosname, baseostag)
-                                         print(jsonval)
+                                        jsonval = create_sublayer(layer, tempDict[layer], layertag, baseosname, baseostag)
+                                        print(jsonval)
                                              
                 fp.close()
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
