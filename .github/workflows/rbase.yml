@@ -160,6 +160,7 @@ jobs:
                                             # print("Output: ", jsonval)
                                             tempDict[layer] = jsonval
                                             
+                                    print(layer)
                                     updatedDict[layer] = tempDict[layer]
                                     print("Dict:", updatedDict)
                                 return updatedDict
