@@ -159,7 +159,7 @@ jobs:
                                             temp = jsonval                                          
                                     # print(layer,": ", updatedDict[layer], " ", tempDict[layer])
                                     print(temp)
-                                    updatedDict[layer].append(temp)
+                                    updatedDict[layer] = temp
                                     # updatedDict[layer] = layer
                                     print("Dict:", updatedDict)
                                 return updatedDict
