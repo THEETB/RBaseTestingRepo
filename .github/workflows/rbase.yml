@@ -131,7 +131,7 @@ jobs:
                                 # if layer not in updatedDict:
                                     # updatedDict[layer] = {}
                                 temp = ""
-                                val = v
+                                val = v["layername"]
                                 print(val)
                                 if layer == "ros" or layer == "rdep":
                                     if 'Env' in val:
