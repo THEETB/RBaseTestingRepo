@@ -128,8 +128,7 @@ jobs:
                       if v != None:
                           if "workflow-name" in v: 
                               v["workflow-name"] = v["workflow-name"].replace("{RVersion}", latestR.split(" ")[1])
-                              layertag = "-".join(v["workflow-name"].split("-")[:2])
-                              
+                              layertag = "-".join(v["workflow-name"].split("-")[:2])  
                           else:
                               for layer in layernames:
                                  tempDict = dict()
@@ -155,10 +154,9 @@ jobs:
                                             jsonval = create_sublayer(layer, tempDict[layer], layertag, baseosname, baseostag)
                                             baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
                                             # print(jsonval)
-                                 print(jsonval)
-                                 tempDict[layer] = jsonval
+                                            tempDict[layer] = jsonval
                                  print(tempDict)
-                              updatedDict = tempDict
+                                 updatedDict[layer] = tempDict[layer]
                 fp.close()
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
                 #    yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
