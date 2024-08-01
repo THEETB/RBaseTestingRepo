@@ -144,6 +144,7 @@ jobs:
                                              if 'Additional' in tempDict[layer]:
                                                  del tempDict[layer]['Additional']
                                         jsonval = create_sublayer(layer, tempDict[layer], layertag, baseosname, baseostag)
+                                        baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
                                         print(jsonval)
                                              
                 fp.close()
