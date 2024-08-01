@@ -129,6 +129,7 @@ jobs:
                           if "workflow-name" in v: 
                               v["workflow-name"] = v["workflow-name"].replace("{RVersion}", latestR.split(" ")[1])
                               layertag = "-".join(v["workflow-name"].split("-")[:2])
+                              
                           else:
                               for layer in layernames:
                                  tempDict = dict()
@@ -156,7 +157,8 @@ jobs:
                                             # print(jsonval)
                                  print(jsonval)
                                  tempDict[layer] = jsonval
-                                 print(tempDict[layer])
+                                 print(tempDict)
+                              updatedDict = tempDict
                 fp.close()
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
                 #    yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
