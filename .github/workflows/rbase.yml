@@ -134,9 +134,10 @@ jobs:
                                  tempDict = dict()
                                  for key, val in v.items():
                                     tempDict[layer] = v[key]
+                                    print("orginal: ", v[key])
+                                    print("Updated", tempDict[layer])
                                     if key != 'workflow-name':
                                         if layertag != "":
-                                            print(key, v[key], tempDict[layer])
                                             if layer == "ros" or layer == "rdep":
                                                 if 'Env' in tempDict[layer]:
                                                     del tempDict[layer]["Env"]
@@ -150,6 +151,7 @@ jobs:
                                             jsonval = create_sublayer(layer, tempDict[layer], layertag, baseosname, baseostag)
                                             baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
                                             # print(jsonval)
+                                updatedDict[layer] = tempDict[layer]
                                              
                 fp.close()
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
