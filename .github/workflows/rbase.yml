@@ -129,26 +129,27 @@ jobs:
                           if "workflow-name" in v: 
                               v["workflow-name"] = v["workflow-name"].replace("{RVersion}", latestR.split(" ")[1])
                               layertag = "-".join(v["workflow-name"].split("-")[:2])
-                          for layer in layernames:
-                             tempDict = dict()
-                             for key, val in v.items():
-                                tempDict[layer] = val
-                                if key != 'workflow-name':
-                                    if layertag != "":
-                                        print(key, val, tempDict[layer])
-                                        if layer == "ros" or layer == "rdep":
-                                            if 'Env' in tempDict[layer]:
-                                                del tempDict[layer]["Env"]
-                                            if 'Additional' in tempDict[layer]:
-                                                del tempDict[layer]["Additional"]
-                                        elif layer == "rbase":
-                                             # if 'Env' not in tempDict[layer]:
-                                             # print(tempDict[layer])
-                                             if 'Additional' in tempDict[layer]:
-                                                 del tempDict[layer]['Additional']
-                                        jsonval = create_sublayer(layer, tempDict[layer], layertag, baseosname, baseostag)
-                                        baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
-                                        # print(jsonval)
+                          else:
+                              for layer in layernames:
+                                 tempDict = dict()
+                                 for key, val in v.items():
+                                    tempDict[layer] = val
+                                    if key != 'workflow-name':
+                                        if layertag != "":
+                                            print(key, val, tempDict[layer])
+                                            if layer == "ros" or layer == "rdep":
+                                                if 'Env' in tempDict[layer]:
+                                                    del tempDict[layer]["Env"]
+                                                if 'Additional' in tempDict[layer]:
+                                                    del tempDict[layer]["Additional"]
+                                            elif layer == "rbase":
+                                                 # if 'Env' not in tempDict[layer]:
+                                                 #     tempDict[layer]['Env'] = 
+                                                 if 'Additional' in tempDict[layer]:
+                                                     del tempDict[layer]['Additional']
+                                            jsonval = create_sublayer(layer, tempDict[layer], layertag, baseosname, baseostag)
+                                            baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
+                                            # print(jsonval)
                                              
                 fp.close()
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
