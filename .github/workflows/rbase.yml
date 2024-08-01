@@ -132,33 +132,15 @@ jobs:
                                 if layer not in tmp:
                                     tmp[layer] = v["layername"]  
                                 temp = ""
-                                if layer == "ros" or layer == "rdep":
-                                    if 'Env' in tmp[layer]:
-                                        del tmp[layer]["Env"]
-                                    if 'Additional' in tmp[layer]:
-                                        del tmp[layer]["Additional"]
-                                elif layer == "rbase":
-                                    print(layer, tmp[layer])
-                                    if 'Env' not in tmp[layer]:
-                                        tmp[layer]['Env'] = {}
-                                    if 'Additional' in tmp[layer]:
-                                        del tmp[layer]['Additional']
-                                elif layer == "rstudio":
-                                    if 'Env' not in tmp[layer]:
-                                        tmp[layer]['Env'] = {}
-                                    if 'Additional' not in tmp[layer]:
-                                        tmp[layer]['Additional'] = {}
-                                print("Temp Dict:", tmp)
-                                # tempDict[layer] = val
-                            #     jsonval = create_sublayer(layer, val, layertag, baseosname, baseostag)
-                            #     baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
-                            #     # print("Output: ", jsonval)
-                            #     temp = jsonval                                          
-                            # # print(layer,": ", updatedDict[layer], " ", tempDict[layer])
-                            # print("Temp: ", temp)
-                            # updatedDict[layer] = temp
-                            # updatedDict[layer] = layer
-                            # print("Dict:", updatedDict)
+                                jsonval = create_sublayer(layer, tmp[layer], layertag, baseosname, baseostag)
+                                baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
+                                print("Output: ", jsonval)
+                                temp = jsonval                                          
+                            # print(layer,": ", updatedDict[layer], " ", tempDict[layer])
+                            print("Temp: ", temp)
+                            updatedDict[layer] = temp
+                            updatedDict[layer] = layer
+                            print("Dict:", updatedDict)
                     return updatedDict
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
                 #    yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
