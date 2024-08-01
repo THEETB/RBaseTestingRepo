@@ -128,9 +128,10 @@ jobs:
                             layertag = "-".join(v["workflow-name"].split("-")[:2])
                         elif "layername" in list(v.keys())[0]:
                             tmp = {}
+                            layerval = v["layername"]
                             for layer in layernames:
                                 if layer not in tmp:
-                                    tmp[layer] = v["layername"]
+                                    tmp[layer] = layerval
                                 print("Temp Dict before : ", tmp[layer])
                                 jsonval = create_sublayer(layer, tmp[layer], layertag, baseosname, baseostag)
                                 baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
