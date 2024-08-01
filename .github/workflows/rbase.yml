@@ -154,7 +154,8 @@ jobs:
                                             jsonval = create_sublayer(layer, tempDict[layer], layertag, baseosname, baseostag)
                                             baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
                                             # print(jsonval)
-                                 updatedDict[layer] = tempDict[layer]
+                                 print(jsonval)
+                                 updatedDict[layer] = jsonval
                 print(updatedDict)                         
                 fp.close()
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
