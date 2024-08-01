@@ -125,7 +125,7 @@ jobs:
                     yamlObj = yaml.safe_load_all(fp)
                     for v in yamlObj:
                         if v is not None:
-                            if "workflow-name" in V:
+                            if "workflow-name" in v:
                                 v["workflow-name"] = v["workflow-name"].replace("{RVersion}", latestR.split(" ")[1])
                                 layertag = "-".join(v["workflow-name"].split("-")[:2])
                             else:
