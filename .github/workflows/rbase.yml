@@ -131,7 +131,7 @@ jobs:
                             for layer in layernames:
                                 if layer not in tmp:
                                     tmp[layer] = v["layername"]
-                                print("Temp Dict before : " tmp[layer])
+                                print("Temp Dict before : ", tmp[layer])
                                 jsonval = create_sublayer(layer, tmp[layer], layertag, baseosname, baseostag)
                                 baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
                                 # print("Output: ", jsonval)
