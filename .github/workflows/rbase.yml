@@ -160,9 +160,9 @@ jobs:
                                             # print("Output: ", jsonval)
                                             tempDict[layer] = jsonval
                                             
-                                    print(layer)
+                                    print(layer+ ": "+updatedDict)
                                     updatedDict[layer] = tempDict[layer]
-                                    print("Dict:", updatedDict)
+                                    # print("Dict:", updatedDict)
                                 return updatedDict
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
                 #    yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
