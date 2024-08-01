@@ -133,10 +133,10 @@ jobs:
                               for layer in layernames:
                                  tempDict = dict()
                                  for key, val in v.items():
-                                    tempDict[layer] = val
+                                    tempDict[layer] = v[key]
                                     if key != 'workflow-name':
                                         if layertag != "":
-                                            print(key, val, tempDict[layer])
+                                            print(key, v[key], tempDict[layer])
                                             if layer == "ros" or layer == "rdep":
                                                 if 'Env' in tempDict[layer]:
                                                     del tempDict[layer]["Env"]
