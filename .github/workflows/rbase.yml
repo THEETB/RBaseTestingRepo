@@ -134,7 +134,7 @@ jobs:
                                     if layer not in updatedDict:
                                         updatedDict[layer] = {}
                                     
-                                    tempDict = {}
+                                    temp = ""
                                     for key, val in v.items():
                                         if key != 'workflow-name':
                                             if layer == "ros" or layer == "rdep":
@@ -157,10 +157,10 @@ jobs:
                                             jsonval = create_sublayer(layer, val, layertag, baseosname, baseostag)
                                             baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
                                             # print("Output: ", jsonval)
-                                            tempDict[layer] = jsonval                                            
+                                            temp = jsonval                                            
                                     # print(layer,": ", updatedDict[layer], " ", tempDict[layer])
-                                    # updatedDict[layer] = tempDict[layer]
-                                    updatedDict[layer] = layer
+                                    updatedDict[layer] = temp
+                                    # updatedDict[layer] = layer
                                     print("Dict:", updatedDict)
                                 return updatedDict
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
