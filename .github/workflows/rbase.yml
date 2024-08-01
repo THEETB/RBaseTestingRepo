@@ -121,6 +121,7 @@ jobs:
                 updatedDict = dict()
                 baseosname, baseostag = "${{ vars.Baseosname }}", "${{ vars.Baseostag }}"
                 with open('inputs/RBaseTemplate.yaml', 'r') as fp:
+                    print(fp.readlines())
                     yamlObj = yaml.safe_load_all(fp)
                     for k,v in enumerate(yamlObj):
                         print(k, v)
