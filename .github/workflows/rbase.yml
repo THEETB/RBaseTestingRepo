@@ -72,7 +72,7 @@ jobs:
             layernames = ["ros", "rdep", "rbase", "rstudio"]
             def checkFile(file):
                filerepo = "${{ github.workspace }}"
-               filename = os.path.join(filerepo, "/../../", "inputs/RBaseTemplate.yaml")
+               filename = os.path.join(filerepo, "inputs/RBaseTemplate.yaml")
                if os.path.isfile(filename):
                   print(f"file '{filename}' exists...")
                   return True;
