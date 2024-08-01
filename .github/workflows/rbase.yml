@@ -108,12 +108,11 @@ jobs:
                if layername == "rbase" or layername == "rstudio":
                   envDict = ${{ toJSON(vars) }}
                   envs = {k:envDict[k] for k, v in envDict.items() if "ENV" in k}
+                  additionalDict = ${{ toJSON(vars) }}
+                  additional = {k:additionalDict[k] for k, v in additionalDict.items()}
                   for k, v in envs.items():
                      if 'Env' in data:
                         data['Env']["_".join(k.split("_")[1:])] = latestR.split(" ")[1]
-               elif layername == "rstudio":
-                  additionalDict = ${{ toJSON(vars) }}
-                  additional = {k:additionalDict[k] for k, v in additionalDict.items()}
                   print("Additional Variables: ", additional)
                   for k, v in additional.items():
                      if 'Additional' in data:
