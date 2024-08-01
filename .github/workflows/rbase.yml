@@ -117,7 +117,7 @@ jobs:
                   for k, v in additional.items():
                      if 'Additional' in data:
                         data['Additional']["_".join(k.split("_")[1:])] = v
-               print(data)
+               print("Results:", data)
                return data
                                     
             def preprocessing(filename):
@@ -157,11 +157,11 @@ jobs:
                                             tempDict[layer] = val
                                             jsonval = create_sublayer(layer, val, layertag, baseosname, baseostag)
                                             baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
-                                            print("Output: ", jsonval)
+                                            # print("Output: ", jsonval)
                                             tempDict[layer] = jsonval
                                             
                                     updatedDict[layer] = tempDict[layer]
-                                    # print(updatedDict)
+                                    print("Dict:", updatedDict)
                                 return updatedDict
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
                 #    yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
@@ -175,7 +175,7 @@ jobs:
                 newfilename = outputFileName
              updatedDict = dict()
              preprocessedFile = preprocessing(newfilename)
-             # print(preprocessedFile)
+             print(preprocessedFile)
         shell: python
         
       - name: Committing new file Created for RBase
