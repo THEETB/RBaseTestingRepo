@@ -106,6 +106,7 @@ jobs:
                   print("Error: Please provide correct filename")
                   exit()
                if layername == "rbase" or layername == "rstudio":
+                  print(layername, data)
                   envDict = ${{ toJSON(vars) }}
                   envs = {k:envDict[k] for k, v in envDict.items() if "ENV" in k}
                   additionalDict = ${{ toJSON(vars) }}
@@ -160,7 +161,7 @@ jobs:
                                             tempDict[layer] = jsonval
                                             
                                     updatedDict[layer] = tempDict[layer]
-                                    print(updatedDict)
+                                    # print(updatedDict)
                                 return updatedDict
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
                 #    yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
