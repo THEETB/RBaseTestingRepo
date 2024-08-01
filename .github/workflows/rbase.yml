@@ -123,9 +123,8 @@ jobs:
                 updatedDict = dict()
                 baseosname, baseostag = "${{ vars.Baseosname }}", "${{ vars.Baseostag }}"
                 
-                with open(filename, 'r') as fp:
+                with open('('./inputs/RBaseTemplate.yaml', 'r') as fp:
                     yamlObj = yaml.safe_load_all(fp)
-                    
                     for v in yamlObj:
                         if v is not None:
                             if "workflow-name" in v:
