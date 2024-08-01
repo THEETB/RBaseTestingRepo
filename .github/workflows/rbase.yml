@@ -136,7 +136,7 @@ jobs:
                                 if key != 'workflow-name':
                                     if layertag != "":
                                         if layer == "ros" or layer == "rdep":
-                                            if 'Env' in tempdict[layer]:
+                                            if 'Env' in tempDict[layer]:
                                                 print(tempDict[layer]['Env'], tempDict[layer])
                 fp.close()
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
