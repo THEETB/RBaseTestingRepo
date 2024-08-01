@@ -117,6 +117,7 @@ jobs:
                   for k, v in additional.items():
                      if 'Additional' in data:
                         data['Additional']["_".join(k.split("_")[1:])] = v
+               print(data)
                return data
                                     
             def preprocessing(filename):
