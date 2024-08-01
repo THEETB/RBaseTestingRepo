@@ -109,7 +109,7 @@ jobs:
                   envDict = ${{ toJSON(vars) }}
                   envs = {k:envDict[k] for k, v in envDict.items() if "ENV" in k}
                   additionalDict = ${{ toJSON(vars) }}
-                  additional = {k:additionalDict[k] for k, v in additionalDict.items()}
+                  additional = {k:additionalDict[k] for k, v in additionalDict.items() if 'ADDITIONAL' in k}
                   for k, v in envs.items():
                      if 'Env' in data:
                         data['Env']["_".join(k.split("_")[1:])] = latestR.split(" ")[1]
@@ -162,6 +162,7 @@ jobs:
                                             
                                     updatedDict[layer] = tempDict[layer]
                                     print(updatedDict[layer])
+                print(updatedDict)
                 fp.close()
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
                 #    yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
