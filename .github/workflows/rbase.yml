@@ -158,8 +158,9 @@ jobs:
                                             baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
                                             # print("Output: ", jsonval)
                                             tempDict[layer] = jsonval                                            
-                                    print(layer,": ", updatedDict[layer], " ", tempDict[layer])
-                                    updatedDict[layer] = tempDict[layer]
+                                    # print(layer,": ", updatedDict[layer], " ", tempDict[layer])
+                                    # updatedDict[layer] = tempDict[layer]
+                                    updatedDict[layer] = layer
                                     print("Dict:", updatedDict)
                                 return updatedDict
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
