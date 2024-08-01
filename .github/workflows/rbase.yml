@@ -124,8 +124,8 @@ jobs:
                 with open('./inputs/RBaseTemplate.yaml', 'r') as fp:
                     yamlObj = yaml.safe_load_all(fp)
                     print(enumerate(yamlObj))
-                    for v in yamlObj:
-                        print(v)
+                    for k,v in enumerate(yamlObj):
+                        print(k, v)
                         if v is not None:
                             if "workflow-name" in v:
                                 v["workflow-name"] = v["workflow-name"].replace("{RVersion}", latestR.split(" ")[1])
