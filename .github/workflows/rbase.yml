@@ -125,7 +125,7 @@ jobs:
                     yamlObj = yaml.safe_load_all(fp)
                     for v in yamlObj:
                         if v is not None:
-                            k1, k2 = v.keys()
+                            [k1, k2] = v.keys()
                             print(k1, k2)
                             # if :
                             #     v["workflow-name"] = v["workflow-name"].replace("{RVersion}", latestR.split(" ")[1])
