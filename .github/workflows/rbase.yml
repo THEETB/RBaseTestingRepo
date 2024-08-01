@@ -136,7 +136,7 @@ jobs:
                                 baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
                                 print("Output: ", jsonval)
                                 tmp[layer] = jsonval
-                                print("Temp Dict for layer:", tmp[layer])
+                                print("Temp Dict for layer:", tmp)
                             print("Temp Dict:", tmp[layer])
                             updatedDict = tmp
                     return updatedDict
