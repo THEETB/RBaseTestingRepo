@@ -123,7 +123,7 @@ jobs:
                 with open('inputs/RBaseTemplate.yaml', 'r') as fp:
                     yamlObj = yaml.safe_load_all(fp)
                     for v in list(yamlObj):
-                        print(v.keys())
+                        print(v.keys()[0])
                         if "workflow-name" in v:
                             v["workflow-name"] = v["workflow-name"].replace("{RVersion}", latestR.split(" ")[1])
                             layertag = "-".join(v["workflow-name"].split("-")[:2])
