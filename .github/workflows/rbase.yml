@@ -120,7 +120,7 @@ jobs:
             def preprocessing(filename):
                 updatedDict = dict()
                 baseosname, baseostag = "${{ vars.Baseosname }}", "${{ vars.Baseostag }}"
-                with open(filename, 'r') as fp:
+                with open('inputs/RBaseTemplate.yaml', 'r') as fp:
                     yamlObj = yaml.safe_load_all(fp)
                     for k,v in enumerate(yamlObj):
                         print(k, v)
