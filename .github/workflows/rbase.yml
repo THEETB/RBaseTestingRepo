@@ -127,11 +127,11 @@ jobs:
                             v["workflow-name"] = v["workflow-name"].replace("{RVersion}", latestR.split(" ")[1])
                             layertag = "-".join(v["workflow-name"].split("-")[:2])
                         elif "layername" in list(v.keys())[0]:
+                            val = v["layername"]
                             for layer in layernames:
                                 # if layer not in updatedDict:
                                     # updatedDict[layer] = {}
                                 temp = ""
-                                val = v["layername"]
                                 print(val)
                                 if layer == "ros" or layer == "rdep":
                                     if 'Env' in val:
