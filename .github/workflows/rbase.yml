@@ -155,7 +155,7 @@ jobs:
                                 # print("Output: ", jsonval)
                                 temp = jsonval                                          
                             # print(layer,": ", updatedDict[layer], " ", tempDict[layer])
-                            # print(temp)
+                            print("Temp: ", temp)
                             updatedDict[layer] = temp
                             # updatedDict[layer] = layer
                             # print("Dict:", updatedDict)
