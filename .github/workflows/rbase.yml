@@ -81,7 +81,6 @@ jobs:
                   return False;
 
             def changeFileName(filenames, Rversion):
-               print(filenames, Rversion)
                filename, extension = filenames.split('.')
                filenames = filename.split(' ')[0]
                return ''.join([filenames, '_', Rversion.split(' ')[1], '.', extension])
@@ -121,7 +120,7 @@ jobs:
             def preprocessing(filename):
                 updatedDict = dict()
                 baseosname, baseostag = "${{ vars.Baseosname }}", "${{ vars.Baseostag }}"
-                with open('inputs/RBaseTemplate.yaml', 'r') as fp:
+                with open('filename', 'r') as fp:
                     yamlObj = yaml.safe_load_all(fp)
                     for k,v in enumerate(yamlObj):
                         print(k, v)
