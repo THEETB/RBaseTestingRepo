@@ -155,8 +155,8 @@ jobs:
                                             baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
                                             # print(jsonval)
                                  print(jsonval)
-                                 updatedDict[layer] = jsonval
-                              print(updatedDict)                         
+                                 tempDict[layer] = jsonval
+                                 print(tmepDict[layer])
                 fp.close()
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
                 #    yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
