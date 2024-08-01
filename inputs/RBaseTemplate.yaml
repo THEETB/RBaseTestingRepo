@@ -11,4 +11,3 @@ layerName:
     ToolName: {ToolVersion}
   Additional:
     VariableName: {VariableValue}
----
