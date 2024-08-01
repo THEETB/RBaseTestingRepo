@@ -106,7 +106,6 @@ jobs:
                   print("Error: Please provide correct filename")
                   exit()
                if layername == "rbase" or layername == "rstudio":
-                  print(layername, data)
                   envDict = ${{ toJSON(vars) }}
                   envs = {k:envDict[k] for k, v in envDict.items() if "ENV" in k}
                   additionalDict = ${{ toJSON(vars) }}
@@ -159,7 +158,7 @@ jobs:
                                             baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
                                             # print("Output: ", jsonval)
                                             tempDict[layer] = jsonval
-                                            print(layer,": ", jsonval)
+                                            print(layer,": ", tempDict)
                                             
                                     # print(layer,": ",updatedDict)
                                     updatedDict[layer] = tempDict[layer]
