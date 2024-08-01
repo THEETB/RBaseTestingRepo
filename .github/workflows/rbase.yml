@@ -135,12 +135,10 @@ jobs:
                                 jsonval = create_sublayer(layer, tmp[layer], layertag, baseosname, baseostag)
                                 baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
                                 print("Output: ", jsonval)
-                                tmp[layer] = jsonval                                         
-                            # print(layer,": ", updatedDict[layer], " ", tempDict[layer])
-                            print("Temp: ", temp)
-                            updatedDict[layer] = temp
-                            updatedDict[layer] = layer
-                            print("Dict:", updatedDict)
+                                tmp[layer] = jsonval
+                                print("Temp Dict for layer:", tmp[layer])
+                            print("Temp Dict:", tmp[layer])
+                            updatedDict = tmp
                     return updatedDict
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
                 #    yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
