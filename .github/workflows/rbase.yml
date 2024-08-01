@@ -160,7 +160,7 @@ jobs:
                                             tempDict[layer] = jsonval
                                             
                                     updatedDict[layer] = tempDict[layer]
-                            print(layer, updatedDict)
+                            # print(layer, updatedDict)
                             
                 fp.close()
                 return updatedDict
