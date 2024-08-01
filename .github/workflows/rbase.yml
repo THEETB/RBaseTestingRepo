@@ -123,44 +123,42 @@ jobs:
                 with open('inputs/RBaseTemplate.yaml', 'r') as fp:
                     yamlObj = yaml.safe_load_all(fp)
                     for v in list(yamlObj):
+                        print(v.keys())
                         if "workflow-name" in v:
                             v["workflow-name"] = v["workflow-name"].replace("{RVersion}", latestR.split(" ")[1])
                             layertag = "-".join(v["workflow-name"].split("-")[:2])
                         elif "layername" in v:
-                            print(v)
                             for layer in layernames:
                                 # if layer not in updatedDict:
                                     # updatedDict[layer] = {}
-                                
                                 temp = ""
                                 val = v
-                                if key != 'workflow-name':
-                                    if layer == "ros" or layer == "rdep":
-                                        if 'Env' in val:
-                                            del val["Env"]
-                                        if 'Additional' in val:
-                                            del val["Additional"]
-                                    elif layer == "rbase":
-                                        if 'Env' not in val:
-                                            val['Env'] = {}
-                                        if 'Additional' in val:
-                                            del val['Additional']
-                                    elif layer == "rstudio":
-                                        if 'Env' not in val:
-                                            val['Env'] = {}
-                                        if 'Additional' not in val:
-                                            val['Additional'] = {}
-                                    
-                                    # tempDict[layer] = val
-                                    jsonval = create_sublayer(layer, val, layertag, baseosname, baseostag)
-                                    baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
-                                    # print("Output: ", jsonval)
-                                    temp = jsonval                                          
-                                # print(layer,": ", updatedDict[layer], " ", tempDict[layer])
-                                print(temp)
-                                updatedDict[layer] = temp
-                                # updatedDict[layer] = layer
-                                print("Dict:", updatedDict)
+                                if layer == "ros" or layer == "rdep":
+                                    if 'Env' in val:
+                                        del val["Env"]
+                                    if 'Additional' in val:
+                                        del val["Additional"]
+                                elif layer == "rbase":
+                                    if 'Env' not in val:
+                                        val['Env'] = {}
+                                    if 'Additional' in val:
+                                        del val['Additional']
+                                elif layer == "rstudio":
+                                    if 'Env' not in val:
+                                        val['Env'] = {}
+                                    if 'Additional' not in val:
+                                        val['Additional'] = {}
+                                
+                                # tempDict[layer] = val
+                                jsonval = create_sublayer(layer, val, layertag, baseosname, baseostag)
+                                baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
+                                # print("Output: ", jsonval)
+                                temp = jsonval                                          
+                            # print(layer,": ", updatedDict[layer], " ", tempDict[layer])
+                            print(temp)
+                            updatedDict[layer] = temp
+                            # updatedDict[layer] = layer
+                            print("Dict:", updatedDict)
                     return updatedDict
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
                 #    yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
