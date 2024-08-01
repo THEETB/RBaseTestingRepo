@@ -156,7 +156,7 @@ jobs:
                                             # print(jsonval)
                                  print(jsonval)
                                  updatedDict[layer] = jsonval
-                print(updatedDict)                         
+                              print(updatedDict)                         
                 fp.close()
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
                 #    yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
