@@ -134,8 +134,6 @@ jobs:
                                  tempDict = dict()
                                  for key, val in v.items():
                                     tempDict[layer] = v[key]
-                                    print("orginal: ", v[key])
-                                    print("Updated", tempDict[layer])
                                     if key != 'workflow-name':
                                         if layertag != "":
                                             if layer == "ros" or layer == "rdep":
@@ -144,15 +142,20 @@ jobs:
                                                 if 'Additional' in tempDict[layer]:
                                                     del tempDict[layer]["Additional"]
                                             elif layer == "rbase":
-                                                 # if 'Env' not in tempDict[layer]:
-                                                 #     tempDict[layer]['Env'] = 
+                                                 if 'Env' not in tempDict[layer]:
+                                                     tempDict[layer]['Env'] = {}
                                                  if 'Additional' in tempDict[layer]:
                                                      del tempDict[layer]['Additional']
+                                            elif layer == "rstudio":
+                                                 if 'Env' not in tempDict[layer]:
+                                                     tempDict[layer]['Env'] = {}
+                                                 if 'Additional' not in tempDict[layer]:
+                                                     tempDict[layer]['Additional'] = {}
                                             jsonval = create_sublayer(layer, tempDict[layer], layertag, baseosname, baseostag)
                                             baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
                                             # print(jsonval)
                               updatedDict[layer] = tempDict[layer]
-                                             
+                print(updatedDict)                         
                 fp.close()
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
                 #    yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
