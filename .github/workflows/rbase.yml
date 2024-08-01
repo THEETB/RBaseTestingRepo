@@ -123,6 +123,7 @@ jobs:
                 baseosname, baseostag = "${{ vars.Baseosname }}", "${{ vars.Baseostag }}"
                 with open('./inputs/RBaseTemplate.yaml', 'r') as fp:
                     yamlObj = yaml.safe_load_all(fp)
+                    print(enumerate(yamlObj))
                     for v in yamlObj:
                         print(v)
                         if v is not None:
