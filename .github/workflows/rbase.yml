@@ -137,7 +137,15 @@ jobs:
                                     if layertag != "":
                                         if layer == "ros" or layer == "rdep":
                                             if 'Env' in tempDict[layer]:
-                                                print(tempDict[layer]['Env'], tempDict[layer])
+                                                del tempDict[layer]["Env"]
+                                            if 'Additional' in tempDict[layer]:
+                                                del tempDict[layer]["Additional"]
+                                         elif layer == "rbase":
+                                             if 'Additional' in tempDict[layer]:
+                                                 del tempDict[layer]['Additional']
+                                         jsonval = create_sublayer(layer, tempDict[layer], layertag, baseosname, baseostag)
+                                         print(jsonval)
+                                             
                 fp.close()
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
                 #    yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
