@@ -130,7 +130,7 @@ jobs:
                             tmp = {}
                             for layer in layernames:
                                 if layer not in tmp:
-                                    tmp[layer] = v[layername]
+                                    tmp[layer] = v["layername"]
                                 
                                 temp = ""
                                 print(tmp)
