@@ -130,8 +130,8 @@ jobs:
                                 layertag = "-".join(v["workflow-name"].split("-")[:2])
                             else:
                                 for layer in layernames:
-                                    if layer not in updatedDict:
-                                        updatedDict[layer] = {}
+                                    # if layer not in updatedDict:
+                                        # updatedDict[layer] = {}
                                     
                                     temp = ""
                                     for key, val in v.items():
