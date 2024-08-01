@@ -135,6 +135,7 @@ jobs:
                                 tempDict[layer] = val
                                 if key != 'workflow-name':
                                     if layertag != "":
+                                        print(key, val, tempDict[layer])
                                         if layer == "ros" or layer == "rdep":
                                             if 'Env' in tempDict[layer]:
                                                 del tempDict[layer]["Env"]
@@ -142,7 +143,7 @@ jobs:
                                                 del tempDict[layer]["Additional"]
                                         elif layer == "rbase":
                                              # if 'Env' not in tempDict[layer]:
-                                             print(tempDict[layer])
+                                             # print(tempDict[layer])
                                              if 'Additional' in tempDict[layer]:
                                                  del tempDict[layer]['Additional']
                                         jsonval = create_sublayer(layer, tempDict[layer], layertag, baseosname, baseostag)
