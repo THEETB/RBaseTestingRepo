@@ -133,7 +133,7 @@ jobs:
                                 if layer not in tmp:
                                     tmp[layer] = layerval
                             # print("Tmp Dict", tmp)
-                            tmpDict = tmp
+                            tmpDict = tmp.copy()
                             vls = ""
                             for key, val in tmp.items():
                                 vls = val
