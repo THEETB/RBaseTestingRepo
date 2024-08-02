@@ -43,9 +43,10 @@ jobs:
            echo "$environs"
            if [ -n "$environs" ]; then
                echo "$environs" | jq -r '.[]' | while read -r dict ; do
-                 echo "$dict" | jq -r 'to_entries[] | "\(.key) \(.value)"' | while read -r key value; do
-                   echo "$key" "$value"
-                 done
+                  echo "$dict"
+                 # echo "$dict" | jq -r 'to_entries[] | "\(.key) \(.value)"' | while read -r key value; do
+                 #   echo "$key" "$value"
+                 # done
                done
             fi
       # - name: Check for latest R release
