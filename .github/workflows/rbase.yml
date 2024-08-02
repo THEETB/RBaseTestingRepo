@@ -43,8 +43,8 @@ jobs:
            if [ -n "$environs" ]; then
                IFS=', ' read -r -a array <<< "${environs:1:-1}"
                for item in ${environs[@]}; do
-                  item = "${item:1:-1}"
-                  echo "$item"
+                  items = "${item:1:-1}"
+                  echo "$items"
                done
             fi
       # - name: Check for latest R release
