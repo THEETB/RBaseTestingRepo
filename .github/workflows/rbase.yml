@@ -40,6 +40,7 @@ jobs:
       - name: Testing
         run: |
            environs = [{'R_VERSION': '4.4.1'}]
+           echo $environs
            if [ -n "$environs" ]; then
                echo "$environs" | jq -r '.[]' | while read -r dict ; do
                  echo "$dict" | jq -r 'to_entries[] | "\(.key) \(.value)"' | while read -r key value; do
