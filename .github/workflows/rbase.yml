@@ -67,7 +67,7 @@ jobs:
             layertag = ""
             yaml_dump = ""
             outputFileName = 'inputs/input.yaml'
-            reserved_word = ["build-required", "RVersion", "layerName", "baselzayername", "baselayertag", "buildlayername", "buildlayertag", "DockerfileType", "ToolName", "ToolVersion", "VariableName", "VariableValue"]
+            # reserved_word = ["build-required", "RVersion", "layerName", "baselzayername", "baselayertag", "buildlayername", "buildlayertag", "DockerfileType", "ToolName", "ToolVersion", "VariableName", "VariableValue"]
             layernames = ["ros", "rdep", "rbase", "rstudio"]
             def checkFile(file):
                filerepo = "${{ github.workspace }}"
@@ -87,7 +87,7 @@ jobs:
             def create_sublayer(layername, data, layertag, baseosname, baseostag):
                currentime = datetime.now()
                datetime_str = currentime.strftime("%H%M%S%f")
-               currentlayertag = "-".join(layertag.split("-")[:2])+"-"+datetime_str
+               currentlayertag = "-".join(layertag.split("-")[:2])
                data["Baselayername"], data["Baselayertag"], data["Build_layer_name"] = baseosname, baseostag, layername
                data["Build_layer_tag"] = currentlayertag
                buildRequired = "${{ vars.Build_required }}"
@@ -125,11 +125,12 @@ jobs:
                 with open('inputs/RBaseTemplate.yaml', 'r') as fp:
                     yamlObj = yaml.safe_load_all(fp)
                     for v in list(yamlObj):
+                        tmp = {}
                         if "workflow-name" == list(v.keys())[0]:
                             v["workflow-name"] = v["workflow-name"].replace("{RVersion}", latestR.split(" ")[1])
+                            tmp["workflow-name"] = v["workflow-name"]
                             layertag = "-".join(v["workflow-name"].split("-")[:2])
                         elif "layername" in list(v.keys())[0]:
-                            tmp = {}
                             layerval = v["layername"]
                             for layer in layernames:
                                 if layer not in tmp:
@@ -154,10 +155,9 @@ jobs:
                                del tmpDict["rdep"]["Additional"]
                                   
                 fp.close()
-                return tmpDict
-                # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
+                # with open("${{ github.workspace }}/"+filename, 'w') as fp:
                 #    yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
-                # fp.close() 
+                # fp.close()
             
             if latestR != currentR:
              isfile = checkFile(outputFileName)
