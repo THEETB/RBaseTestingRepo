@@ -139,7 +139,7 @@ jobs:
                                 jsonval = create_sublayer(key, val, layertag, baseosname, baseostag)
                                 baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
                                 tmpDict[key] = jsonval
-                             if "ros" in tmpDict or "rdep" in tmpDict:
+                            if "ros" in tmpDict or "rdep" in tmpDict:
                                 print(tmpDict["ros"])
                 fp.close()
                 return tmpDict
