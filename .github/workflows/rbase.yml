@@ -122,6 +122,7 @@ jobs:
             def preprocessing(filename):
                 updatedDict = dict()
                 baseosname, baseostag = "${{ vars.Baseosname }}", "${{ vars.Baseostag }}"
+                workflowName = ""
                 with open('inputs/RBaseTemplate.yaml', 'r') as fp:
                     yamlObj = yaml.safe_load_all(fp)
                     for v in list(yamlObj):
@@ -137,7 +138,7 @@ jobs:
                                     tmp[layer] = layerval
                             # print("Tmp Dict", tmp)
                             tmpDict = tmp.copy()
-                            print(v["workflow-name"])
+                            print(workflowName)
                             # if "workflow-name" not in tmpDict:
                             # tmpDict["workflow-name"] = v["workflow-name"]
                             vls = ""
