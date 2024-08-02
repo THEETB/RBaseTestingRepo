@@ -48,6 +48,7 @@ jobs:
                  done
                done
             fi
+        shell: bash
       # - name: Check for latest R release
       #   shell: python
       #   run: |
