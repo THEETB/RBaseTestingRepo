@@ -137,7 +137,9 @@ jobs:
                                     tmp[layer] = layerval
                             # print("Tmp Dict", tmp)
                             tmpDict = tmp.copy()
-                            tmpDict["workflow-name"] = v["workflow-name"]
+                            print(v["workflow-name"])
+                            # if "workflow-name" not in tmpDict:
+                            # tmpDict["workflow-name"] = v["workflow-name"]
                             vls = ""
                             for key, vals in tmp.items():
                                 val = vals.copy()
