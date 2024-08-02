@@ -134,8 +134,9 @@ jobs:
                             # print("Tmp Dict", tmp)
                             tmpDict = tmp.copy()
                             vls = ""
-                            for key, val in tmp.items():
+                            for key, vals in tmp.items():
                                 print("key: ", key," val: ", val)
+                                val = vals.copy()
                                 jsonval = create_sublayer(key, val, layertag, baseosname, baseostag)
                                 baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
                                 tmpDict[key] = jsonval
