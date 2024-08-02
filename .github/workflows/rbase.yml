@@ -115,8 +115,8 @@ jobs:
                      if 'Additional' in data:
                         if "VariableName" in data['Additional']:
                            del data["Additional"]["VariableName"]
-                        if "ToolName" in data['Additional']:
-                           del data['Additional']['ToolName']
+                        if "ToolName" in data['Env']:
+                           del data['Env']['ToolName']
                         data['Additional']["_".join(k.split("_")[1:])] = v
                return data
                                     
