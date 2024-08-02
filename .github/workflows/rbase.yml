@@ -37,154 +37,163 @@ jobs:
         uses: actions/checkout@v3
         with:
          persist-credentials: false
-        
-      - name: Check for latest R release
-        shell: python
+      - name: Testing
         run: |
-           import requests
-           import json
-           import os
+           environs = [{'R_VERSION': '4.4.1'}]
+           if [ -n "$environs" ]; then
+               echo "$environs" | jq -r '.[]' | while read -r dict ; do
+                 echo "$dict" | jq -r 'to_entries[] | "\(.key) \(.value)"' | while read -r key value; do
+                   echo "$key" "$value"
+                 done
+               done
+            fi
+      # - name: Check for latest R release
+      #   shell: python
+      #   run: |
+      #      import requests
+      #      import json
+      #      import os
 
-           resp = requests.get("https://cran.rstudio.com/src/base/VERSION-INFO.dcf").content
-           bytes = resp.decode().replace("'", '"').split("\n")
-           json_en = json.loads(json.dumps({v.split(":")[0]:v.split(":")[1] for v in bytes if v != ""}))
-           latestR = json_en['Release']
-           with open(os.environ['GITHUB_ENV'], "a") as f:
-              print(f'latest_R={latestR}', file=f)
+      #      resp = requests.get("https://cran.rstudio.com/src/base/VERSION-INFO.dcf").content
+      #      bytes = resp.decode().replace("'", '"').split("\n")
+      #      json_en = json.loads(json.dumps({v.split(":")[0]:v.split(":")[1] for v in bytes if v != ""}))
+      #      latestR = json_en['Release']
+      #      with open(os.environ['GITHUB_ENV'], "a") as f:
+      #         print(f'latest_R={latestR}', file=f)
         
-      - name: Modify Input file if version change is detected
-        id: parsing_file 
-        run: |
-            import sys
-            import yaml
-            import os
-            from datetime import datetime
-            from collections import OrderedDict
-            import json
+      # - name: Modify Input file if version change is detected
+      #   id: parsing_file 
+      #   run: |
+      #       import sys
+      #       import yaml
+      #       import os
+      #       from datetime import datetime
+      #       from collections import OrderedDict
+      #       import json
             
-            latestR = "${{ env.latest_R }}"
-            currentR = "${{ vars.R_CURRENTVERSION }}"
-            layertag = ""
-            yaml_dump = ""
-            outputFileName = 'inputs/input.yaml'
-            # reserved_word = ["build-required", "RVersion", "layerName", "baselzayername", "baselayertag", "buildlayername", "buildlayertag", "DockerfileType", "ToolName", "ToolVersion", "VariableName", "VariableValue"]
-            layernames = ["ros", "rdep", "rbase", "rstudio"]
-            def checkFile(file):
-               filerepo = "${{ github.workspace }}"
-               filename = os.path.join(filerepo, "inputs/RBaseTemplate.yaml")
-               if os.path.isfile(filename):
-                  print(f"file '{filename}' exists...")
-                  return True;
-               else:
-                  print(f"file '{filename}' doesn't exists...")
-                  return False;
+      #       latestR = "${{ env.latest_R }}"
+      #       currentR = "${{ vars.R_CURRENTVERSION }}"
+      #       layertag = ""
+      #       yaml_dump = ""
+      #       outputFileName = 'inputs/input.yaml'
+      #       # reserved_word = ["build-required", "RVersion", "layerName", "baselzayername", "baselayertag", "buildlayername", "buildlayertag", "DockerfileType", "ToolName", "ToolVersion", "VariableName", "VariableValue"]
+      #       layernames = ["ros", "rdep", "rbase", "rstudio"]
+      #       def checkFile(file):
+      #          filerepo = "${{ github.workspace }}"
+      #          filename = os.path.join(filerepo, "inputs/RBaseTemplate.yaml")
+      #          if os.path.isfile(filename):
+      #             print(f"file '{filename}' exists...")
+      #             return True;
+      #          else:
+      #             print(f"file '{filename}' doesn't exists...")
+      #             return False;
 
-            def changeFileName(filenames, Rversion):
-               filename, extension = filenames.split('.')
-               filenames = filename.split(' ')[0]
-               return ''.join([filenames, '_', Rversion.split(' ')[1], '.', extension])
+      #       def changeFileName(filenames, Rversion):
+      #          filename, extension = filenames.split('.')
+      #          filenames = filename.split(' ')[0]
+      #          return ''.join([filenames, '_', Rversion.split(' ')[1], '.', extension])
             
-            def create_sublayer(layername, data, layertag, baseosname, baseostag):
-               currentime = datetime.now()
-               datetime_str = currentime.strftime("%H%M%S%f")
-               currentlayertag = "-".join(layertag.split("-")[:2])
-               data["Baselayername"], data["Baselayertag"], data["Build_layer_name"] = baseosname, baseostag, layername
-               data["Build_layer_tag"] = currentlayertag
-               buildRequired = "${{ vars.Build_required }}"
-               dockerfiletype = "${{ vars.DockerfileType }}"
-               if buildRequired.lower() == "no" or buildRequired.lower() == "false":
-                  data["build-required"] = "false"
-               else:
-                  data["build-required"] = "true"
-               if dockerfiletype.lower() != "custom":
-                  data["Dockerfile"] = dockerfiletype.lower()
-               elif dockerfiletype.lower() == "custom":
-                  data["Dockerfile"] = dockerfiletype.lower()
-               else:
-                  print("Error: Please provide correct filename")
-                  exit()
-               if layername == "rbase" or layername == "rstudio":
-                  envDict = ${{ toJSON(vars) }}
-                  envs = {k:envDict[k] for k, v in envDict.items() if "ENV" in k}
-                  additionalDict = ${{ toJSON(vars) }}
-                  additional = {k:additionalDict[k] for k, v in additionalDict.items() if 'ADDITIONAL' in k}
-                  for k, v in envs.items():
-                     if 'Env' in data:
-                        data['Env']["_".join(k.split("_")[1:])] = latestR.split(" ")[1]
-                  for k, v in additional.items():
-                     if 'Additional' in data:
-                        if "VariableName" in data['Additional']:
-                           del data["Additional"]["VariableName"]
-                        if "ToolName" in data['Env']:
-                           del data['Env']['ToolName']
-                        data['Additional']["_".join(k.split("_")[1:])] = v
-               return data
+      #       def create_sublayer(layername, data, layertag, baseosname, baseostag):
+      #          currentime = datetime.now()
+      #          datetime_str = currentime.strftime("%H%M%S%f")
+      #          currentlayertag = "-".join(layertag.split("-")[:2])
+      #          data["Baselayername"], data["Baselayertag"], data["Build_layer_name"] = baseosname, baseostag, layername
+      #          data["Build_layer_tag"] = currentlayertag
+      #          buildRequired = "${{ vars.Build_required }}"
+      #          dockerfiletype = "${{ vars.DockerfileType }}"
+      #          if buildRequired.lower() == "no" or buildRequired.lower() == "false":
+      #             data["build-required"] = "false"
+      #          else:
+      #             data["build-required"] = "true"
+      #          if dockerfiletype.lower() != "custom":
+      #             data["Dockerfile"] = dockerfiletype.lower()
+      #          elif dockerfiletype.lower() == "custom":
+      #             data["Dockerfile"] = dockerfiletype.lower()
+      #          else:
+      #             print("Error: Please provide correct filename")
+      #             exit()
+      #          if layername == "rbase" or layername == "rstudio":
+      #             envDict = ${{ toJSON(vars) }}
+      #             envs = {k:envDict[k] for k, v in envDict.items() if "ENV" in k}
+      #             additionalDict = ${{ toJSON(vars) }}
+      #             additional = {k:additionalDict[k] for k, v in additionalDict.items() if 'ADDITIONAL' in k}
+      #             for k, v in envs.items():
+      #                if 'Env' in data:
+      #                   data['Env']["_".join(k.split("_")[1:])] = latestR.split(" ")[1]
+      #             for k, v in additional.items():
+      #                if 'Additional' in data:
+      #                   if "VariableName" in data['Additional']:
+      #                      del data["Additional"]["VariableName"]
+      #                   if "ToolName" in data['Env']:
+      #                      del data['Env']['ToolName']
+      #                   data['Additional']["_".join(k.split("_")[1:])] = v
+      #          return data
                                     
-            def preprocessing(filename):
-                updatedDict = dict()
-                baseosname, baseostag = "${{ vars.Baseosname }}", "${{ vars.Baseostag }}"
-                workflowName = ""
-                with open('inputs/RBaseTemplate.yaml', 'r') as fp:
-                    yamlObj = yaml.safe_load_all(fp)
-                    for v in list(yamlObj):
-                        if "workflow-name" == list(v.keys())[0]:
-                            v["workflow-name"] = v["workflow-name"].replace("{RVersion}", latestR.split(" ")[1])
-                            workflowName = v["workflow-name"]
-                            layertag = "-".join(v["workflow-name"].split("-")[:2])
-                        elif "layername" in list(v.keys())[0]:
-                            tmp = {}
-                            layerval = v["layername"]
-                            if workflowName != "":
-                               tmp["workflow-name"] = workflowName
-                            for layer in layernames:
-                                if layer not in tmp:
-                                    tmp[layer] = layerval
-                            tmpDict = tmp.copy()
-                            vls = ""
-                            for key, vals in tmp.items():
-                               if key != "workflow-name":
-                                   val = vals.copy()
-                                   jsonval = create_sublayer(key, val, layertag, baseosname, baseostag)
-                                   baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
-                                   tmpDict[key] = jsonval
-                            if "ros" in tmpDict and "Env" in tmpDict["ros"]:
-                               del tmpDict["ros"]["Env"]
-                            if "rdep" in tmpDict and "Env" in tmpDict["rdep"]:
-                               del tmpDict["rdep"]["Env"]
-                            if "rbase" in tmpDict and "Additional" in tmpDict["rbase"]:
-                               del tmpDict["rbase"]["Additional"]
-                            if "ros" in tmpDict and "Additional" in tmpDict["ros"]:
-                               del tmpDict["ros"]["Additional"]
-                            if "rdep" in tmpDict and "Additional" in tmpDict["rdep"]:
-                               del tmpDict["rdep"]["Additional"]
+      #       def preprocessing(filename):
+      #           updatedDict = dict()
+      #           baseosname, baseostag = "${{ vars.Baseosname }}", "${{ vars.Baseostag }}"
+      #           workflowName = ""
+      #           with open('inputs/RBaseTemplate.yaml', 'r') as fp:
+      #               yamlObj = yaml.safe_load_all(fp)
+      #               for v in list(yamlObj):
+      #                   if "workflow-name" == list(v.keys())[0]:
+      #                       v["workflow-name"] = v["workflow-name"].replace("{RVersion}", latestR.split(" ")[1])
+      #                       workflowName = v["workflow-name"]
+      #                       layertag = "-".join(v["workflow-name"].split("-")[:2])
+      #                   elif "layername" in list(v.keys())[0]:
+      #                       tmp = {}
+      #                       layerval = v["layername"]
+      #                       if workflowName != "":
+      #                          tmp["workflow-name"] = workflowName
+      #                       for layer in layernames:
+      #                           if layer not in tmp:
+      #                               tmp[layer] = layerval
+      #                       tmpDict = tmp.copy()
+      #                       vls = ""
+      #                       for key, vals in tmp.items():
+      #                          if key != "workflow-name":
+      #                              val = vals.copy()
+      #                              jsonval = create_sublayer(key, val, layertag, baseosname, baseostag)
+      #                              baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
+      #                              tmpDict[key] = jsonval
+      #                       if "ros" in tmpDict and "Env" in tmpDict["ros"]:
+      #                          del tmpDict["ros"]["Env"]
+      #                       if "rdep" in tmpDict and "Env" in tmpDict["rdep"]:
+      #                          del tmpDict["rdep"]["Env"]
+      #                       if "rbase" in tmpDict and "Additional" in tmpDict["rbase"]:
+      #                          del tmpDict["rbase"]["Additional"]
+      #                       if "ros" in tmpDict and "Additional" in tmpDict["ros"]:
+      #                          del tmpDict["ros"]["Additional"]
+      #                       if "rdep" in tmpDict and "Additional" in tmpDict["rdep"]:
+      #                          del tmpDict["rdep"]["Additional"]
                         
-                fp.close()
-                return tmpDict
+      #           fp.close()
+      #           return tmpDict
             
-            if latestR != currentR:
-             isfile = checkFile(outputFileName)
-             if not isfile:
-                newfilename = changeFileName(outputFileName, latestR)
-             else:
-                newfilename = outputFileName
-             preprocessedFile = preprocessing(newfilename)
-             print(preprocessedFile)
-        shell: python
+      #       if latestR != currentR:
+      #        isfile = checkFile(outputFileName)
+      #        if not isfile:
+      #           newfilename = changeFileName(outputFileName, latestR)
+      #        else:
+      #           newfilename = outputFileName
+      #        preprocessedFile = preprocessing(newfilename)
+      #        print(preprocessedFile)
+      #   shell: python
         
-      - name: Committing new file Created for RBase
-        if: ${{ steps.parsing_file.outcome == 'success' }}
-        id: commit_files
-        run: |
-            git config --global user.name "theetb"
-            git config --global user.email "balasubramaniam.theetharappan@pfizer.com"
-            git add -A
-            git commit -m "Created a new file"+newfilename
+      # - name: Committing new file Created for RBase
+      #   if: ${{ steps.parsing_file.outcome == 'success' }}
+      #   id: commit_files
+      #   run: |
+      #       git config --global user.name "theetb"
+      #       git config --global user.email "balasubramaniam.theetharappan@pfizer.com"
+      #       git add -A
+      #       git commit -m "Created a new file"+newfilename
             
-      - name: Pushing File
-        if: ${{ steps.commit_files.outcome == 'success' }}
-        uses: ad-m/github-push-action@master
-        with:
-         github_token: ${{ secrets.PAT }}
+      # - name: Pushing File
+      #   if: ${{ steps.commit_files.outcome == 'success' }}
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #    github_token: ${{ secrets.PAT }}
       #    yaml_dump = ""
       #    reserved_word = ["build-required"]
          
