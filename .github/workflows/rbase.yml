@@ -139,7 +139,10 @@ jobs:
                                 jsonval = create_sublayer(key, val, layertag, baseosname, baseostag)
                                 baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
                                 tmpDict[key] = jsonval
-                    return tmpDict
+                             if "ros" in tmpDict or "rdep" in tmpDict:
+                                print(tmpDict["ros"])
+                fp.close()
+                return tmpDict
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
                 #    yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
                 # fp.close() 
@@ -151,7 +154,7 @@ jobs:
              else:
                 newfilename = outputFileName
              preprocessedFile = preprocessing(newfilename)
-             print(preprocessedFile["rstudio"])
+             # print(preprocessedFile["rstudio"])
         shell: python
         
       - name: Committing new file Created for RBase
