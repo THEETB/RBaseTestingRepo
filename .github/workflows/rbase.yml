@@ -137,10 +137,9 @@ jobs:
                             vls = ""
                             for key, val in tmp.items():
                                 print("key: ", key," val: ", val)
-                                if vls != "":
-                                    jsonval = create_sublayer(key, val, layertag, baseosname, baseostag)
-                                    baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
-                                    tmpDict[key] = jsonval
+                                jsonval = create_sublayer(key, val, layertag, baseosname, baseostag)
+                                baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
+                                tmpDict[key] = jsonval
                             print("Dict:", tmpDict)
                             print("original Dict: ", tmp)
                     return updatedDict
