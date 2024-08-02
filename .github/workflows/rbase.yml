@@ -141,13 +141,13 @@ jobs:
                                 tmpDict[key] = jsonval
                             if "ros" in tmpDict and "Env" in tmpDict["ros"]:
                                del tmpDict["ros"]["Env"]
-                            elif "rdep" in tmpDict and "Env" in tmpDict["rdep"]:
+                            if "rdep" in tmpDict and "Env" in tmpDict["rdep"]:
                                del tmpDict["rdep"]["Env"]
                             if "rbase" in tmpDict and "Additional" in tmpDict["rbase"]:
                                del tmpDict["rbase"]["Additional"]
-                            elif "ros" in tmpDict and "Additional" in tmpDict["ros"]:
+                            if "ros" in tmpDict and "Additional" in tmpDict["ros"]:
                                del tmpDict["ros"]["Additional"]
-                            elif "rdep" in tmpDict and "Additional" in tmpDict["rdep"]:
+                            if "rdep" in tmpDict and "Additional" in tmpDict["rdep"]:
                                del tmpDict["rdep"]["Additional"]
                                   
                 fp.close()
