@@ -39,7 +39,7 @@ jobs:
          persist-credentials: false
       - name: Testing
         run: |
-           environs = [{'R_VERSION': '4.4.1'}]
+           environs = "[{'R_VERSION': '4.4.1'}]"
            echo $environs
            if [ -n "$environs" ]; then
                echo "$environs" | jq -r '.[]' | while read -r dict ; do
@@ -48,7 +48,6 @@ jobs:
                  done
                done
             fi
-        shell: bash
       # - name: Check for latest R release
       #   shell: python
       #   run: |
