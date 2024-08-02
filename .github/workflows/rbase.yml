@@ -108,6 +108,7 @@ jobs:
                   envs = {k:envDict[k] for k, v in envDict.items() if "ENV" in k}
                   additionalDict = ${{ toJSON(vars) }}
                   additional = {k:additionalDict[k] for k, v in additionalDict.items() if 'ADDITIONAL' in k}
+                  print("Additional: ", additional)
                   if "VariableName" in additional:
                      del additional["VariableName"]
                   for k, v in envs.items():
