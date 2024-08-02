@@ -152,7 +152,7 @@ jobs:
                                del tmpDict["ros"]["Additional"]
                             if "rdep" in tmpDict and "Additional" in tmpDict["rdep"]:
                                del tmpDict["rdep"]["Additional"]
-                        tmpDict["workflow-name"] = v["workflow-name"]       
+                            tmpDict["workflow-name"] = v["workflow-name"]       
                 fp.close()
                 return tmpDict
                 # with open("${{ github.workspace }}/"+filename, 'w') as fp:
