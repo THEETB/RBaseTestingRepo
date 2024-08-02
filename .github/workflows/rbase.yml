@@ -43,7 +43,7 @@ jobs:
            if [ -n "$environs" ]; then
                IFS=', ' read -r array <<< "${environs:1:-1}"
                for item in ${environs[@]}; do
-                  item = "${item:1:-1}"
+                  # item = "${item:1:-1}"
                   echo "$item"
                done
             fi
