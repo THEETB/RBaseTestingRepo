@@ -108,7 +108,6 @@ jobs:
                   envs = {k:envDict[k] for k, v in envDict.items() if "ENV" in k}
                   additionalDict = ${{ toJSON(vars) }}
                   additional = {k:additionalDict[k] for k, v in additionalDict.items() if 'ADDITIONAL' in k}
-                  print("Additional: ", additional)
                   for k, v in envs.items():
                      if 'Env' in data:
                         data['Env']["_".join(k.split("_")[1:])] = latestR.split(" ")[1]
@@ -116,6 +115,8 @@ jobs:
                      if 'Additional' in data:
                         if "VariableName" in data['Additional']:
                            del data["Additional"]["VariableName"]
+                        if "ToolName" in data['Additional']:
+                           del data['Additional']['ToolName']
                         data['Additional']["_".join(k.split("_")[1:])] = v
                return data
                                     
@@ -138,7 +139,6 @@ jobs:
                             for layer in layernames:
                                 if layer not in tmp:
                                     tmp[layer] = layerval
-                            # print("Tmp Dict", tmp)
                             tmpDict = tmp.copy()
                             vls = ""
                             for key, vals in tmp.items():
@@ -160,9 +160,6 @@ jobs:
                         
                 fp.close()
                 return tmpDict
-                # with open("${{ github.workspace }}/"+filename, 'w') as fp:
-                #    yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
-                # fp.close()
             
             if latestR != currentR:
              isfile = checkFile(outputFileName)
