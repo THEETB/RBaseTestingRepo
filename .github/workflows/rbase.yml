@@ -147,16 +147,16 @@ jobs:
                                    jsonval = create_sublayer(key, val, layertag, baseosname, baseostag)
                                    baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
                                    tmpDict[key] = jsonval
-                               if "ros" in tmpDict and "Env" in tmpDict["ros"]:
-                                  del tmpDict["ros"]["Env"]
-                               if "rdep" in tmpDict and "Env" in tmpDict["rdep"]:
-                                  del tmpDict["rdep"]["Env"]
-                               if "rbase" in tmpDict and "Additional" in tmpDict["rbase"]:
-                                  del tmpDict["rbase"]["Additional"]
-                               if "ros" in tmpDict and "Additional" in tmpDict["ros"]:
-                                  del tmpDict["ros"]["Additional"]
-                               if "rdep" in tmpDict and "Additional" in tmpDict["rdep"]:
-                                  del tmpDict["rdep"]["Additional"]
+                            if "ros" in tmpDict and "Env" in tmpDict["ros"]:
+                               del tmpDict["ros"]["Env"]
+                            if "rdep" in tmpDict and "Env" in tmpDict["rdep"]:
+                               del tmpDict["rdep"]["Env"]
+                            if "rbase" in tmpDict and "Additional" in tmpDict["rbase"]:
+                               del tmpDict["rbase"]["Additional"]
+                            if "ros" in tmpDict and "Additional" in tmpDict["ros"]:
+                               del tmpDict["ros"]["Additional"]
+                            if "rdep" in tmpDict and "Additional" in tmpDict["rdep"]:
+                               del tmpDict["rdep"]["Additional"]
                         
                 fp.close()
                 return tmpDict
