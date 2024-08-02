@@ -155,6 +155,7 @@ jobs:
                                del tmpDict["rdep"]["Additional"]
                                   
                 fp.close()
+                return tmpDict
                 # with open("${{ github.workspace }}/"+filename, 'w') as fp:
                 #    yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
                 # fp.close()
