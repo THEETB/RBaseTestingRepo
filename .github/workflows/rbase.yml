@@ -125,12 +125,11 @@ jobs:
                 with open('inputs/RBaseTemplate.yaml', 'r') as fp:
                     yamlObj = yaml.safe_load_all(fp)
                     for v in list(yamlObj):
-                        tmp = {}
                         if "workflow-name" == list(v.keys())[0]:
                             v["workflow-name"] = v["workflow-name"].replace("{RVersion}", latestR.split(" ")[1])
-                            tmp["workflow-name"] = v["workflow-name"]
                             layertag = "-".join(v["workflow-name"].split("-")[:2])
                         elif "layername" in list(v.keys())[0]:
+                            tmp = {}
                             layerval = v["layername"]
                             for layer in layernames:
                                 if layer not in tmp:
@@ -153,7 +152,7 @@ jobs:
                                del tmpDict["ros"]["Additional"]
                             if "rdep" in tmpDict and "Additional" in tmpDict["rdep"]:
                                del tmpDict["rdep"]["Additional"]
-                                  
+                        tmpDict["workflow-name"] = v["workflow-name"]       
                 fp.close()
                 return tmpDict
                 # with open("${{ github.workspace }}/"+filename, 'w') as fp:
