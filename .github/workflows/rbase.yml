@@ -133,13 +133,13 @@ jobs:
                         elif "layername" in list(v.keys())[0]:
                             tmp = {}
                             layerval = v["layername"]
+                            if workflowName != "":
+                               tmp["workflow-name"] = workflowName
                             for layer in layernames:
                                 if layer not in tmp:
                                     tmp[layer] = layerval
                             # print("Tmp Dict", tmp)
                             tmpDict = tmp.copy()
-                            if workflowName != "":
-                               tmpDict["workflow-name"] = workflowName
                             vls = ""
                             for key, vals in tmp.items():
                                 val = vals.copy()
