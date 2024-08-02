@@ -135,7 +135,7 @@ jobs:
                             # print("Tmp Dict", tmp)
                             tmpDict = tmp.copy()
                             vls = ""
-                            if "Env" in tmpDict[ros]:
+                            if "Env" in tmpDict["ros"]:
                                 del tmpDict["ros"]['Env']
                             print("original Dict: ", tmp)
                             print("Modified Dict: ", tmpDict)
