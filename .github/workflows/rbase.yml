@@ -135,14 +135,18 @@ jobs:
                             # print("Tmp Dict", tmp)
                             tmpDict = tmp.copy()
                             vls = ""
-                            for key, val in tmp.items():
-                                vls = val
-                                print("key: ", key," val: ", val)
-                                if vls != "":
-                                    jsonval = create_sublayer(key, vls, layertag, baseosname, baseostag)
-                                    baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
-                                    tmpDict[key] = jsonval
-                            print("Dict:", tmpDict)
+                            if "Env" in tmpDict[ros]:
+                                del tmpDict["ros"]['Env']
+                            print("original Dict: ", tmp)
+                            print("Modified Dict: ", tmpDict)
+                            # for key, val in tmp.items():
+                            #     vls = val
+                            #     print("key: ", key," val: ", val)
+                            #     if vls != "":
+                            #         jsonval = create_sublayer(key, vls, layertag, baseosname, baseostag)
+                            #         baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
+                            #         tmpDict[key] = jsonval
+                            # print("Dict:", tmpDict)
                     return updatedDict
                 # with open("${{ github.workspace }}/"+newfilename, 'w') as fp:
                 #    yaml_data = yaml.dump(updatedDict, fp, sort_keys=False, default_flow_style=False)
