@@ -1,0 +1,204 @@
+name: Check for latest R release 
+
+on:
+   # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
+  schedule:
+    # The shortest interval you can run scheduled workflows is once every 5 minutes.
+    # Note: The schedule event can be delayed during periods of high loads of GitHub Actions workflow runs. 
+    # High load times include the start of every hour. 
+    # To decrease the chance of delay, schedule your workflow to run at a different time of the hour.
+    # Every 5 minutes.
+    # - cron: '*/5 * * * *'
+    # At the beginning of every day.
+    - cron: "0 0 * * 0"
+
+# on: [push]
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Setting up Python
+        uses: actions/setup-python@v3
+        with:
+         python-version: '3.9'
+
+      - name: Setting the python library
+        run: |
+         pip install pyyaml requests
+
+            
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+         persist-credentials: false
+        
+      - name: Check for latest R release
+        shell: python
+        run: |
+           import requests
+           import json
+           import os
+
+           resp = requests.get("${{ vars.R_REPOURL }}").content
+           bytes = resp.decode().replace("'", '"').split("\n")
+           json_en = json.loads(json.dumps({v.split(":")[0]:v.split(":")[1] for v in bytes if v != ""}))
+           latestR = json_en['Release']
+           with open(os.environ['GITHUB_ENV'], "a") as f:
+              print(f'latest_R={latestR}', file=f)
+                      
+      - name: Modify Input file if version change is detected
+        id: parsing_file 
+        run: |
+            import sys
+            import yaml
+            import os
+            from datetime import datetime
+            from collections import OrderedDict
+            import json
+            
+            latestR = "${{ env.latest_R }}"
+            currentR = "${{ vars.R_CURRENTVERSION }}"
+            layertag = ""
+            yaml_dump = ""
+            outputFileName = 'inputs/input.yaml'
+            # reserved_word = ["build-required", "RVersion", "layerName", "baselzayername", "baselayertag", "buildlayername", "buildlayertag", "DockerfileType", "ToolName", "ToolVersion", "VariableName", "VariableValue"]
+            layernames = ["ros", "rdep", "rbase", "rstudio"]
+
+            ### checkFile function verifies whether the template exists ###
+            def checkFile(file):
+               filerepo = "${{ github.workspace }}"
+               filename = os.path.join(filerepo, file)
+               if os.path.isfile(filename):
+                  print(f"file '{filename}' exists...")
+                  return True;
+               else:
+                  print(f"file '{filename}' doesn't exists...")
+                  return False;
+            
+            ###  Function rename filename by appending the current R version at the end ###
+            def changeFileName(filenames, Rversion):
+               filename, extension = filenames.split('.')
+               filenames = filename.split(' ')[0]
+               return ''.join([filenames, '_', Rversion.split(' ')[1], '.', extension])
+            
+            def create_sublayer(layername, data, layertag, baseosname, baseostag):
+               currentime = datetime.now()
+               datetime_str = currentime.strftime("%H%M%S%f")
+               currentlayertag = "-".join(layertag.split("-")[:2])
+               data["Baselayername"], data["Baselayertag"], data["Build_layer_name"] = baseosname, baseostag, layername
+               data["Build_layer_tag"] = currentlayertag
+               buildRequired = "${{ vars.Build_required }}"
+               dockerfiletype = "${{ vars.DockerfileType }}"
+               if buildRequired.lower() == "no" or buildRequired.lower() == "false":
+                  data["build-required"] = "false"
+               else:
+                  data["build-required"] = "true"
+               if dockerfiletype.lower() == "default" or dockerfiletype.lower() == "custom":
+                  data["Dockerfile"] = dockerfiletype.lower()
+               else:
+                  print("Error: Please provide correct filename")
+                  exit()
+               if layername == "rbase" or layername == "rstudio":
+                  envDict = ${{ toJSON(vars) }}
+                  envs = {k:envDict[k] for k, v in envDict.items() if "ENV" in k}
+                  additionalDict = ${{ toJSON(vars) }}
+                  additional = {k:additionalDict[k] for k, v in additionalDict.items() if 'ADDITIONAL' in k}
+                  for k, v in envs.items():
+                     if 'Env' in data:
+                        data['Env']["_".join(k.split("_")[1:])] = latestR.split(" ")[1]
+                  for k, v in additional.items():
+                     if 'Additional' in data:
+                        if "VariableName" in data['Additional']:
+                           del data["Additional"]["VariableName"]
+                        if "ToolName" in data['Env']:
+                           del data['Env']['ToolName']
+                        data['Additional']["_".join(k.split("_")[1:])] = v
+               return data
+                                    
+            def preprocessing(filename):
+                updatedDict = dict()
+                baseosname, baseostag = "${{ vars.Baseosname }}", "${{ vars.Baseostag }}"
+                workflowName = ""
+                with open('${{ vars.RBASE_TEMPLATE_FILE_LOC }}', 'r') as fp:
+                    yamlObj = yaml.safe_load_all(fp)
+                    for v in list(yamlObj):
+                        tmp = {}
+                        if "workflow-name" == list(v.keys())[0]:
+                            v["workflow-name"] = v["workflow-name"].replace("{RVersion}", latestR.split(" ")[1])
+                            workflowName = v["workflow-name"]
+                            layertag = "-".join(v["workflow-name"].split("-")[:2])
+                        elif "layername" in list(v.keys())[0]:
+                            layerval = v["layername"]
+                            if workflowName != "":
+                               tmp["workflow-name"] = workflowName
+                            for layer in layernames:
+                                if layer not in tmp:
+                                    tmp[layer] = layerval
+                            tmpDict = tmp.copy()
+                            vls = ""
+                            for key, vals in tmp.items():
+                                if key != "workflow-name":
+                                   val = vals.copy()
+                                   jsonval = create_sublayer(key, val, layertag, baseosname, baseostag)
+                                   baseosname, baseostag = jsonval['Build_layer_name'], jsonval['Build_layer_tag']
+                                   tmpDict[key] = jsonval
+                            if "ros" in tmpDict and "Env" in tmpDict["ros"]:
+                               del tmpDict["ros"]["Env"]
+                            if "rdep" in tmpDict and "Env" in tmpDict["rdep"]:
+                               del tmpDict["rdep"]["Env"]
+                            if "rbase" in tmpDict and "Additional" in tmpDict["rbase"]:
+                               del tmpDict["rbase"]["Additional"]
+                            if "ros" in tmpDict and "Additional" in tmpDict["ros"]:
+                               del tmpDict["ros"]["Additional"]
+                            if "rdep" in tmpDict and "Additional" in tmpDict["rdep"]:
+                               del tmpDict["rdep"]["Additional"]
+                                  
+                fp.close()
+                return tmpDict
+            
+            #### Code Snippet verifies that Current version of R and pulled version are not same. To avoid duplicate build ###
+            if latestR != currentR:
+             isfile = checkFile(outputFileName)
+             if not isfile:
+                newfilename = changeFileName(outputFileName, latestR)
+             else:
+                newfilename = outputFileName
+             preprocessedFile = preprocessing(newfilename)
+             finalFileName = newfilename.split(".")[0]+"-"+latestR.split(" ")[1]+"."+newfilename.split(".")[1]
+             with open(finalFileName, 'w') as fp:
+                yaml_data = yaml.dump(preprocessedFile, fp, sort_keys=False, default_flow_style=False)
+                print(yaml_data)
+             fp.close() 
+        shell: python
+
+      - name: Commit chnages 
+        if: ${{ steps.parsing_file.outcome == 'success' }}
+        id: commiting_file
+        run: |
+          git config --global user.name "${{ vars.GITHUBUSERNAME }}"
+          git config --global user.email "${{ vars.GITHUBEMAIL }}"
+          git checkout ${{ github.ref }}
+          now=$(date)
+          git add -A
+          git commit -m "Update R Version to ${{ env.latest_R }}"
+
+      - name: Fetching the current branch
+        id: branch_extraction
+        run: |
+           echo "branch=${{ github.ref }}"
+      
+      - name: Push changes
+        if: ${{ steps.commiting_file.outcome == 'success' }}
+        id: pushing_file
+        uses: ad-m/github-push-action@master
+        with:
+         github_token: ${{ secrets.PAT }}
+         branch: ${{ github.ref }}
+         
+      - name: Updating the Latest Version Environment Variable
+        if: ${{ steps.pushing_file.outcome == 'success' }}
+        run: echo R_CURRENTVERSION=`echo $latest_R` > $GITHUB_ENV
