@@ -59,7 +59,7 @@ jobs:
             latestR = "${{ env.latest_R }}"
             
             if latestR != currentR:
-             with open('./inputs/input1.yaml', w+) as fp:
+             with open('./inputs/input1.yaml', "w") as fp:
                  fp.write("Testing"+latestR)
              fp.close()
       
