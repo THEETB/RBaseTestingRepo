@@ -67,7 +67,7 @@ jobs:
       
       - name: Pushing a file
         run: |
-           git config --global user.email "balasubramaniam.theetharappan@pfizer.com"
+           git config --global user.email "THEETB@pfizer.com"
            git config --global user.name "THEETB"
            git add -A
            git commit -m "Test pushing
