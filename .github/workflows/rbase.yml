@@ -48,6 +48,13 @@ jobs:
                   echo "$items"
                done
             fi
+      - name: Pushing a file
+        run: |
+           git config --local user.email "balasubramaniam.theetharappan@pfizer.com"
+           git config --local user.name "Balasubramaniam Theetharappan"
+           git add -A
+           git commit -m "Test pushing"
+           git push origin "Successful!!"
       # - name: Check for latest R release
       #   shell: python
       #   run: |
