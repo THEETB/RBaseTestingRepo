@@ -64,11 +64,11 @@ jobs:
       - name: Pushing a file
         run: |
            git config --global user.email "THEETB@pfizer.com"
-           git config --global user.name "BALA"
+           git config --global user.name "THEETB"
            git remote set-url origin "https://github.com/THEETB/RBaseTestingRepo.git"
            git add -A
            git commit -m "Test pushing"
-           git push
+           git push origin "Testing"
       # - name: Check for latest R release
       #   shell: python
       #   run: |
