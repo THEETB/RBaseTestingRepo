@@ -70,9 +70,7 @@ jobs:
            git config --global user.email "balasubramaniam.theetharappan@pfizer.com"
            git config --global user.name "THEETB"
            git add -A
-           git commit -m "Test pushing"
-           git branch
-           git push
+           git commit -m "Test pushing
       # - name: Check for latest R release
       #   shell: python
       #   run: |
