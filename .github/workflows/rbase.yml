@@ -67,7 +67,7 @@ jobs:
            git config --local user.name "Balasubramaniam Theetharappan"
            git add -A
            git commit -m "Test pushing"
-           git push origin "Successful!!"
+           git push origin "Test pushing"
       # - name: Check for latest R release
       #   shell: python
       #   run: |
