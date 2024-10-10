@@ -64,9 +64,9 @@ jobs:
       - name: Pushing a file
         run: |
            git config --global user.email "THEETB@pfizer.com"
-           git config --global user.name "BALASUBRAMANIAM.THEETHARAPPAN"
-           # git add -A
-           # git commit -m "Test pushing"
+           git config --global user.name "BALASUBRAMANIAM THEETHARAPPAN"
+           git add -A
+           git commit -m "Test pushing"
            # git push
       # - name: Check for latest R release
       #   shell: python
