@@ -65,7 +65,7 @@ jobs:
         run: |
            git config --global user.email "THEETB@pfizer.com"
            git config --global user.name "BALASUBRAMANIAM THEETHARAPPAN"
-           git remote set-url origin "https://${{ secret.GIT_PAT }}@github.com/BALASUBRAMANIAM THEETHARAPPAN/RBaseTestingRepo.git"
+           git remote set-url origin "https://${{ secrets.GIT_PAT }}@github.com/BALASUBRAMANIAM THEETHARAPPAN/RBaseTestingRepo.git"
            git add -A
            git commit -m "Test pushing"
            git push
