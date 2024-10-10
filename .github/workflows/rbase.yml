@@ -48,6 +48,21 @@ jobs:
       #             echo "$items"
       #          done
       #       fi
+
+      - name: Modify Input file if version change is detected
+        id: parsing_file
+        shell: python 
+        run: | 
+            import sys
+            import yaml
+            
+            latestR = "${{ env.latest_R }}"
+            
+            if latestR != currentR:
+             with open('./inputs/input1.yaml', w+) as fp:
+                 fp.write("Testing"+latestR)
+             fp.close()
+      
       - name: Pushing a file
         run: |
            git config --local user.email "balasubramaniam.theetharappan@pfizer.com"
