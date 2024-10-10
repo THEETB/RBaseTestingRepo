@@ -68,7 +68,8 @@ jobs:
            git remote set-url origin "https://github.com/THEETB/RBaseTestingRepo.git"
            git add -A
            git commit -m "Test pushing"
-           git push origin main
+           git branch
+           # git push origin main
       # - name: Check for latest R release
       #   shell: python
       #   run: |
