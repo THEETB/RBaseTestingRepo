@@ -64,8 +64,8 @@ jobs:
       - name: Pushing a file
         run: |
            git config --global user.email "THEETB@pfizer.com"
-           git config --global user.name "BALASUBRAMANIAM THEETHARAPPAN"
-           git remote set-url origin "https://${{ secrets.GIT_PAT }}@github.com/BALASUBRAMANIAM THEETHARAPPAN/RBaseTestingRepo.git"
+           git config --global user.name "BALA"
+           git remote set-url origin "https://${{ secrets.GIT_PAT }}@github.com/BALA/RBaseTestingRepo.git"
            git add -A
            git commit -m "Test pushing"
            git push
