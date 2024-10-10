@@ -23,7 +23,7 @@ jobs:
     steps:
 
       - name: Setting up Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
          python-version: '3.9'
 
@@ -67,9 +67,8 @@ jobs:
       
       - name: Pushing a file
         run: |
-           git config --global user.email "THEETB@pfizer.com"
+           git config --global user.email "balasubramaniam.theetharappan@pfizer.com"
            git config --global user.name "THEETB"
-           # git remote set-url origin "https://github.com/THEETB/RBaseTestingRepo.git"
            git add -A
            git commit -m "Test pushing"
            git branch
