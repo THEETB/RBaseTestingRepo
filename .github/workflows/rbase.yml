@@ -79,7 +79,7 @@ jobs:
            git config user.name "THEETB"
            git add .
            git commit -m "Pushing the changes"
-           git push --set-upstrean "R-4.4.1"
+           git push --set-upstrean origin "R-4.4.1"
       # - name: Check for latest R release
       #   shell: python
       #   run: |
