@@ -65,9 +65,9 @@ jobs:
                fp.write("Testing"+latestR)
             fp.close()
       
-      - name: Create a new Branch
-        run: |
-           git checkout -b "R-4.4.1"
+      # - name: Create a new Branch
+      #   run: |
+      #      git checkout -b "R-4.4.1"
 
       - name: Push files to repo
         run: |
@@ -81,7 +81,9 @@ jobs:
            git config user.name "THEETB"
            git add .
            git commit -m "Pushing the changes"
-           git push 
+           git remote remove origin
+           git remote add origin https://${{ secrets.GIT_PAT }}@github.com/THEETB/RBaseTestingRepo
+           git push origin
       # - name: Check for latest R release
       #   shell: python
       #   run: |
