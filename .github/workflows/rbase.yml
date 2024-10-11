@@ -65,15 +65,20 @@ jobs:
                fp.write("Testing"+latestR)
             fp.close()
       
-      - name: Pushing a file
-        env:
-           GITHUB_TOKEN: ${{ secrets.GIT_PAT }}
+      - name: Create a new Branch
         run: |
-           git config --global user.email "THEETB@pfizer.com"
-           git config --global user.name "THEETB"
-           git add -A
-           git commit -m "Test pushing"
-           git push https://github.com/THEETB/RBaseTestingRepo.git main
+           git checkout -b "${{ env.latest_R }}"
+
+      - name: Push files to repo
+        run: |
+           echo "Hello" > testing.txt
+
+      - name: Commit Changes
+        run: |
+           git config user.email "balasubramaniam.theetharappan@pfizer.com"
+           git config user.name "THEETB"
+           git add .
+           git commit -m "Pushing the changes"
       # - name: Check for latest R release
       #   shell: python
       #   run: |
