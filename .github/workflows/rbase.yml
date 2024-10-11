@@ -67,7 +67,7 @@ jobs:
       
       - name: Create a new Branch
         run: |
-           git checkout -b "${{ env.latest_R }}"
+           git checkout -b "R-4.4.1"
 
       - name: Push files to repo
         run: |
