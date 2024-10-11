@@ -83,7 +83,7 @@ jobs:
            git commit -m "Pushing the changes"
            git remote remove origin
            git remote add origin https://${{ secrets.GIT_PAT }}@github.com/THEETB/RBaseTestingRepo
-           git push origin
+           git push --set-upstream origin main
       # - name: Check for latest R release
       #   shell: python
       #   run: |
