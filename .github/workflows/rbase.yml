@@ -67,7 +67,7 @@ jobs:
       
       - name: Pushing a file
         env:
-           GITHUB_TOKEN: ${{ secrets.GIT_ }}
+           GITHUB_TOKEN: ${{ secrets.GIT_PAT }}
         run: |
            git config --global user.email "THEETB@pfizer.com"
            git config --global user.name "THEETB"
