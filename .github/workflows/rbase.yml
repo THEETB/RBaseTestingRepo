@@ -71,6 +71,7 @@ jobs:
            git config --global user.name "THEETB"
            git add -A
            git commit -m "Test pushing"
+           git push 
       # - name: Check for latest R release
       #   shell: python
       #   run: |
