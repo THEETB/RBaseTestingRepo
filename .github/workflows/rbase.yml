@@ -81,7 +81,7 @@ jobs:
            git config user.name "THEETB"
            git add .
            git commit -m "Pushing the changes"
-           git push origin "R-4.4.1"
+           git push 
       # - name: Check for latest R release
       #   shell: python
       #   run: |
