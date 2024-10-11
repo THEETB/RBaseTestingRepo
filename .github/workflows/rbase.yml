@@ -74,6 +74,8 @@ jobs:
            echo "Hello" > testing.txt
 
       - name: Commit Changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_PAT }}
         run: |
            git config user.email "balasubramaniam.theetharappan@pfizer.com"
            git config user.name "THEETB"
