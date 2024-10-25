@@ -76,8 +76,8 @@ jobs:
            git checkout main -- README.md inputs/input1.yaml
            git add -A 
            git commit -m "Saving changes..." --allow-empty
-           git branch -a
-           git push -u remotes/origin/main R-4.3.1
+           git remote set-url origin git@github.com:THEETB/RBaseTestingRepo.git
+           git push -u origin R-4.3.1
            
         # git commit -m "Testing newly created branch"
            # git push --set-upstream origin R-4.3.1
