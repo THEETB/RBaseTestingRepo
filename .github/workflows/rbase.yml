@@ -71,9 +71,7 @@ jobs:
       - name: create branch
         run: |
            git checkout -b R-4.3.1
-           git push --set-upstream main R-4.3.1
-           git add input1.yaml
-           git commit -m "new branch"
+           git branch -a
            
         # git commit -m "Testing newly created branch"
            # git push --set-upstream origin R-4.3.1
