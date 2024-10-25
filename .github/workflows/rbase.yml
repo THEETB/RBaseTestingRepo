@@ -73,17 +73,30 @@ jobs:
         run: |
            echo "Hello" > testing.txt
 
-      - name: Commit Changes
-        env:
-          GITHUB_TOKEN: ${{ secrets.GIT_PAT }}
+      # - name: create branch & pull request
+      #   id: pullrequest
+      #   uses: peter-evans/create-pull-request@v7
+      #   with:
+      #      token: ${{ secrets.GIT_PAT }}
+      #      commit-message: New R release
+      #      committer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+      #      author:
+        
+      - name: Testing the github action bot & author
         run: |
-           git config user.email "balasubramaniam.theetharappan@pfizer.com"
-           git config user.name "THEETB"
-           git add .
-           git commit -m "Pushing the changes"
-           git remote remove origin
-           git remote add origin https://${{ secrets.GIT_PAT }}@github.com/THEETB/RBaseTestingRepo
-           git push --set-upstream origin main
+           echo github-actions[bot]@users.noreply.github.com
+           echo ${{ github.actor }}
+      # - name: Commit Changes
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GIT_PAT }}
+      #   run: |
+      #      git config user.email "balasubramaniam.theetharappan@pfizer.com"
+      #      git config user.name "THEETB"
+      #      git add .
+      #      git commit -m "Pushing the changes"
+      #      git remote remove origin
+      #      git remote add origin https://${{ secrets.GIT_PAT }}@github.com/THEETB/RBaseTestingRepo
+      #      git push --set-upstream origin main
       # - name: Check for latest R release
       #   shell: python
       #   run: |
