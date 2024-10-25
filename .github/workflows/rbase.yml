@@ -75,7 +75,7 @@ jobs:
            git checkout -b R-4.3.1
            git checkout main -- README.md inputs/input1.yaml
            git add .
-           git commit -m "Saving"
+           git commit -m "Saving changes..."
            
         # git commit -m "Testing newly created branch"
            # git push --set-upstream origin R-4.3.1
