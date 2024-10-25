@@ -71,7 +71,7 @@ jobs:
       - name: create branch
         run: |
            git checkout -b R-4.3.1
-           git checkout main -- inputs/input1.yaml
+           git checkout main -- ./inputs/input1.yaml
            git add input1.yaml
            git commit -m "new branch"
            
