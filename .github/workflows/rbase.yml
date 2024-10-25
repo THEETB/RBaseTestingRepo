@@ -70,9 +70,10 @@ jobs:
 
       - name: create branch
         run: |
-           gh pr create --title "New R release" --body "Adding new R release"
-           git checkout R-4.3.1
-           git add input1.yaml 
+           git checkout -b R-4.3.1
+           git checkout main -- inputs/input1.yaml
+           git add input1.yaml
+           git commit -m "new branch"
            
         # git commit -m "Testing newly created branch"
            # git push --set-upstream origin R-4.3.1
