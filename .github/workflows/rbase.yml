@@ -73,8 +73,8 @@ jobs:
            git config --global user.email "github-actions[bot]@users.noreply.github.com"
            git config --global user.name "Github Actions [Bot]"
            git checkout -b R-4.3.1
-           git checkout main -- README.md
-           git add README.md
+           git checkout main -- README.md inputs/input1.yaml
+           git add .
            git commit -m "Saving"
            
         # git commit -m "Testing newly created branch"
