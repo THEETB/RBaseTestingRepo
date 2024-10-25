@@ -77,7 +77,7 @@ jobs:
            git add -A 
            git commit -m "Saving changes..." --allow-empty
            git remote set-url origin https://x-access-token:${{ secrets.GIT_PAT }}@github.com/${{ github.repository }}
-           git push -u origin R-4.3.1
+           gh pr create
            
         # git commit -m "Testing newly created branch"
            # git push --set-upstream origin R-4.3.1
