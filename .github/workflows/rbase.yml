@@ -71,7 +71,7 @@ jobs:
       - name: create branch
         run: |
            git checkout -b R-4.3.1
-           git branch -a
+           git checkout main -- README.md
            
         # git commit -m "Testing newly created branch"
            # git push --set-upstream origin R-4.3.1
