@@ -78,6 +78,7 @@ jobs:
            git commit -m "Saving changes..." --allow-empty
            git remote remove origin
            git remote add origin https://${{ secrets.GIT_PAT }}@github.com/THEETB/RBaseTestingRepo.git
+           git push -u origin R-4.3.1
            
         # git commit -m "Testing newly created branch"
            # git push --set-upstream origin R-4.3.1
