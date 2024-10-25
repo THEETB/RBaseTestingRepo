@@ -74,7 +74,7 @@ jobs:
            git config --global user.name "Github Actions [Bot]"
            git checkout -b R-4.3.1
            git checkout main -- README.md inputs/input1.yaml
-           git add -A
+           git add -A --allow-empty
            git commit -m "Saving changes..."
            
            
