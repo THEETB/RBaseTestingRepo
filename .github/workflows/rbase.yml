@@ -76,8 +76,8 @@ jobs:
            git checkout main -- README.md inputs/input1.yaml
            git add -A 
            git commit -m "Saving changes..." --allow-empty
-           git remote set-url origin https://x-access-token:${{ secrets.GIT_PAT }}@github.com/${{ github.repository }}
-           gh pr create
+           git remote remove origin
+           git remote add origin https://${{ secrets.GIT_PAT }}@github.com/THEETB/RBaseTestingRepo.git
            
         # git commit -m "Testing newly created branch"
            # git push --set-upstream origin R-4.3.1
