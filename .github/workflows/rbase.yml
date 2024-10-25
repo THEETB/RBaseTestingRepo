@@ -72,6 +72,8 @@ jobs:
         run: |
            git checkout -b R-4.3.1
            git checkout main -- README.md
+           git add README.md
+           git commit -m "Saving"
            
         # git commit -m "Testing newly created branch"
            # git push --set-upstream origin R-4.3.1
