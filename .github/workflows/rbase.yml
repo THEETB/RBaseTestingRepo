@@ -63,7 +63,7 @@ jobs:
             import json
             
             latestR = "${{ env.latest_R }}"            
-            with open('./inputs/input1.yaml', "w+") as fp:
+            with open('./inputs/input1.yaml', "r") as fp:
                print(fp.readlines())
             fp.close()
 
