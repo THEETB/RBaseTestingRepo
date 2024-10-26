@@ -64,6 +64,7 @@ jobs:
 
       - name: Modify Input file if version change is detected
         id: parsing_file
+        if: github.ref == 'refs/head/R-4.3.1'
         shell: python 
         run: | 
             import sys
