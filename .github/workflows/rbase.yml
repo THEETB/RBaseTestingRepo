@@ -64,8 +64,7 @@ jobs:
             
             latestR = "${{ env.latest_R }}"            
             with open('${{ github.workspace }}/inputs/input1.yaml', "w+") as fp:
-               vals = json.loads(fp.readlines())
-               print(vals)
+               print(fp.read())
             fp.close()
 
       - name: create branch
