@@ -88,7 +88,7 @@ jobs:
            author: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
            signoff: false
            branch: R-4.3.1
-           head: main
+           base: main
            title: 'New R Release'
            body: |
             New R Release:
