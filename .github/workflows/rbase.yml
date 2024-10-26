@@ -83,9 +83,13 @@ jobs:
            title: "New R release"
            body: "This Pr is for New R version"
            base: main
-           head: R-4.3.1
            token: ${{ secrets.GIT_PAT }}
-           
+           commit-message: Update report
+           committer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+           author: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
+           branch: R-4.3.1
+           assignees: ${{ github.actor }}
+           reviewers: ${{ github.actor }}
         # git commit -m "Testing newly created branch"
            # git push --set-upstream origin R-4.3.1
 
