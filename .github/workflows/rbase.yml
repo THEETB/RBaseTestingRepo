@@ -72,7 +72,7 @@ jobs:
             
             latestR = "${{ env.latest_R }}"            
             with open('./inputs/input1.yaml', "a") as fp:
-               fp.write(latestR)
+               fp.write("Testing")
             fp.close()
 
       - name: Commiting & Pushing changes
