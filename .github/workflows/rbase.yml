@@ -41,11 +41,6 @@ jobs:
         with:
          persist-credentials: false
          token: ${{ secrets.GIT_PAT }}
-
-      - name: Github CLI Setup
-        run: |
-          sudo apt update
-          sudo apt install -y gh
       
       # - name: Testing
       #   run: |
