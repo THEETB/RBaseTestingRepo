@@ -62,8 +62,10 @@ jobs:
             import yaml
             
             latestR = "${{ env.latest_R }}"            
-            with open('${{ github.workspace }}/inputs/input1.yaml', "w") as fp:
-               fp.write(latestR)
+            with open('${{ github.workspace }}/inputs/input1.yaml', "r") as fp:
+               vals = fp.readlines()
+               for val in vals:
+                  print(val)
             fp.close()
 
       - name: create branch
