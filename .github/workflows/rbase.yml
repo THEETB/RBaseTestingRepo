@@ -76,9 +76,15 @@ jobs:
            git checkout main -- README.md inputs/input1.yaml
            git add -A 
            git commit -m "Saving changes..." --allow-empty
-           git remote remove origin
-           git remote add origin https://${{ secrets.GIT_PAT }}@github.com/${{ github.repository }}.git
-           git push -u origin R-4.3.1
+
+      - name: Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+           title: "New R release"
+           body: "This Pr is for New R version"
+           base: main
+           head: R-4.3.1
+           token: ${{ secrets.GIT_PAT }}
            
         # git commit -m "Testing newly created branch"
            # git push --set-upstream origin R-4.3.1
