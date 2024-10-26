@@ -75,6 +75,7 @@ jobs:
         run: |
            git config --global user.email "THEETB@pfizer.com"
            git config --global user.name "Balasubramaniam Theetharappan"
+           git config --global push.autoSetupRemote true
            git checkout -b R-4.3.1
            git checkout main -- README.md inputs/input1.yaml
            git add -A 
