@@ -54,6 +54,14 @@ jobs:
       #          done
       #       fi
 
+      - name: create branch
+        run: |
+           git config --global user.email "THEETB@pfizer.com"
+           git config --global user.name "Balasubramaniam Theetharappan"
+           git config --global push.autoSetupRemote true
+           git checkout -b R-4.3.1
+           git checkout main -- README.md inputs/input1.yaml
+
       - name: Modify Input file if version change is detected
         id: parsing_file
         shell: python 
@@ -67,13 +75,8 @@ jobs:
                fp.write(latestR)
             fp.close()
 
-      - name: create branch
+      - name: Commiting & Pushing changes
         run: |
-           git config --global user.email "THEETB@pfizer.com"
-           git config --global user.name "Balasubramaniam Theetharappan"
-           git config --global push.autoSetupRemote true
-           git checkout -b R-4.3.1
-           git checkout main -- README.md inputs/input1.yaml
            git add -A 
            git remote set-url origin https://x-access-token:${{ secrets.GIT_PAT }}@github.com/${{ github.repository }}
            git commit -m "Saving changes..." --allow-empty
