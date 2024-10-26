@@ -18,6 +18,9 @@ on:
 jobs:
   report:
     runs-on: ubuntu-latest
+    permissions:                # Job-level permissions configuration starts here
+      contents: write           # 'write' access to repository contents
+      pull-requests: write
     env:
        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
@@ -77,19 +80,12 @@ jobs:
            git add -A 
            git commit -m "Saving changes..." --allow-empty
 
-      - name: Pull Request
-        uses: peter-evans/create-pull-request@v3
+      - name: Push Request
+        uses: ad-m/github-push-action@master
         with:
-           title: "New R release"
-           body: "This Pr is for New R version"
-           token: ${{ secrets.GIT_PAT }}
-           head: R-4.3.1
-           base: main
-           commit-message: Update report
-           committer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
-           author: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
-           assignees: ${{ github.actor }}
-           reviewers: ${{ github.actor }}
+           github_token: ${{ secrets.GIT_PAT }}
+           branch: R-4.3.1
+           
         # git commit -m "Testing newly created branch"
            # git push --set-upstream origin R-4.3.1
 
