@@ -73,18 +73,13 @@ jobs:
 
       - name: create branch
         run: |
-           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-           git config --global user.name "Github Actions [Bot]"
+           git config --global user.email "THEETB@pfizer.com"
+           git config --global user.name "Balasubramaniam Theetharappan"
            git checkout -b R-4.3.1
            git checkout main -- README.md inputs/input1.yaml
            git add -A 
            git commit -m "Saving changes..." --allow-empty
-
-      - name: Push Request
-        uses: ad-m/github-push-action@master
-        with:
-           github_token: ${{ secrets.GIT_PAT }}
-           branch: R-4.3.1
+           git push
            
         # git commit -m "Testing newly created branch"
            # git push --set-upstream origin R-4.3.1
