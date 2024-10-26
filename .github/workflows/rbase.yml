@@ -79,7 +79,7 @@ jobs:
             import json
             
             latestR = "${{ env.latest_R }}"            
-            with open('${{ github.ref }}/inputs/input1.yaml', "r") as fp:
+            with open('./inputs/input1.yaml', "r") as fp:
                print(fp.read())
             fp.close()
 
