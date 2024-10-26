@@ -22,7 +22,7 @@ jobs:
       contents: write           # 'write' access to repository contents
       pull-requests: write
     env:
-       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       GITHUB_TOKEN: ${{ secrets.GIT_PAT }}
     steps:
 
       - name: Setting up Python
