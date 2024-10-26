@@ -101,6 +101,7 @@ jobs:
                release
            assignees: ${{ github.actor }}
            reviewers: ${{ github.actor }}
+           draft: true
       # - name: Testing the github action bot & author
       #   run: |
       #      echo github-actions[bot]@users.noreply.github.com
