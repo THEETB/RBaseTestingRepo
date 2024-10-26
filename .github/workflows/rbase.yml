@@ -83,7 +83,7 @@ jobs:
            title: "New R release"
            body: "This Pr is for New R version"
            token: ${{ secrets.GIT_PAT }}
-           branch: R-4.3.1
+           head: R-4.3.1
            base: main
            commit-message: Update report
            committer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
