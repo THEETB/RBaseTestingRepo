@@ -1,0 +1,102 @@
+name: Parse
+
+# Controls when the workflow will run
+on:
+#workflow_dispatch:
+   push:
+     branches:
+     - main
+     paths:
+     - 'inputs/**'
+     # The type of runner that the job will run on
+jobs:
+  Parsing_input:
+    runs-on: ubuntu-latest
+    outputs:
+      workflow-name: ${{ steps.Keyword_Extraction.outputs.workflow-name }}
+      Number_of_layer: ${{ steps.Keyword_Extraction.outputs.number_of_layers }}
+      layer_names: ${{ steps.Keyword_Extraction.outputs.layernames }}
+      output: ${{ steps.Keyword_Extraction.outputs.outputs }}
+      build-required: ${{ steps.Keyword_Extraction.outputs.build-required }}
+    steps:
+        - name: Checkout 
+          uses: actions/Checkout@v3
+          with:
+            fetch-depth: 2
+        
+        - name: Fetching the triggered filename
+          id: modified_filename
+          run: |
+            file_name=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})
+            echo "modified_file=$file_name" >> $GITHUB_ENV
+        
+        - name: Setting up Python
+          uses: actions/setup-python@v3
+          with:
+            python-version: '3.9'
+
+        - name: Setting the shyaml library
+          run: |
+            pip install pyyaml
+
+        - name: Testing the Keyword Extraction
+          id: Keyword_Extraction
+          run: |
+             import yaml
+             import json
+             import os
+             def check_file_format(yaml_file):
+                 try:
+                     with open(yaml_file, 'r') as f:
+                         yaml_obj = yaml.safe_load_all(f)
+                         data = {k:v for k,v in enumerate(yaml_obj)}
+                         data.popitem()
+                         dictVal = {k:v for key, val in data.items() for k, v in val.items()}
+                 except:
+                     return "Error in formatting the Yaml. Please verify the Yaml file"
+                 return dictVal
+             yaml_file = "${{ github.workspace }}/${{ env.modified_file }}"
+             val = check_file_format(yaml_file)
+             layernames = [v for v in val.keys()]
+             no_of_layers = len(layernames)
+             workflow_name = val['workflow-name']
+             build_required = {k:val for k,v in val.items() if k != "workflow-name" for key, val in v.items() if key == "build-required"}
+             print(layernames)
+             with open(os.environ['GITHUB_ENV'], "a") as f:
+                print(f'outputs={val}', file=f)
+                print(f'layernames={layernames}', file=f)
+                print(f'number_of_layers={no_of_layers}', file=f)
+                print(f'workflow-name={workflow_name}', file=f)
+                print(f'build-required={build_required}', file=f)
+          shell: python
+          
+  calling-layer-worflow:
+      needs: Parsing_input
+      runs-on: ubuntu-latest
+      # strategy: 
+      #   max-parallel: 1
+      #   fail-fast: true
+      #   matrix: 
+      #     value: ${{ needs.Parsing_input.outputs.workflow-name }}
+      name: ${{ needs.Parsing_input.outputs.workflow-name }}-${{ matrix.value }}
+      steps:
+         - name: Testing
+           run: |
+              echo ${{ needs.Parsing_input.outputs.layer_names }}
+      # if: ${{ needs.Parsing_input.outputs.build_required[format('{}',matrix.value)] }} == 'true'
+      # uses: ./.github/workflows/Combined.yaml
+      # with:
+      #   current_layer_name: ${{ matrix.value }}
+      #   output: ${{ needs.Parsing_input.outputs.output }}
+      #   workflow_name: ${{ needs.Parsing_input.outputs.workflow-name }}
+      # secrets: inherit
+  # main-testing:
+  #     name: ${{ needs.Parsing_input.outputs.workflow-name }}
+  #     needs: Parsing_input
+  #     uses: ./.github/workflows/main.yml
+  #     secrets: inherit
+  #     with:
+  #       workflow_name: ${{ needs.Parsing_input.outputs.workflow-name }}
+  #       Number_of_layer: ${{ needs.Parsing_input.outputs.Number_of_layer }}
+  #       layer_names: ${{ needs.Parsing_input.outputs.layer_names }}
+  #       output: ${{ needs.Parsing_input.outputs.output }} 

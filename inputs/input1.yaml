@@ -1,24 +1,9 @@
-workflow-name: Python_and_R_Imagess
+workflow-name: R-4.4.1-build
+---
 ros:
-        Baselayername: Centos
-        Baselayertag: 8.6-754
-        Build_layer_name: ros
-        Build_layer_tag: 2023_08_21
-        build-required: no
-        Dockerfile: Default
-rdepth:
-        Baselayername: ros
-        Baselayertag: 2023_08_21
-        Build_layer_name: rdepth
-        Build_layer_tag: 2023_08_211
-        build-required: true
-        Dockerfile: default
- rbase:
-         Env:
-                 r: null
-         Baselayername: rdepth
-         Baselayertag: 2023q09
-         Build_layer_name: rbase
-         Build_layer_tag: 2023q091
-         build-required: no
-         Dockerfile: default
+  Baselayername: ubi
+  Baselayertag: 8
+  Build_layer_name: ros
+  Build_layer_tag: 8
+  build-required: true
+  Dockerfile: default
