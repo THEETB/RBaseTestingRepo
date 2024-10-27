@@ -61,14 +61,6 @@ jobs:
            git config --global push.autoSetupRemote true
            git checkout -b R-4.3.1
            git checkout main -- README.md inputs/input1.yaml
-
-      - name: Check out repository code
-        # https://github.com/actions/checkout/tree/v3.0.2
-        uses: actions/checkout@v4
-        with:
-         persist-credentials: false
-         token: ${{ secrets.GIT_PAT }}
-         ref: R-4.3.1
       
       - name: Modify Input file if version change is detected
         id: parsing_file
