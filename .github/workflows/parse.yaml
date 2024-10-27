@@ -4,6 +4,8 @@ name: Parse
 on:
 #workflow_dispatch:
    push:
+     branches:
+     - main
      paths:
      - 'inputs/**'
      # The type of runner that the job will run on
