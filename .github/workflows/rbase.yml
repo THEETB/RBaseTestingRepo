@@ -68,7 +68,7 @@ jobs:
         with:
          persist-credentials: false
          token: ${{ secrets.GIT_PAT }}
-         ref: ${{ github.ref }}
+         ref: R-4.3.1
       
       - name: Modify Input file if version change is detected
         id: parsing_file
