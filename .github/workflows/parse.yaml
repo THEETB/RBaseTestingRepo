@@ -27,8 +27,9 @@ jobs:
         - name: Fetching the triggered filename
           id: modified_filename
           run: |
-            file_name=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})
-            echo "modified_file=$file_name" >> $GITHUB_ENV
+            # file_name=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})
+            echo $(git whatchanged --diff-filter=A)
+            # echo "modified_file=$file_name" >> $GITHUB_ENV
         
         - name: Setting up Python
           uses: actions/setup-python@v3
