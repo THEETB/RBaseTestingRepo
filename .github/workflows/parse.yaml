@@ -28,7 +28,7 @@ jobs:
           id: modified_filename
           run: |
             # file_name=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})
-            echo $(git whatchanged --diff-filter=A)
+            echo $(git whatchanged --diff-filter=A | grep input-*yaml)
             # echo "modified_file=$file_name" >> $GITHUB_ENV
         
         - name: Setting up Python
